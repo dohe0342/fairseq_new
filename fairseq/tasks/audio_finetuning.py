@@ -145,7 +145,8 @@ class AudioFinetuningTask(AudioPretrainingTask):
             TextCompressionLevel, str(self.cfg.text_compression_level)
         )
         data_path = self.cfg.data
-        if task_cfg.multi_corpus_keys is None:
+        #if task_cfg.multi_corpus_keys is None:
+        if 1:
             label_path = os.path.join(data_path, f"{split}.{task_cfg.labels}")
             skipped_indices = getattr(self.datasets[split], "skipped_indices", set())
             text_compressor = TextCompressor(level=text_compression_level)
