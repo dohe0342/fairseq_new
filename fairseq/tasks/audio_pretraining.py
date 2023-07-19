@@ -147,7 +147,8 @@ class AudioPretrainingTask(FairseqTask):
                 **mask_args,
             )
         else:
-            if task_cfg.multi_corpus_keys is None:
+            #if task_cfg.multi_corpus_keys is None:
+            if 1:
                 manifest_path = os.path.join(data_path, "{}.tsv".format(split))                
 
                 self.datasets[split] = FileAudioDataset(
