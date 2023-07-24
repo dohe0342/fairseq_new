@@ -415,8 +415,8 @@ class InterCtcCriterion(CtcCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             ) for lprobs in lprobs_list]
+            loss = 0.7*loss_list[3] + 0.3*(loss_list[0] + loss_list[1] + loss_list[2])
             
-            loss = sum(loss_list)
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
