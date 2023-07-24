@@ -346,8 +346,9 @@ class InterCtcCriterion(CtcCriterion):
            inter_output_dict[i]["x"] = x
         
         lprobs_list = [model.get_normalized_probs(
-            inter_output, log_probs=True
-        ).contiguous() for  
+                inter_output, log_probs=True
+            ).contiguous() for inter_output in inter_output_dict
+        ]
 
         #lprobs = model.get_normalized_probs(
         #    net_output, log_probs=True
