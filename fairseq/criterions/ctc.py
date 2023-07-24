@@ -337,7 +337,7 @@ class InterCtcCriterion(CtcCriterion):
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
         inter_output_list = [model.w2v_encoder.final_dropout(x[0]) for i, x in enumerate(net_output["layer_results"]) if i in self.inter_ctc_idx]
-        inter_output_list = [model.w2v_encoder.proj(x[0]) for x in inter_output_list]
+        inter_output_list = [model.w2v_encoder.proj(x) for x in inter_output_list]
         
         inter_output_dict = []
         for i, x in enumerate(inter_output_list):
