@@ -406,7 +406,7 @@ class InterCtcCriterion(CtcCriterion):
                 zero_infinity=self.zero_infinity,
             )
             '''
-            loss = [F.ctc_loss(
+            loss_list = [F.ctc_loss(
                 lprobs,
                 targets_flat,
                 input_lengths,
@@ -415,6 +415,8 @@ class InterCtcCriterion(CtcCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             ) for lprobs in lprobs_list]
+            
+            loss = sum(loss_list)
 
 
         ntokens = (
