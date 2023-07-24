@@ -429,7 +429,7 @@ class InterCtcCriterion(CtcCriterion):
             "sample_size": sample_size,
         }
         for i, loss_ in enumerate(loss_list):
-            logging_output[f"loss_{self.inter_ctc_idx[i]}"] = loss.data()
+            logging_output[f"loss_{self.inter_ctc_idx[i]}"] = loss_.data()
 
         if not model.training:
             import editdistance
