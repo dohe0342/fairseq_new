@@ -524,16 +524,16 @@ class InterCtcCriterion(CtcCriterion):
                     "nll_loss", loss_sum / ntokens / math.log(2), ntokens, round=3
                 )
 
-            c_errors = sum(log.get("c_errors", 0) for log in logging_outputs)
-            metrics.log_scalar("_c_errors", c_errors)
-            c_total = sum(log.get("c_total", 0) for log in logging_outputs)
-            metrics.log_scalar("_c_total", c_total)
-            w_errors = sum(log.get("w_errors", 0) for log in logging_outputs)
-            metrics.log_scalar("_w_errors", w_errors)
-            wv_errors = sum(log.get("wv_errors", 0) for log in logging_outputs)
-            metrics.log_scalar("_wv_errors", wv_errors)
-            w_total = sum(log.get("w_total", 0) for log in logging_outputs)
-            metrics.log_scalar("_w_total", w_total)
+            c_errors = sum(log.get(f"c_errors_{idx}", 0) for log in logging_outputs)
+            metrics.log_scalar(f"_c_errors_{idx}", c_errors)
+            c_total = sum(log.get(f"c_total_{idx}", 0) for log in logging_outputs)
+            metrics.log_scalar(f"_c_total_{idx}", c_total)
+            w_errors = sum(log.get(f"w_errors_{idx}", 0) for log in logging_outputs)
+            metrics.log_scalar(f"_w_errors_{idx}", w_errors)
+            wv_errors = sum(log.get(f"wv_errors_{idx}", 0) for log in logging_outputs)
+            metrics.log_scalar(f"_wv_errors_{idx}", wv_errors)
+            w_total = sum(log.get(f"w_total_{idx}", 0) for log in logging_outputs)
+            metrics.log_scalar(f"_w_total_{idx}", w_total)
 
             if c_total > 0:
                 metrics.log_derived(
