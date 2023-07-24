@@ -67,6 +67,12 @@ class CtcCriterionConfig(FairseqDataclass):
             "help": "DEPRECATED: tuple of (wer_kenlm_model, wer_lexicon, wer_lm_weight, wer_word_score)"
         },
     )
+    inter_ctc: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "DEPRECATED: tuple of (wer_kenlm_model, wer_lexicon, wer_lm_weight, wer_word_score)"
+        },
+    )
 
 
 @register_criterion("ctc", dataclass=CtcCriterionConfig)
