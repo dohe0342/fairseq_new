@@ -414,7 +414,7 @@ class InterCtcCriterion(CtcCriterion):
                 blank=self.blank_idx,
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
-            ) for
+            ) for lprobs in lprobs_list]
 
 
         ntokens = (
