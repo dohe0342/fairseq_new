@@ -612,7 +612,7 @@ class Wav2VecEncoder(FairseqEncoder):
         x = self.final_dropout(x)
 
         if self.proj:
-            x = self.proj(x)
+            out = self.proj(x)
 
         return {
             "encoder_out": x,  # T x B x C
