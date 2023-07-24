@@ -505,26 +505,27 @@ class InterCtcCriterion(CtcCriterion):
     def reduce_metrics(logging_outputs) -> None:
         """Aggregate logging outputs from data parallel training."""
         #for idx in self.inter_ctc_idx:
+        ntokens = utils.item(sum(log.get("ntokens", 0) for log in logging_outputs))
+        nsentences = utils.item(
+            sum(log.get("nsentences", 0) for log in logging_outputs)
+        )
+        sample_size = utils.item(
+            sum(log.get("sample_size", 0) for log in logging_outputs)
+        )
+
+        metrics.log_scalar(
+            f"loss_{idx}", loss_sum / sample_size / math.log(2), sample_size, round=3
+        )
+        metrics.log_scalar("ntokens", ntokens)
+        metrics.log_scalar("nsentences", nsentences)
+        if sample_size != ntokens:
+            metrics.log_scalar(
+                "nll_loss", loss_sum / ntokens / math.log(2), ntokens, round=3
+            )
+
         for idx in [2, 5, 8, 11]:
             loss_sum = utils.item(sum(log.get(f"loss_{idx}", 0) for log in logging_outputs))
-            ntokens = utils.item(sum(log.get("ntokens", 0) for log in logging_outputs))
-            nsentences = utils.item(
-                sum(log.get("nsentences", 0) for log in logging_outputs)
-            )
-            sample_size = utils.item(
-                sum(log.get("sample_size", 0) for log in logging_outputs)
-            )
-
-            metrics.log_scalar(
-                f"loss_{idx}", loss_sum / sample_size / math.log(2), sample_size, round=3
-            )
-            metrics.log_scalar("ntokens", ntokens)
-            metrics.log_scalar("nsentences", nsentences)
-            if sample_size != ntokens:
-                metrics.log_scalar(
-                    "nll_loss", loss_sum / ntokens / math.log(2), ntokens, round=3
-                )
-
+            
             c_errors = sum(log.get(f"c_errors_{idx}", 0) for log in logging_outputs)
             metrics.log_scalar(f"_c_errors_{idx}", c_errors)
             c_total = sum(log.get(f"c_total_{idx}", 0) for log in logging_outputs)
