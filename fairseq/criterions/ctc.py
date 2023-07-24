@@ -336,7 +336,7 @@ class InterCtcCriterion(CtcCriterion):
         
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
-        inter_output_list = [model.final_dropout(x) for x in net_output["layer_results"]]
+        inter_output_list = [model.final_dropout(x) for i, x in enumerate(net_output["layer_results"]) if i in self.inter_ctc_idx]
         inter_output_list = [model.proj(x) for x in inter_output_list]
         
         inter_output_dict = []
