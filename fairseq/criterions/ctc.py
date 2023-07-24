@@ -342,6 +342,8 @@ class InterCtcCriterion(CtcCriterion):
         inter_output_dict = []
         for i, x in enumerate(inter_output_list):
            inter_output_dict.append(dict()) 
+           inter_ouptut_dict[i]["padding_mask"] = net_output["padding_mask"]
+           inter_output_dict[i]["x"] = x
         
         lprobs_list = [model.get_normalized_probs(
             x, log_probs=True
