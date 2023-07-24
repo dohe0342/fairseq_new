@@ -25,6 +25,7 @@ do
 			decoding.type=viterbi \
 			decoding.unique_wer_file=False \
 			dataset.gen_subset=$subset \
+			dataset.num_workers=38 \
 			common_eval.path=$model \
 			distributed_training.distributed_world_size=1 
 	fi
