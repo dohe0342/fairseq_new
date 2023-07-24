@@ -515,7 +515,7 @@ class InterCtcCriterion(CtcCriterion):
             )
 
             metrics.log_scalar(
-                "loss", loss_sum / sample_size / math.log(2), sample_size, round=3
+                f"loss_{idx}", loss_sum / sample_size / math.log(2), sample_size, round=3
             )
             metrics.log_scalar("ntokens", ntokens)
             metrics.log_scalar("nsentences", nsentences)
