@@ -434,7 +434,7 @@ class InterCtcCriterion(CtcCriterion):
             import editdistance
 
             with torch.no_grad():
-                for lprobs in lprobs_list:
+                for i, lprobs in enumerate(lprobs_list):
                     lprobs_t = lprobs.transpose(0, 1).float().contiguous().cpu()
 
                     c_err = 0
