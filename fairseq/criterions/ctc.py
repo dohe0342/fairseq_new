@@ -418,7 +418,6 @@ class InterCtcCriterion(CtcCriterion):
             
             loss = sum(loss_list)
 
-
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
         )
