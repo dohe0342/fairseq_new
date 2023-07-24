@@ -336,6 +336,7 @@ class InterCtcCriterion(CtcCriterion):
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
         inter_output_list = [model.final_dropout(x) for x in net_output["layer_results"]]
+        inter_output_list = [model.proj(x) for x in inter_output_list]
 
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
