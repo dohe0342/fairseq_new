@@ -332,7 +332,10 @@ class InterCtcCriterion(CtcCriterion):
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
         super().__init__(cfg, task, rdrop_alpha)
-        self.inter_ctc = Linear(d, targ_d) 
+        self.inter_ctc1 = Linear(d, targ_d) 
+        self.inter_ctc2 = Linear(d, targ_d) 
+        self.inter_ctc3 = Linear(d, targ_d) 
+        self.inter_ctc4 = Linear(d, targ_d) 
         
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
