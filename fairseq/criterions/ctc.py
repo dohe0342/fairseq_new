@@ -330,7 +330,7 @@ class InterCtcCriterion(CtcCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
-        super().__init__(task)
+        CtcCriterion.super().__init__(task)
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
             if hasattr(task, "blank_symbol")
