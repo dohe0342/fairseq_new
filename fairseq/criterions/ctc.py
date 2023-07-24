@@ -340,8 +340,8 @@ class InterCtcCriterion(CtcCriterion):
         inter_output_list = [model.proj(x) for x in inter_output_list]
         
         inter_output_dict = []
-        for x in inter_output_list:
-            
+        for i, x in enumerate(inter_output_list):
+           inter_output_dict.append(dict()) 
         
         lprobs_list = [model.get_normalized_probs(
             x, log_probs=True
