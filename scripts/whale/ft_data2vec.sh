@@ -2,7 +2,7 @@ git pull
 
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_100h_nospec \
+	--config-name base_100h \
 	common.user_dir=examples/data2vec \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=false \
