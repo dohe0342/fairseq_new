@@ -326,7 +326,7 @@ class CtcCriterion(FairseqCriterion):
 
 
 @register_criterion("inter_ctc", dataclass=CtcCriterionConfig)
-class InterCtcCriterion(FairseqCriterion):
+class InterCtcCriterion(CtcCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
