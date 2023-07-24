@@ -11,5 +11,4 @@ fairseq-hydra-train \
 	model.layerdrop=0.0 \
 	criterion._name=interctc \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	checkpoint.best_checkpoint_metric=wer_11 \
-	optimization.lr=[0.00009]
+	checkpoint.best_checkpoint_metric=wer_11 
