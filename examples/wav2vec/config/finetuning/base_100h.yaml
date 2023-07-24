@@ -16,7 +16,7 @@ task:
   labels: ltr
 
 dataset:
-  num_workers: 6
+  num_workers: 9
   max_tokens: 3200000
   skip_invalid_size_inputs_valid_test: true
   valid_subset: dev_other
