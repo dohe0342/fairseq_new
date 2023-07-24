@@ -332,15 +332,25 @@ class InterCtcCriterion(CtcCriterion):
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
         super().__init__(cfg, task, rdrop_alpha)
+        self.inter_ctc_idx = [2, 5, 8, 11]
         
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
         inter_output_list = [model.final_dropout(x) for x in net_output["layer_results"]]
         inter_output_list = [model.proj(x) for x in inter_output_list]
+        
+        inter_output_dict = []
+        for x in inter_output_list:
+            
+        
+        lprobs_list = [model.get_normalized_probs(
+            x, log_probs=True
+        ).contiguous() for  
 
-        lprobs = model.get_normalized_probs(
-            net_output, log_probs=True
-        ).contiguous()  # (T, B, C) from the encoder
+        #lprobs = model.get_normalized_probs(
+        #    net_output, log_probs=True
+        #).contiguous()  # (T, B, C) from the encoder
+
 
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
