@@ -492,11 +492,11 @@ class InterCtcCriterion(CtcCriterion):
 
                         w_len += len(targ_words)
 
-                    logging_output["wv_errors"] = wv_errs
-                    logging_output["w_errors"] = w_errs
-                    logging_output["w_total"] = w_len
-                    logging_output["c_errors"] = c_err
-                    logging_output["c_total"] = c_len
+                    logging_output[f"wv_errors_{self.inter_ctc_idx[i]}"] = wv_errs
+                    logging_output[f"w_errors_{self.inter_ctc_idx[i]}"] = w_errs
+                    logging_output[f"w_total_{self.inter_ctc_idx[i]}"] = w_len
+                    logging_output[f"c_errors_{self.inter_ctc_idx[i]}"] = c_err
+                    logging_output[f"c_total_{self.inter_ctc_idx[i]}"] = c_len
 
         return loss, sample_size, logging_output
 
