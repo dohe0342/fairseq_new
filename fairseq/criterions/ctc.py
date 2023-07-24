@@ -416,7 +416,7 @@ class InterCtcCriterion(CtcCriterion):
                 zero_infinity=self.zero_infinity,
             ) for lprobs in lprobs_list]
             
-            loss_sum = sum(loss_list)
+            loss = sum(loss_list)
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
@@ -424,11 +424,12 @@ class InterCtcCriterion(CtcCriterion):
 
         sample_size = sample["target"].size(0) if self.sentence_avg else ntokens
         logging_output = {
-            "loss": utils.item(loss.data),  # * sample['ntokens'],
             "ntokens": ntokens,
             "nsentences": sample["id"].numel(),
             "sample_size": sample_size,
         }
+        for i, loss_ in enumerate(loss_list):
+            logging_output[f"loss_{self.inter_ctc_idx[i]}"] = loss.data
 
         if not model.training:
             import editdistance
