@@ -349,7 +349,7 @@ class InterCtcCriterion(CtcCriterion):
                 inter_output, log_probs=True
             ).contiguous() for inter_output in inter_output_dict
         ]
-
+        lprobs = lprobs_list[-1]
         #lprobs = model.get_normalized_probs(
         #    net_output, log_probs=True
         #).contiguous()  # (T, B, C) from the encoder
@@ -395,6 +395,7 @@ class InterCtcCriterion(CtcCriterion):
             target_lengths = pad_mask.sum(-1)
 
         with torch.backends.cudnn.flags(enabled=False):
+            '''
             loss = F.ctc_loss(
                 lprobs,
                 targets_flat,
@@ -404,6 +405,17 @@ class InterCtcCriterion(CtcCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
+            '''
+            loss = [F.ctc_loss(
+                lprobs,
+                targets_flat,
+                input_lengths,
+                target_lengths,
+                blank=self.blank_idx,
+                reduction="sum",
+                zero_infinity=self.zero_infinity,
+            ) for
+
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
