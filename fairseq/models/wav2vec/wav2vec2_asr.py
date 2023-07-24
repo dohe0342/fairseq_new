@@ -615,7 +615,7 @@ class Wav2VecEncoder(FairseqEncoder):
             out = self.proj(x)
 
         return {
-            "encoder_out": x,  # T x B x C
+            "encoder_out": out,  # T x B x C
             "padding_mask": padding_mask,  # B x T,
             "layer_results": res["layer_results"],
         }
