@@ -505,7 +505,7 @@ class InterCtcCriterion(CtcCriterion):
     def reduce_metrics(logging_outputs) -> None:
         """Aggregate logging outputs from data parallel training."""
         #for idx in self.inter_ctc_idx:
-        for idx in [2, 5, 7, 11]:
+        for idx in [2, 5, 8, 11]:
             loss_sum = utils.item(sum(log.get(f"loss_{idx}", 0) for log in logging_outputs))
             ntokens = utils.item(sum(log.get("ntokens", 0) for log in logging_outputs))
             nsentences = utils.item(
