@@ -537,28 +537,28 @@ class InterCtcCriterion(CtcCriterion):
 
             if c_total > 0:
                 metrics.log_derived(
-                    "uer",
+                    f"uer_{idx}",
                     lambda meters: safe_round(
-                        meters["_c_errors"].sum * 100.0 / meters["_c_total"].sum, 3
+                        meters[f"_c_errors_{idx}"].sum * 100.0 / meters[f"_c_total_{idx}"].sum, 3
                     )
-                    if meters["_c_total"].sum > 0
+                    if meters[f"_c_total_{idx}"].sum > 0
                     else float("nan"),
                 )
             if w_total > 0:
                 metrics.log_derived(
-                    "wer",
+                    f"wer_{idx}",
                     lambda meters: safe_round(
-                        meters["_w_errors"].sum * 100.0 / meters["_w_total"].sum, 3
+                        meters[f"_w_errors_{idx}"].sum * 100.0 / meters[f"_w_total_{idx}"].sum, 3
                     )
-                    if meters["_w_total"].sum > 0
+                    if meters[f"_w_total_{idx}"].sum > 0
                     else float("nan"),
                 )
                 metrics.log_derived(
-                    "raw_wer",
+                    f"raw_wer_{idx}",
                     lambda meters: safe_round(
-                        meters["_wv_errors"].sum * 100.0 / meters["_w_total"].sum, 3
+                        meters[f"_wv_errors_{idx}"].sum * 100.0 / meters[f"_w_total_{idx}"].sum, 3
                     )
-                    if meters["_w_total"].sum > 0
+                    if meters[f"_w_total_{idx}"].sum > 0
                     else float("nan"),
                 )
 
