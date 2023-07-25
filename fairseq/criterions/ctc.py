@@ -576,7 +576,7 @@ class InterCtcCriterion(CtcCriterion):
 
 
 @register_criterion("prompt", dataclass=CtcCriterionConfig)
-class PromptCtcCriterion(FairseqCriterion):
+class PromptCtcCriterion(CtcCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
