@@ -576,54 +576,12 @@ class InterCtcCriterion(CtcCriterion):
 
 
 @register_criterion("prompt", dataclass=CtcCriterionConfig)
-class CtcCriterion(FairseqCriterion):
+class PromptCtcCriterion(FairseqCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
-        super().__init__(task)
-        self.blank_idx = (
-            task.target_dictionary.index(task.blank_symbol)
-            if hasattr(task, "blank_symbol")
-            else 0
-        )
-        self.pad_idx = task.target_dictionary.pad()
-        self.eos_idx = task.target_dictionary.eos()
-        self.post_process = cfg.post_process
-
-        self.rdrop_alpha = rdrop_alpha
-
-        if cfg.wer_args is not None:
-            (
-                cfg.wer_kenlm_model,
-                cfg.wer_lexicon,
-                cfg.wer_lm_weight,
-                cfg.wer_word_score,
-            ) = eval(cfg.wer_args)
-
-        if cfg.wer_kenlm_model is not None and cfg.wer_kenlm_model != "":
-            from examples.speech_recognition.w2l_decoder import W2lKenLMDecoder
-
-            dec_args = Namespace()
-            dec_args.nbest = 1
-            dec_args.criterion = "ctc"
-            dec_args.kenlm_model = cfg.wer_kenlm_model
-            dec_args.lexicon = cfg.wer_lexicon
-            dec_args.beam = 50
-            dec_args.beam_size_token = min(50, len(task.target_dictionary))
-            dec_args.beam_threshold = min(50, len(task.target_dictionary))
-            dec_args.lm_weight = cfg.wer_lm_weight
-            dec_args.word_score = cfg.wer_word_score
-            dec_args.sil_weight = cfg.wer_sil_weight
-            dec_args.unk_weight = -math.inf
-            dec_args.sil_weight = 0
-
-            self.w2l_decoder = W2lKenLMDecoder(dec_args, task.target_dictionary)
-        else:
-            self.w2l_decoder = None
-
-        self.zero_infinity = cfg.zero_infinity
-        self.sentence_avg = cfg.sentence_avg
-
+        super().__init__(cfg, task, rdrop_alpha)
+        
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
         lprobs = model.get_normalized_probs(
