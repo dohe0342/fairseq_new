@@ -591,7 +591,7 @@ class Wav2VecEncoder(FairseqEncoder):
             "source": source,
             "padding_mask": padding_mask,
             "mask": self.apply_mask and self.training,
-            "layer"=8,
+            "layer": 8,
         }
         if "corpus_key" in kwargs:
             w2v_args["corpus_key"] = kwargs["corpus_key"]
