@@ -3,7 +3,8 @@ model=$1
 
 #for subset in "dev-clean" "dev-other" "test-clean" "test-other"
 #for subset in "ted2_dev" "ted2_test"
-for subset in "ted2_test"
+#for subset in "ted2_test"
+for subset in "cv_dev" "cv_test"
 do
 	echo "====================   $model // $subset   ===================="
 	if [[ "$model" =~ "hubert" ]]
