@@ -32,7 +32,7 @@ class RawAudioDataset(FairseqDataset):
         self,
         sample_rate,
         max_sample_size=None,
-        min_sample_size=16000,
+        min_sample_size=0,
         shuffle=True,
         pad=False,
         normalize=False,
