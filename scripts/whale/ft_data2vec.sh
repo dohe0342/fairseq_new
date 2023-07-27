@@ -8,6 +8,4 @@ fairseq-hydra-train \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
 	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
-	model.layerdrop=0.0 \
-	criterion._name=interctc \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1
