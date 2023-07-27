@@ -13,7 +13,7 @@ fairseq-hydra-train \
 	dataset.valid_subset=ted2_dev \
 	optimization.max_update=20000 \
 	optimization.lr=[0.00001] \
-	+task.min_sample_size=32000
+	+task.min_sample_size=16000
 
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
@@ -28,4 +28,4 @@ fairseq-hydra-train \
 	dataset.valid_subset=cv_dev \
 	optimization.max_update=20000 \
 	optimization.lr=[0.00001] \
-	+task.min_sample_size=32000
+	+task.min_sample_size=16000
