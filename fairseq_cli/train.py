@@ -96,7 +96,7 @@ def main(cfg: FairseqConfig) -> None:
         model = task.build_model(cfg.model)
         ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_ls_960h.pt')
         for n, p in model.named_parameters():
-            
+            p.data = ckp['model'][n]
     criterion = task.build_criterion(cfg.criterion)
     logger.info(model)
     logger.info("task: {}".format(task.__class__.__name__))
