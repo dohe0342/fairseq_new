@@ -7,8 +7,8 @@ fairseq-hydra-train \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
+	task.data.min_sample_size=32000 \
 	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=ted2_train \
-	dataset.valid_subset=ted2_dev \
-	dataset.min_sample_size=32000 \
+	dataset.valid_subset=ted2_dev 
