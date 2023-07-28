@@ -95,6 +95,12 @@ def main(cfg: FairseqConfig) -> None:
             p.data = ckp['model'][n]
             logger.info(f"{n} replaced")
         del ckp
+        
+        for n, p in model.named_parameters():
+            if 'w2v_encoder.proj' in n:
+                p.requires_grad = True
+            else:
+                p.requries_grad = False
 
         with fsdp_enable_wrap(cfg.distributed_training):
             model = fsdp_wrap(task.build_model(cfg.model))
