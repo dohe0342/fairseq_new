@@ -617,10 +617,12 @@ class PromptCtcCriterion(CtcCriterion):
             if net_output["padding_mask"] is not None:
                 non_padding_mask = ~net_output["padding_mask"]
                 input_lengths = non_padding_mask.long().sum(-1)
+                print('2')
             else:
                 input_lengths = lprobs.new_full(
                     (lprobs.size(1),), lprobs.size(0), dtype=torch.long
                 )
+                print('3')
 
         pad_mask = (sample["target"] != self.pad_idx) & (
             sample["target"] != self.eos_idx
