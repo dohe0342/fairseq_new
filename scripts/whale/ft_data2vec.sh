@@ -12,7 +12,7 @@ fairseq-hydra-train \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
 	optimization.max_update=20000 \
-	optimization.lr=[0.1] \
+	optimization.lr=[0.01] \
 	criterion._name=prompt \
 	+task.min_sample_size=16000
 
