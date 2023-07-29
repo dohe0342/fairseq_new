@@ -346,6 +346,7 @@ class Data2VecAudioModel(BaseFairseqModel):
 
         ## for prompt tuning
         if prompt is not None:
+            print('3')
             prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             features = torch.cat([prompt, features], dim=1)
             prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
