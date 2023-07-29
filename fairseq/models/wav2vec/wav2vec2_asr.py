@@ -264,6 +264,7 @@ class Wav2VecCtc(BaseFairseqModel):
             return utils.softmax(logits.float(), dim=-1)
 
     def forward(self, **kwargs):
+        print(kwargs.keys())
         x = self.w2v_encoder(**kwargs)
         return x
 
