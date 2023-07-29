@@ -584,6 +584,7 @@ class PromptCtcCriterion(CtcCriterion):
         self.prompt = torch.nn.Parameter(torch.rand(50, 512))
         
     def forward(self, model, sample, reduce=True, **kwargs):
+        sample['prompt'] = self.prompt
         net_output = model(**sample["net_input"])
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
