@@ -16,6 +16,7 @@ fairseq-hydra-train \
 	criterion._name=prompt \
 	+task.min_sample_size=16000
 
+: <<'END'
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
@@ -32,3 +33,4 @@ fairseq-hydra-train \
 	criterion._name=prompt \
 	+task.min_sample_size=16000
 #model.freeze_finetune_updates=20000 \
+END
