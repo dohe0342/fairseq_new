@@ -264,7 +264,6 @@ class Wav2VecCtc(BaseFairseqModel):
             return utils.softmax(logits.float(), dim=-1)
 
     def forward(self, **kwargs):
-        print(kwargs.keys())
         x = self.w2v_encoder(**kwargs)
         return x
 
@@ -578,7 +577,6 @@ class Wav2VecEncoder(FairseqEncoder):
                     ):
                         del state["model"][k]
 
-            print(model)
             model.load_state_dict(state["model"], strict=True)
 
     def set_num_updates(self, num_updates):
@@ -587,7 +585,6 @@ class Wav2VecEncoder(FairseqEncoder):
         self.num_updates = num_updates
 
     def forward(self, source, padding_mask, **kwargs):
-        print(kwargs)
         w2v_args = {
             "source": source,
             "padding_mask": padding_mask,
