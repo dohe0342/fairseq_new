@@ -595,7 +595,6 @@ class Wav2VecEncoder(FairseqEncoder):
             #"layer": 3,
         }
 
-        print('2', w2v_args.keys())
         if "corpus_key" in kwargs:
             w2v_args["corpus_key"] = kwargs["corpus_key"]
 
