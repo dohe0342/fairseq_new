@@ -620,8 +620,8 @@ class PromptCtcCriterion(CtcCriterion):
                 input_lengths = lprobs.new_full(
                     (lprobs.size(1),), lprobs.size(0), dtype=torch.long
                 )
-                print('3')
-
+        print(input_lengths)
+        exit()
         pad_mask = (sample["target"] != self.pad_idx) & (
             sample["target"] != self.eos_idx
         )
