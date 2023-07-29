@@ -311,9 +311,6 @@ class Trainer(object):
                 )
             )
         
-        print('*'*20)
-        print(len(params))
-        print('*'*20)
         if self.is_fsdp and self.cfg.common.fp16:
             # FullyShardedDataParallel always uses MemoryEfficientFP16 wrapper,
             # mostly for the grad scaling. But if we don't have the
