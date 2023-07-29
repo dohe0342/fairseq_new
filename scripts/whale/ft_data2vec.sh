@@ -11,7 +11,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
-	optimization.max_update=20000 \
+	optimization.max_update=80000 \
 	optimization.lr=[0.005] \
 	criterion._name=prompt \
 	+task.min_sample_size=16000
