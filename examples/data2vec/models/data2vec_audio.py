@@ -345,7 +345,6 @@ class Data2VecAudioModel(BaseFairseqModel):
             padding_mask = None
 
         ## for prompt tuning
-        print('3', prompt)
         if prompt is not None:
             prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             features = torch.cat([prompt, features], dim=1)
@@ -527,7 +526,7 @@ class Data2VecAudioModel(BaseFairseqModel):
             return torch.sqrt(y.var(dim=0) + 1e-6).mean()
 
     def extract_features(
-        self, source, padding_mask, mask=False, layer=None
+        self, source, padding_mask, mask=False, layer=None, **kwargs
     ):
         res = self.forward(
             source,
