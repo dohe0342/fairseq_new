@@ -589,7 +589,7 @@ class PromptCtcCriterion(CtcCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
-        if 1: lprobs = lprobs[50:, :, :]
+        #if 1: lprobs = lprobs[50:, :, :]
 
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
@@ -620,8 +620,8 @@ class PromptCtcCriterion(CtcCriterion):
                 input_lengths = lprobs.new_full(
                     (lprobs.size(1),), lprobs.size(0), dtype=torch.long
                 )
-        if input_lengths is not None:
-            input_lengths -= 50
+        #if input_lengths is not None:
+        #    input_lengths -= 50
         pad_mask = (sample["target"] != self.pad_idx) & (
             sample["target"] != self.eos_idx
         )
