@@ -93,6 +93,7 @@ def main(cfg: FairseqConfig) -> None:
         ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_ls_100h.pt')
         for n, p in model.named_parameters():
             p.data = ckp['model'][n]
+            p.requries_grad = False
             logger.info(f"{n} replaced")
         del ckp
 
