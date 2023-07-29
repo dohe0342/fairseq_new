@@ -287,6 +287,9 @@ class Trainer(object):
         return self._lr_scheduler
 
     def _build_optimizer(self):
+        for n, p in model.named_parameters():
+            p.requires_grad = False
+
         if (
             self.cfg.optimization.debug_param_names
             and self.cfg.common.fp16_no_flatten_grads
