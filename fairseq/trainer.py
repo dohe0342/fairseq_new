@@ -287,7 +287,7 @@ class Trainer(object):
         return self._lr_scheduler
 
     def _build_optimizer(self):
-        for n, p in model.named_parameters():
+        for n, p in self.model.named_parameters():
             p.requires_grad = False
 
         if (
