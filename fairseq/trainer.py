@@ -288,7 +288,7 @@ class Trainer(object):
 
     def _build_optimizer(self):
         for n, p in self.model.named_parameters():
-            if 'bias' in n:
+            if 'bias' in n or 'norm' in n:
                 p.requires_grad = True
             else:
                 p.requires_grad = False
