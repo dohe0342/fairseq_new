@@ -5,7 +5,7 @@ fairseq-hydra-train \
 	--config-name base_100h \
 	common.user_dir=examples/data2vec \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
+	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1/train.log \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
 	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
