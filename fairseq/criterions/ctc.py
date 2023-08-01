@@ -735,7 +735,7 @@ class PrefixCtcCriterion(CtcCriterion):
         self.preifx = [key_prefix, value_prefix]
         
     def forward(self, model, sample, reduce=True, **kwargs):
-        sample['net_input']['prompt'] = self.prompt
+        sample['net_input']['prefix'] = self.prefix
         net_output = model(**sample["net_input"])
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
