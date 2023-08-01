@@ -1060,7 +1060,7 @@ class TransformerEncoder(nn.Module):
 
     def forward(self, x, padding_mask=None, layer=None, corpus_key=None, prefix=None,):
         x, layer_results = self.extract_features(
-            x, padding_mask, layer, corpus_key=corpus_key
+            x, padding_mask, layer, corpus_key=corpus_key, prefix=prefix,
         )
 
         if self.layer_norm_first and layer is None:
