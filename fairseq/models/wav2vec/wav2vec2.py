@@ -1081,6 +1081,10 @@ class TransformerEncoder(nn.Module):
         if padding_mask is not None:
             x = index_put(x, padding_mask, 0)
 
+        if prefix is not None and padding_mask is not None:
+            prefix_padding_mask = torch.zeros(features.size()[0], prefix[0][0].size()[0]).type(tor  ch.BoolTensor).to(features.device)
+            try: padding_mask = torch.cat([prefix_padding_mask, padding_mask], dim=1)
+
         x_conv = self.pos_conv(x.transpose(1, 2))
         x_conv = x_conv.transpose(1, 2)
         x = x + x_conv
