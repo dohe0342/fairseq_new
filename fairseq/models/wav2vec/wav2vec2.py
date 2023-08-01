@@ -1075,6 +1075,7 @@ class TransformerEncoder(nn.Module):
         tgt_layer=None,
         min_layer=0,
         corpus_key=None,
+        prefix=None,
     ):
 
         if padding_mask is not None:
