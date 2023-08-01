@@ -1339,6 +1339,7 @@ class TransformerSentenceEncoderLayer(nn.Module):
 
                 x = self.dropout3(x)
                 x = residual + x
+            
             else:
                 x = self.self_attn_layer_norm(x)
                 x, attn = self.self_attn(
