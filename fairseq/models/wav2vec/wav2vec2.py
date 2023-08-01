@@ -1395,8 +1395,8 @@ class TransformerSentenceEncoderLayer(nn.Module):
                 x = self.final_layer_norm(x)
             
             else:
-                key_prefix = prefix[0].expand((x.size()[0], prefix[0].size()[0], prefix[0].size()[1]))
-                value_prefix = prefix[1].expand((x.size()[0], prefix[1].size()[0], prefix[1].size()[1]))
+                key_prefix = key_prefix.expand((x.size()[0], key_prefix.size()[0], key_prefix.size()[1]))
+                value_prefix = value_prefix.expand((x.size()[0], value_prefix.size()[0], value_prefix.size()[1]))
                 key = torch.cat([key_prefix, x], dim=1)
                 value = torch.cat([value_prefix, x], dim=1)
 
