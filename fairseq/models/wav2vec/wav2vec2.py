@@ -1339,6 +1339,30 @@ class TransformerSentenceEncoderLayer(nn.Module):
 
                 x = self.dropout3(x)
                 x = residual + x
+            else:
+                x = self.self_attn_layer_norm(x)
+                x, attn = self.self_attn(
+                    query=x,
+                    key=x,
+                    value=x,
+                    key_padding_mask=self_attn_padding_mask,
+                    attn_mask=self_attn_mask,
+                    need_weights=False,
+                )
+                x = self.dropout1(x)
+                x = residual + x
+
+                residual = x
+                x = self.final_layer_norm(x)
+                x = self.activation_fn(self.fc1(x))
+                x = self.dropout2(x)
+                x = self.fc2(x)
+
+                layer_result = x
+
+                x = self.dropout3(x)
+                x = residual + x
+
         else:
             if prefix is None:
                 x, attn = self.self_attn(
