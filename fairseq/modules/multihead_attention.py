@@ -577,8 +577,10 @@ class MultiheadAttention(FairseqIncrementalDecoder):
             k = self.k_proj(query)
             v = self.v_proj(query)
             
+            print('k size = ', k.size())
             k = torch.cat([prefix[0], k], dim=1)
             v = torch.cat([prefix[1], v], dim=1)
+            print('after size = ', k.size())
         elif self.encoder_decoder_attention:
             # encoder-decoder attention
             q = self.q_proj(query)
