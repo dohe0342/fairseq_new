@@ -690,7 +690,7 @@ class MultiheadAttention(FairseqIncrementalDecoder):
 
         if key_padding_mask is not None:
             assert key_padding_mask.size(0) == kv_bsz
-            assert key_padding_mask.size(1) == src_len
+            assert key_padding_mask.size(1) == src_len or key_padding_mask.size(1) == src_len+prefix[0].size(1)
 
         if self.add_zero_attn:
             assert v is not None
