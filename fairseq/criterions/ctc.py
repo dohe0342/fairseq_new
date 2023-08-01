@@ -730,7 +730,8 @@ class PromptCtcCriterion(CtcCriterion):
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
         super().__init__(cfg, task, rdrop_alpha)
-        self.prefix = torch.nn.Parameter(torch.rand(50, 512))
+        key_prefix = [torch.nn.Parameter(torch.rand(50, 512)) for i in range(12)]
+        value_prefix = [torch.nn.Parameter(torch.rand(50, 512)) for i in range(12)]
         
     def forward(self, model, sample, reduce=True, **kwargs):
         sample['net_input']['prompt'] = self.prompt
