@@ -576,6 +576,8 @@ class MultiheadAttention(FairseqIncrementalDecoder):
             q = self.q_proj(query)
             k = self.k_proj(query)
             v = self.v_proj(query)
+            print('fuck!!!!!!!!!!!!!!!!!!!!')
+            exit()
         elif self.encoder_decoder_attention:
             # encoder-decoder attention
             q = self.q_proj(query)
