@@ -577,6 +577,8 @@ class MultiheadAttention(FairseqIncrementalDecoder):
             k = self.k_proj(query)
             v = self.v_proj(query)
             
+            prefix[0] = prefix[0].transpose(0, 1)
+            prefix[1] = prefix[1].transpose(0, 1)
             print('k size = ', k.size())
             print('prefix size = ', prefix[0].size())
             k = torch.cat([prefix[0], k], dim=1)
