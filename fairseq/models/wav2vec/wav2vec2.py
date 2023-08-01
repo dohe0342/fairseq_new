@@ -1391,6 +1391,7 @@ class TransformerSentenceEncoderLayer(nn.Module):
                 x = self.final_layer_norm(x)
             
             else:
+                key_prefix = prefix[0].expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
                 x, attn = self.self_attn(
                     query=x,
                     key=x,
