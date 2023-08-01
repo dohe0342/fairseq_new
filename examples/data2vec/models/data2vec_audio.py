@@ -358,7 +358,6 @@ class Data2VecAudioModel(BaseFairseqModel):
             try: padding_mask = torch.cat([prefix_padding_mask, padding_mask], dim=1)
             except: padding_mask = None
 
-
         if self.post_extract_proj is not None:
             features = self.post_extract_proj(features)
 
