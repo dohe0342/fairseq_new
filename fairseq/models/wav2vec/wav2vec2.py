@@ -1397,6 +1397,11 @@ class TransformerSentenceEncoderLayer(nn.Module):
             else:
                 key_prefix = key_prefix.expand((x.size()[0], key_prefix.size()[0], key_prefix.size()[1]))
                 value_prefix = value_prefix.expand((x.size()[0], value_prefix.size()[0], value_prefix.size()[1]))
+                #print('*'*20)
+                #print('x', x.size())
+                #print('key', x.size())
+                #print('value', x.size())
+                #print('*'*20)
                 key = torch.cat([key_prefix, x], dim=1)
                 value = torch.cat([value_prefix, x], dim=1)
 
