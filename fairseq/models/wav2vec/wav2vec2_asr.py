@@ -590,6 +590,7 @@ class Wav2VecEncoder(FairseqEncoder):
             "padding_mask": padding_mask,
             "mask": self.apply_mask and self.training,
             "prompt": kwargs['prompt'] if 'prompt' in kwargs.keys() else None,
+            "prefix": kwargs['prefix'] if 'prefix' in kwargs.keys() else None,
             #"layer": 3,
         }
 
