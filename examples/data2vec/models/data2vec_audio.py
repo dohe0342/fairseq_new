@@ -354,7 +354,7 @@ class Data2VecAudioModel(BaseFairseqModel):
             except: padding_mask = None
 
         if prefix is not None:
-            prefix_padding_mask = torch.zeros(features.size()[0], prefix.size()[0]).type(torch.BoolTensor).to(features.device)
+            prefix_padding_mask = torch.zeros(features.size()[0], prefix[0].size()[0]).type(torch.BoolTensor).to(features.device)
             try: padding_mask = torch.cat([prefix_padding_mask, padding_mask], dim=1)
             except: padding_mask = None
 
