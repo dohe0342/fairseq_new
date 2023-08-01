@@ -732,14 +732,24 @@ class MultiheadAttention(FairseqIncrementalDecoder):
                         kv_bsz, -1, self.num_heads, tgt_len, src_len+prefix[0].size(0)
                     )
 
+                try:
+                    attn_weights = attn_weights.masked_fill(
+                        key_padding_mask.unsqueeze(1)
+                        .unsqueeze(2)
+                        .unsqueeze(3)
+                        .to(torch.bool),
+                        float("-inf"),
+                    )
+                except:
+                    key_padding_mask = key_padding_mask[:, 50:]
+                    attn_weights = attn_weights.masked_fill(
+                        key_padding_mask.unsqueeze(1)
+                        .unsqueeze(2)
+                        .unsqueeze(3)
+                        .to(torch.bool),
+                        float("-inf"),
+                    )
 
-                attn_weights = attn_weights.masked_fill(
-                    key_padding_mask.unsqueeze(1)
-                    .unsqueeze(2)
-                    .unsqueeze(3)
-                    .to(torch.bool),
-                    float("-inf"),
-                )
             else:
                 attn_weights = attn_weights.transpose(0, 2)
                 attn_weights = attn_weights.masked_fill(key_padding_mask, float("-inf"))
