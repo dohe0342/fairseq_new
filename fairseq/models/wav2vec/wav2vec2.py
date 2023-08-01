@@ -1395,8 +1395,8 @@ class TransformerSentenceEncoderLayer(nn.Module):
                 x = self.final_layer_norm(x)
             
             else:
-                key_prefix = key_prefix.expand((x.size()[0], key_prefix.size()[0], key_prefix.size()[1]))
-                value_prefix = value_prefix.expand((x.size()[0], value_prefix.size()[0], value_prefix.size()[1]))
+                key_prefix = key_prefix.expand((x.size()[1], key_prefix.size()[0], key_prefix.size()[1]))
+                value_prefix = value_prefix.expand((x.size()[1], value_prefix.size()[0], value_prefix.size()[1]))
                 #print('*'*20)
                 #print('x', x.size())
                 #print('key', x.size())
