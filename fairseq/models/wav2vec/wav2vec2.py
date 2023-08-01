@@ -1120,7 +1120,7 @@ class TransformerEncoder(nn.Module):
                     )
                 ):
                     x, (z, lr) = layer(
-                        x, self_attn_padding_mask=padding_mask, need_weights=False, prefix=prefix,
+                        x, self_attn_padding_mask=padding_mask, need_weights=False, prefix=(prefix[0][i], prefix[1][i]),
                     )
                 else:
                     x, (z, lr) = layer(
