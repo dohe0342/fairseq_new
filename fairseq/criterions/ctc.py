@@ -725,7 +725,7 @@ class PromptCtcCriterion(CtcCriterion):
 
 
 @register_criterion("prefix", dataclass=CtcCriterionConfig)
-class PromptCtcCriterion(CtcCriterion):
+class PrefixCtcCriterion(CtcCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
