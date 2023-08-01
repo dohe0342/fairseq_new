@@ -723,9 +723,16 @@ class MultiheadAttention(FairseqIncrementalDecoder):
             if prefix is None: attn_weights = attn_weights.view(bsz, self.num_heads, tgt_len, src_len)
             else: attn_weights = attn_weights.view(bsz, self.num_heads, tgt_len, src_len+prefix[0].size(0))
             if not is_tpu:
-                attn_weights = attn_weights.view(
-                    kv_bsz, -1, self.num_heads, tgt_len, src_len
-                )
+                if prefix is None:
+                    attn_weights = attn_weights.view(
+                        kv_bsz, -1, self.num_heads, tgt_len, src_len
+                    )
+                else:
+                    attn_weights = attn_weights.view(
+                        kv_bsz, -1, self.num_heads, tgt_len, src_len+prefix[0].size(0)
+                    )
+
+
                 attn_weights = attn_weights.masked_fill(
                     key_padding_mask.unsqueeze(1)
                     .unsqueeze(2)
