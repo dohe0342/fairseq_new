@@ -741,7 +741,7 @@ class MultiheadAttention(FairseqIncrementalDecoder):
                         float("-inf"),
                     )
                 except:
-                    key_padding_mask = key_padding_mask[:, 50:]
+                    print(key_padding_mask.size())
                     attn_weights = attn_weights.masked_fill(
                         key_padding_mask.unsqueeze(1)
                         .unsqueeze(2)
