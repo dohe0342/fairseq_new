@@ -1058,7 +1058,7 @@ class TransformerEncoder(nn.Module):
 
         self.apply(init_bert_params)
 
-    def forward(self, x, padding_mask=None, layer=None, corpus_key=None):
+    def forward(self, x, padding_mask=None, layer=None, corpus_key=None, prefix=None,):
         x, layer_results = self.extract_features(
             x, padding_mask, layer, corpus_key=corpus_key
         )
