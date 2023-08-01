@@ -377,6 +377,7 @@ class Data2VecAudioModel(BaseFairseqModel):
             x,
             padding_mask=padding_mask,
             layer=layer,
+            prefix=prefix,
         )
 
         if features_only:
