@@ -1093,7 +1093,10 @@ class TransformerEncoder(nn.Module):
             x, self.required_seq_len_multiple, dim=-2, value=0
         )
         if pad_length > 0 and padding_mask is None:
-            padding_mask = x.new_zeros((x.size(0), x.size(1)), dtype=torch.bool)
+            if prefix is None:
+                padding_mask = x.new_zeros((x.size(0), x.size(1)), dtype=torch.bool)
+            else:
+                padding_mask = x.new_zeros((x.size(0), x.size(1)+prefix[0][0].size(0)), dtype=torch.bool)
             padding_mask[:, -pad_length:] = True
         else:
             padding_mask, _ = pad_to_multiple(
