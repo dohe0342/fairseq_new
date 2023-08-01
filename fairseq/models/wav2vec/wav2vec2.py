@@ -1411,7 +1411,7 @@ class TransformerSentenceEncoderLayer(nn.Module):
                     value=x,
                     key_padding_mask=self_attn_padding_mask,
                     need_weights=False,
-                    prefix=(key_prefix, value_prefix),
+                    prefix=[key_prefix, value_prefix],
                 )
 
                 x = self.dropout1(x)
