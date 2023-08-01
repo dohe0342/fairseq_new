@@ -1395,10 +1395,11 @@ class TransformerSentenceEncoderLayer(nn.Module):
                 value_prefix = prefix[1].expand((x.size()[0], prefix[1].size()[0], prefix[1].size()[1]))
                 key = torch.cat([key_prefix, x], dim=1)
                 value = torch.cat([value_prefix, x], dim=1)
+
                 x, attn = self.self_attn(
                     query=x,
-                    key=x,
-                    value=x,
+                    key=key,
+                    value=value,
                     key_padding_mask=self_attn_padding_mask,
                     need_weights=False,
                 )
