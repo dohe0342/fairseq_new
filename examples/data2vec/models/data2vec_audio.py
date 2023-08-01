@@ -528,7 +528,7 @@ class Data2VecAudioModel(BaseFairseqModel):
             return torch.sqrt(y.var(dim=0) + 1e-6).mean()
 
     def extract_features(
-        self, source, padding_mask, mask=False, layer=None, prompt=None,
+        self, source, padding_mask, mask=False, layer=None, prompt=None, prefix=None,
     ):
         res = self.forward(
             source,
