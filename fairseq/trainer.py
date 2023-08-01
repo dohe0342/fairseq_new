@@ -300,6 +300,11 @@ class Trainer(object):
             #p.requires_grad = False
             #if 'q_proj' in n:
         '''
+        for n, p in self.model.named_parameters():
+            if 'norm' in n:
+                p.requires_grad = True
+            else:
+                p.requires_grad = False
 
         if (
             self.cfg.optimization.debug_param_names
