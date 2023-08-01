@@ -1316,8 +1316,8 @@ class TransformerSentenceEncoderLayer(nn.Module):
         residual = x
 
         if prefix is not None:
-            prefix[0] = prefix[0].to(x.device)
-            prefix[1] = prefix[1].to(x.device)
+            key_prefix = prefix[0].to(x.device)
+            value_prefix = prefix[1].to(x.device)
 
         if self.layer_norm_first:
             if prefix is None:
