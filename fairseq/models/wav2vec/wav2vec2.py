@@ -1128,6 +1128,7 @@ class TransformerEncoder(nn.Module):
                         self_attn_padding_mask=padding_mask,
                         need_weights=False,
                         corpus_key=corpus_key,
+                        prefix=prefix,
                     )
                 if i >= min_layer:
                     layer_results.append((x, z, lr))
