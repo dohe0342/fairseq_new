@@ -1392,6 +1392,7 @@ class TransformerSentenceEncoderLayer(nn.Module):
             
             else:
                 key_prefix = prefix[0].expand((x.size()[0], prefix[0].size()[0], prefix[0].size()[1]))
+                value_prefix = prefix[1].expand((x.size()[0], prefix[1].size()[0], prefix[1].size()[1]))
                 x, attn = self.self_attn(
                     query=x,
                     key=x,
