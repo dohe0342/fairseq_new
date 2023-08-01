@@ -711,7 +711,7 @@ class MultiheadAttention(FairseqIncrementalDecoder):
         attn_weights = self.apply_sparse_mask(attn_weights, tgt_len, src_len, bsz)
         
         if prefix is None: assert list(attn_weights.size()) == [bsz * self.num_heads, tgt_len, src_len]
-        else: print(attn_weights.size(), tgt_len, src_len)
+        else: assert list(attn_weights.size()) == [bsz * self.num_heads, tgt_len, src_len+prefix[0].size(0)]
         if attn_mask is not None:
             attn_mask = attn_mask.unsqueeze(0)
             if self.onnx_trace:
