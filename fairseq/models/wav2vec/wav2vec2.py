@@ -1402,15 +1402,16 @@ class TransformerSentenceEncoderLayer(nn.Module):
                 #print('key', x.size())
                 #print('value', x.size())
                 #print('*'*20)
-                key = torch.cat([key_prefix, x], dim=1)
-                value = torch.cat([value_prefix, x], dim=1)
+                #key = torch.cat([key_prefix, x], dim=1)
+                #value = torch.cat([value_prefix, x], dim=1)
 
                 x, attn = self.self_attn(
                     query=x,
-                    key=key,
-                    value=value,
+                    key=x,
+                    value=x,
                     key_padding_mask=self_attn_padding_mask,
                     need_weights=False,
+                    prefix=(key_prefix, value_prefix),
                 )
 
                 x = self.dropout1(x)
