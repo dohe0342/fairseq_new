@@ -732,7 +732,7 @@ class PrefixCtcCriterion(CtcCriterion):
         super().__init__(cfg, task, rdrop_alpha)
         key_prefix = [torch.nn.Parameter(torch.rand(50, 512)) for i in range(12)]
         value_prefix = [torch.nn.Parameter(torch.rand(50, 512)) for i in range(12)]
-        self.preifx = [key_prefix, value_prefix]
+        self.prefix = [key_prefix, value_prefix]
         
     def forward(self, model, sample, reduce=True, **kwargs):
         sample['net_input']['prefix'] = self.prefix
