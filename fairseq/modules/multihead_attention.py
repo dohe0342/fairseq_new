@@ -478,6 +478,7 @@ class MultiheadAttention(FairseqIncrementalDecoder):
         attn_mask: Optional[Tensor] = None,
         before_softmax: bool = False,
         need_head_weights: bool = False,
+        prefix=None,
     ) -> Tuple[Tensor, Optional[Tensor]]:
         """Input shape: Time x Batch x Channel
 
