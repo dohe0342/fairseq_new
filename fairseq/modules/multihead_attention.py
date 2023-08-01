@@ -680,7 +680,8 @@ class MultiheadAttention(FairseqIncrementalDecoder):
             assert incremental_state is not None
             incremental_state = self._set_input_buffer(incremental_state, saved_state)
         assert k is not None
-        assert k.size(1) == src_len
+        if prefix is None: assert k.size(1) == src_len
+        else: k.size(1) == src_len+prefix[0].size(1)
 
         # This is part of a workaround to get around fork/join parallelism
         # not supporting Optional types.
