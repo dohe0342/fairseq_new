@@ -291,11 +291,11 @@ class Trainer(object):
             #if 'bias' in n or 'norm' in n or 'w2v_encoder.proj' in n:
             #if 'q_proj' in n or 'norm' in n:
             #if 'k_proj' in n or 'norm' in n:
-            if 'v_proj' in n or 'norm' in n:
-                logger.info(f"{n} requires grad = True")
-                p.requires_grad = True
-            else:
-                p.requires_grad = False
+            #if 'v_proj' in n or 'norm' in n:
+            #    logger.info(f"{n} requires grad = True")
+            #    p.requires_grad = True
+            #else:
+            #    p.requires_grad = False
             #p.requires_grad = False
             #if 'q_proj' in n:
         '''
