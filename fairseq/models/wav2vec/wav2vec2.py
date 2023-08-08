@@ -1149,7 +1149,7 @@ class TransformerEncoder(nn.Module):
                             x,
                             self_attn_padding_mask=padding_mask,
                             need_weights=False,
-                            corpus_key=corpus_key,
+                            corpus_key=[i,],
                         )
 
                 if i >= min_layer:
