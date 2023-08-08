@@ -630,7 +630,8 @@ class Wav2VecEncoder(FairseqEncoder):
             x = self.proj(x)
 
         if self.hyperbolic:
-            x = x
+            x = self.tp(x)
+            x = self.mlr(x, c=self.tp.c)
 
         return {
             "encoder_out": x,  # T x B x C
