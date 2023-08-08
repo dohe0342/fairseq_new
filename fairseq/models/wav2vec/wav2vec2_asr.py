@@ -528,6 +528,13 @@ class Wav2VecEncoder(FairseqEncoder):
                     optim_override["optimizer"]["lr_scale"] = layer_scales[lid]
                     p.optim_overrides = optim_override
 
+        self.hyperbolic = cfg.hyperbolic
+        if self.hyperbolic:
+            self.tp = hypnn.ToPoincare(
+                c=1.0, train_x=False, train_c=args.train_c, ball_dim=args.dim
+            )
+            self.mlr = hypnn.HyperbolicMLR(ball_dim=args.dim, n_classes=10, c=args.c)
+
     def freeze_regex(self, pattern):
         unfrozen_names = []
         for name, param in self.named_parameters():
