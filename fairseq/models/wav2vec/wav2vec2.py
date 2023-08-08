@@ -1128,7 +1128,7 @@ class TransformerEncoder(nn.Module):
                 ):
                     if prefix is None:
                         x, (z, lr) = layer(
-                            x, self_attn_padding_mask=padding_mask, need_weights=False, corpus_key=[i],
+                            x, self_attn_padding_mask=padding_mask, need_weights=False, #corpus_key=[i],
                         )
                     else:
                         x, (z, lr) = layer(
