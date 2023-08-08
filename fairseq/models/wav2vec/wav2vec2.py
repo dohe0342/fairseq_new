@@ -1563,7 +1563,9 @@ class TransformerSentenceEncoderWithAdapterLayer(TransformerSentenceEncoderLayer
         att_args=None,
         corpus_key=None,
     ):
-
+        print('*'*20)
+        print(corpus_key)
+        print('*'*20)
         x, (attn, layer_result) = super().forward(
             x=x,
             self_attn_mask=self_attn_mask,
