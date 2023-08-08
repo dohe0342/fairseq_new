@@ -11,10 +11,7 @@ fairseq-hydra-train \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
 	optimization.max_update=80000 \
-	criterion._name=ctc \
-	+task.min_sample_size=16000 \
-	+model.layer_type=trf_adp \
-	+model.adp_num=12 
+	criterion._name=ctc
 
 : <<'END'
 fairseq-hydra-train \
