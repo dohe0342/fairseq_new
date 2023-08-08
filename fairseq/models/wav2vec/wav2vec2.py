@@ -1561,7 +1561,7 @@ class TransformerSentenceEncoderWithAdapterLayer(TransformerSentenceEncoderLayer
         self_attn_padding_mask: torch.Tensor = None,
         need_weights: bool = False,
         att_args=None,
-        corpus_key='libri',
+        corpus_key=['libri',],
     ):
         x, (attn, layer_result) = super().forward(
             x=x,
