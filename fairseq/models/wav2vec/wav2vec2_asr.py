@@ -534,6 +534,7 @@ class Wav2VecEncoder(FairseqEncoder):
                 c=0.1, train_x=False, train_c=False, ball_dim=768
             )
             self.mlr = hypnn.HyperbolicMLR(ball_dim=768, n_classes=targ_d, c=0.1)
+            del self.proj
             self.proj = False
 
     def freeze_regex(self, pattern):
