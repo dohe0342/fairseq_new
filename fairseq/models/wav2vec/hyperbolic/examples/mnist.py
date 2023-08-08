@@ -8,7 +8,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 
-import fairseq.models.wav2vec.hyptorch.nn as hypnn
+import fairseq.models.wav2vec.hyperbolic.hyptorch.nn as hypnn
 
 
 class Net(nn.Module):
