@@ -287,7 +287,7 @@ class Trainer(object):
         return self._lr_scheduler
 
     def _build_optimizer(self):
-        for n, p in self.model.named_parameters():
+        #for n, p in self.model.named_parameters():
             #if 'bias' in n or 'norm' in n or 'w2v_encoder.proj' in n:
             #if 'q_proj' in n or 'norm' in n:
             #if 'k_proj' in n or 'norm' in n:
