@@ -289,6 +289,7 @@ class Trainer(object):
     def _build_optimizer(self):
         for n, p in self.model.named_parameters():
             if 'adapter' in n:
+                logger.info(f"{n} requires grad = True")
                 p.requires_grad = True
             else:
                 p.requries_grad = False
