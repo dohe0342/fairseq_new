@@ -1498,7 +1498,8 @@ class AdapterFast(nn.Module):
             fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.W_b[ii])
             bound = 1 / math.sqrt(fan_in) if fan_in > 0 else 0
             nn.init.uniform_(self.b_b[ii], -bound, bound)
-
+        
+        for ii in range(self.adapter_num):
             self.W_a[ii] /= 10.
             self.W_b[ii] /= 10.
             self.b_a /= 10.
