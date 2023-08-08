@@ -7,7 +7,7 @@ fairseq-hydra-train \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
 	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
-	model.layer_type=adp \
+	model.layer_type=trf_adp \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
