@@ -11,7 +11,8 @@ fairseq-hydra-train \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
 	optimization.max_update=80000 \
-	criterion._name=ctc
+	criterion._name=ctc \
+	+model.hyperbolic=true
 
 : <<'END'
 fairseq-hydra-train \
