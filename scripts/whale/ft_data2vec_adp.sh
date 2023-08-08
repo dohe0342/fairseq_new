@@ -7,8 +7,6 @@ fairseq-hydra-train \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
 	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
-	model.layer_type=trf_adp \
-	model.adp_num=12 \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
@@ -16,6 +14,8 @@ fairseq-hydra-train \
 	optimization.lr=[0.0003] \
 	criterion._name=ctc \
 	+task.min_sample_size=16000 \
+	+model.layer_type=trf_adp \
+	+model.adp_num=12 \
 
 : <<'END'
 fairseq-hydra-train \
