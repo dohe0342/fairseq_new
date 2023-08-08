@@ -100,8 +100,8 @@ def main(cfg: FairseqConfig) -> None:
         with fsdp_enable_wrap(cfg.distributed_training):
             model = fsdp_wrap(task.build_model(cfg.model))
     else:
-        '''
         model = task.build_model(cfg.model)
+        '''
         ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_ls_960h.pt')
         for n, p in model.named_parameters():
             try: 
