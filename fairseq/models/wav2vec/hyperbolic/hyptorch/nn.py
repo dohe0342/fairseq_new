@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.init as init
 
-import hyptorch.pmath as pmath
+import fairseq.models.wav2vec.hyperbolic.hyptorch.pmath as pmath
 
 
 class HyperbolicMLR(nn.Module):
