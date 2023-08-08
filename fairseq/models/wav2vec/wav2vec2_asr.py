@@ -531,9 +531,9 @@ class Wav2VecEncoder(FairseqEncoder):
         self.hyperbolic = cfg.hyperbolic
         if self.hyperbolic:
             self.tp = hypnn.ToPoincare(
-                c=0.8, train_x=False, train_c=False, ball_dim=2
+                c=0.1, train_x=False, train_c=False, ball_dim=2
             )
-            self.mlr = hypnn.HyperbolicMLR(ball_dim=2, n_classes=targ_d, c=0.8)
+            self.mlr = hypnn.HyperbolicMLR(ball_dim=2, n_classes=targ_d, c=0.1)
             del self.proj
             self.proj = Linear(d, 2)
 
