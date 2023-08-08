@@ -201,6 +201,10 @@ class Wav2Vec2AsrConfig(FairseqDataclass):
         default=None,
     )
 
+    hyperbolic: bool = field(
+        default=False,
+    )
+
 @dataclass
 class Wav2Vec2CtcConfig(Wav2Vec2AsrConfig):
     blank_weight: float = 0
