@@ -32,7 +32,7 @@ from fairseq.models.wav2vec.wav2vec2 import MASKING_DISTRIBUTION_CHOICES, LAYER_
 from fairseq.modules import LayerNorm, PositionalEmbedding, TransformerDecoderLayer
 from fairseq.tasks import FairseqTask
 
-from fariseq.models.wav2vec.hyperbolic.hyptorch.nn as hypnn
+import fariseq.models.wav2vec.hyperbolic.hyptorch.nn as hypnn
 
 logger = logging.getLogger(__name__)
 
