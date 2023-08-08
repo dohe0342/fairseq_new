@@ -1524,8 +1524,8 @@ class TransformerSentenceEncoderWithAdapterLayer(TransformerSentenceEncoderLayer
         activation_dropout: float = 0.1,
         activation_fn: str = "relu",
         layer_norm_first: bool = False,
-        adapter_num=201,
-        adapter_dim=64,
+        adapter_num=12,
+        adapter_dim=16,
         adapter_act_fn="relu",
     ) -> None:
 
