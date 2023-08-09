@@ -1577,9 +1577,6 @@ class TransformerSentenceEncoderWithAdapterLayer(TransformerSentenceEncoderLayer
         )
         #assert corpus_key is not None
         #assert len(set(corpus_key)) == 1, f"corpus_key items are not same {corpus_key}"
-        if 11 - corpus_key[0] <= self.adapter_num:
-            y = self.adapter_layer(x, corpus_key[0])
-            x = x + y
-            return x, (attn, layer_result)
-        else:
-            return x, (attn, layer_result)
+        y = self.adapter_layer(x, corpus_key[0])
+        x = x + y
+        return x, (attn, layer_result)
