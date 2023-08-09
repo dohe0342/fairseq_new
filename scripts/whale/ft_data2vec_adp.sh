@@ -15,7 +15,7 @@ fairseq-hydra-train \
 	criterion._name=ctc \
 	+task.min_sample_size=16000 \
 	+model.layer_type=trf_adp \
-	+model.adp_num=12 
+	+model.adp_num=6 
 
 : <<'END'
 fairseq-hydra-train \
