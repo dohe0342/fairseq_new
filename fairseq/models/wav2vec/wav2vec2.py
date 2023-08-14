@@ -1607,7 +1607,8 @@ class DynamicAdapterFast(AdapterFast):
 
     def get_prune_mask(self, adapter_id):
         ii = adapter_id
-        m = self.act_fn(self.dynamic_mask[ii])
+        m = self.dynamic_mask[ii]
+        #m = self.act_fn(self.dynamic_mask[ii])
         m = F.gumbel_softmax(m, hard=True, dim=-1)
         m = m[:,1]
         
