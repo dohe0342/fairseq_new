@@ -1647,7 +1647,7 @@ class DynamicAdapterFast(nn.Module):
 
 
 
-class TransformerSentenceEncoderWithAdapterLayer(TransformerSentenceEncoderLayer):
+class TransformerSentenceEncoderWithDynamicAdapterLayer(TransformerSentenceEncoderLayer):
     """
     Implements a Transformer Encoder Layer with adapters used in BERT/XLM style pre-trained
     models. An adapter module is added along with vanilla Transformer module.
