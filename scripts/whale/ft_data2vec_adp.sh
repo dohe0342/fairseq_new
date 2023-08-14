@@ -12,7 +12,7 @@ for i in {4..6}; do
 		dataset.train_subset=ted2_train \
 		dataset.valid_subset=ted2_dev \
 		optimization.max_update=80000 \
-		optimization.lr=[0.00003] \
+		optimization.lr=[0.0001] \
 		criterion._name=ctc \
 		+task.min_sample_size=16000 \
 		+model.layer_type=trf_adp \
