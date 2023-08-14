@@ -38,7 +38,7 @@ from .utils import pad_to_multiple
 
 EXTRACTOR_MODE_CHOICES = ChoiceEnum(["default", "layer_norm"])
 MASKING_DISTRIBUTION_CHOICES = ChoiceEnum(["static", "uniform", "normal", "poisson"])
-LAYER_TYPE_CHOICES = ChoiceEnum(["transformer", "conformer", "trf_adp"])
+LAYER_TYPE_CHOICES = ChoiceEnum(["transformer", "conformer", "trf_adp", "dyn_trf_adp"])
 
 
 @dataclass
