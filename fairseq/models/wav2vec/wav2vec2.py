@@ -1621,11 +1621,11 @@ class DynamicAdapterFast(AdapterFast):
         if np.random.random() < 0.001:
             print(sum(mask))
 
-        W_a = self.W_a[ii] * mask 
-        b_a = self.b_a[ii] * mask 
+        W_a = self.W_a[ii].T * mask
+        b_a = self.b_a[ii] * mask
+        W_a = W_a.T
         
-        W_b = self.W_b[ii].T * mask
-        W_b = W_b.T
+        W_b = self.W_b[ii] * mask
         
         h = x
         h = F.layer_norm(h, (self.input_dim, ), self.ln_W[ii], self.ln_b[ii])
