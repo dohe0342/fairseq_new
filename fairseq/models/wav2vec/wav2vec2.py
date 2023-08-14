@@ -1603,6 +1603,8 @@ class DynamicAdapterFast(AdapterFast):
 
     def forward(self, x, adapter_id):
         ii = adapter_id
+
+        ratio = self.get_prune_ratio(adapter_id)
         
         h = x
         h = F.layer_norm(h, (self.input_dim, ), self.ln_W[ii], self.ln_b[ii])
