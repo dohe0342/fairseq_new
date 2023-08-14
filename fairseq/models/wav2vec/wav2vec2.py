@@ -1597,7 +1597,8 @@ class DynamicAdapterFast(AdapterFast):
         ii = adapter_id
         dynamic_dim = F.gumbel_softmax(self.dynamic_ratio, tau=1, hard=True, dim=-1)
         dynamic_dim = dynamic_dim[ii] * self.predefined_ratio
-        argmax = torch.nonzero(dynamic_dim).item()
+        argmax = torch.nonzero(dynamic_dim)[0][0]
+
         
         return dynamic_dim[argmax]
 
