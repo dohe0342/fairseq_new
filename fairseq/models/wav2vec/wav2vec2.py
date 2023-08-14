@@ -1600,7 +1600,8 @@ class DynamicAdapterFast(AdapterFast):
 
     def forward(self, x, adapter_id):
         ii = adapter_id
-
+        
+        ## For diff masking
         mask = self.get_prune_mask(adapter_id)
         W_a = self.W_a[ii] * ratio
         b_a = self.b_a[ii] * ratio
