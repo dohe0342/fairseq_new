@@ -1596,7 +1596,7 @@ class DynamicAdapterFast(AdapterFast):
     def get_prune_ratio(self, adapter_id):
         ii = adapter_id
         dynamic_dim = F.gumbel_softmax(self.dynamic_ratio, tau=1, hard=True, dim=-1)
-        dynamic_dim = dynamic_dim * self.predefined_ratio
+        dynamic_dim = dynamic_dim[ii] * self.predefined_ratio
 
     def forward(self, x, adapter_id):
         ii = adapter_id
