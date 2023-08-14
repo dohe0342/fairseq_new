@@ -999,7 +999,6 @@ class TransformerEncoder(nn.Module):
                     activation_fn=args.activation_fn,
                     layer_norm_first=args.layer_norm_first,
                 )
-
         elif args.layer_type == "dyn_trf_adp":
             layer = TransformerSentenceEncoderWithDynamicAdapterLayer(
                 embedding_dim=self.embedding_dim,
