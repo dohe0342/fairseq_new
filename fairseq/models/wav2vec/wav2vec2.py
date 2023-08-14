@@ -1596,7 +1596,8 @@ class DynamicAdapterFast(AdapterFast):
     def forward(self, x, adapter_id):
         ii = adapter_id
 
-        dynamic_dim = F.softmax(self.dynamic_ratio, dim=-1)
+        dynamic_dim = F.gumbel_softmax(self.dynamic_ratio, dim=-1)
+        
 
         h = x
         h = F.layer_norm(h, (self.input_dim, ), self.ln_W[ii], self.ln_b[ii])
