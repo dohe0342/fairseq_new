@@ -1614,7 +1614,7 @@ class DynamicAdapterFast(AdapterFast):
 
         h = F.linear(h, W_a, b_a)
         h = self.act_fn(h)
-        h = F.linear(h, self.W_b[ii], self.b_b[ii])
+        h = F.linear(h, W_b, b_b)
         outputs = h
         return outputs
     
