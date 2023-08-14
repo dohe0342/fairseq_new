@@ -1609,7 +1609,7 @@ class DynamicAdapterFast(AdapterFast):
         ii = adapter_id
         m = self.act_fn(self.dynamic_mask[ii])
         m = F.gumbel_softmax(m, hard=True, dim=-1)
-        m = [:,1]
+        m = m[:,1]
         
         return m
 
