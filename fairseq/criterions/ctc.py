@@ -430,7 +430,6 @@ class CtcCriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
-
             #loss_l2 = 
 
         ntokens = (
