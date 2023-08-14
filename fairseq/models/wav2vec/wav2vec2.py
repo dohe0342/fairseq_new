@@ -1589,48 +1589,8 @@ class DynamicAdapterFast(AdapterFast):
         """
         super().__init__()
         
-        self.adapter_num = adapter_num
-        self.input_dim = input_dim
-        self.hidden_dim = hidden_dim
-        self.W_a = nn.Parameter(torch.empty(adapter_num, hidden_dim, input_dim))
-        self.W_b = nn.Parameter(torch.empty(adapter_num, input_dim, hidden_dim))
-        self.b_a = nn.Parameter(torch.empty(adapter_num, hidden_dim))
-        self.b_b = nn.Parameter(torch.empty(adapter_num, input_dim))
-
-        self.ln_W = nn.Parameter(torch.empty(adapter_num, input_dim))
-        self.ln_b = nn.Parameter(torch.empty(adapter_num, input_dim))
-        self.act_fn = nn.Identity()
-        if act_fn == "relu":
-            self.act_fn = nn.ReLU()
-        elif act_fn == "gelu":
-            self.act_fn = nn.GELU()
-        elif act_fn == "selu":
-            self.act_fn = nn.SELU()
-        else:
-            raise ValueError(f"unsupported {act_fn}")
-
-
-        self.input_dim = input_dim
-        self.reset_parameters()
-
-    def reset_parameters(self):
-        for ii in range(self.adapter_num):
-            nn.init.kaiming_uniform_(self.W_a[ii], a=math.sqrt(5))
-            nn.init.kaiming_uniform_(self.W_b[ii], a=math.sqrt(5))
-            fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.W_a[ii])
-            bound = 1 / math.sqrt(fan_in) if fan_in > 0 else 0
-            nn.init.uniform_(self.b_a[ii], -bound, bound)
-            fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.W_b[ii])
-            bound = 1 / math.sqrt(fan_in) if fan_in > 0 else 0
-            nn.init.uniform_(self.b_b[ii], -bound, bound)
-
-            self.W_a[ii].data /= 10.
-            self.W_b[ii].data /= 10.
-            self.b_a.data /= 10.
-            self.b_b.data /= 10.
-        
-        nn.init.ones_(self.ln_W)
-        nn.init.zeros_(self.ln_b)
+        self.dynamic_ratio = nn.Paramter(torch.empty(adapter_num, 11))
+        self.predefined_ratio = [i-1 if i != 0 else 0 for i in range(0, 61, 6)]
 
     def forward(self, x, adapter_id):
         ii = adapter_id
