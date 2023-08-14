@@ -1620,10 +1620,11 @@ class DynamicAdapterFast(AdapterFast):
         mask = self.get_prune_mask(adapter_id)
         if np.random.random() < 0.001:
             print(sum(mask))
-        W_a = self.W_a[ii] * ratio
-        b_a = self.b_a[ii] * ratio
+
+        W_a = self.W_a[ii] * mask 
+        b_a = self.b_a[ii] * mask 
         
-        W_b = self.W_b[ii].T * ratio
+        W_b = self.W_b[ii].T * mask
         W_b = W_b.T
         
         h = x
