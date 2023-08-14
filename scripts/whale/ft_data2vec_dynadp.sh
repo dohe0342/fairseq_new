@@ -13,9 +13,8 @@ fairseq-hydra-train \
 	optimization.max_update=80000 \
 	optimization.lr=[0.00003] \
 	criterion._name=ctc \
-	lr_scheduler.phase_ratio=[0.05,0.65,0.3] \
 	+task.min_sample_size=16000 \
-	+model.layer_type=trf_adp \
+	+model.layer_type=dyn_trf_adp \
 	+model.adp_num=1 \
 
 : <<'END'
