@@ -1603,7 +1603,7 @@ class DynamicAdapterFast(AdapterFast):
         and without using ModuleList orto speed up training throughput.
         """
         super().__init__(adapter_num, input_dim, hidden_dim, act_fn)
-        self.dynamic_mask = nn.Paramter(torch.empty(adapter_num, hidden_dim, 2))
+        self.dynamic_mask = nn.Parameter(torch.empty(adapter_num, hidden_dim, 2))
 
     def get_prune_mask(self, adapter_id):
         ii = adapter_id
