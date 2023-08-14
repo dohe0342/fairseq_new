@@ -1588,23 +1588,26 @@ class DynamicAdapterFast(AdapterFast):
         and without using ModuleList orto speed up training throughput.
         """
         super().__init__()
-        self.dynamic_ratio = nn.Paramter(torch.empty(adapter_num, 64, 2))
+        self.dynamic_mask = nn.Paramter(torch.empty(adapter_num, 64, 2))
 
-    def get_prune_ratio(self, adapter_id):
+    def get_prune_mask(self, adapter_id):
         ii = adapter_id
-        r = self.act_fn(self.dynamic_ratio[ii])
-        r = F.gumbel_softmax(r, hard=True, dim=-1)
-        r = [:,1]
+        m = self.act_fn(self.dynamic_mask[ii])
+        m = F.gumbel_softmax(m, hard=True, dim=-1)
+        m = [:,1]
         
         return r
 
     def forward(self, x, adapter_id):
         ii = adapter_id
 
-        ratio = self.get_prune_ratio(adapter_id)
+        mask = self.get_prune_mask(adapter_id)
+        W_a = self.W_a[ii] * ratio
+        W_b = self.b_a[ii] * ratio
         
         h = x
         h = F.layer_norm(h, (self.input_dim, ), self.ln_W[ii], self.ln_b[ii])
+
         h = F.linear(h, self.W_a[ii], self.b_a[ii])
         h = self.act_fn(h)
         h = F.linear(h, self.W_b[ii], self.b_b[ii])
