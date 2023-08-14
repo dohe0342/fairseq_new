@@ -1596,7 +1596,7 @@ class DynamicAdapterFast(AdapterFast):
         m = F.gumbel_softmax(m, hard=True, dim=-1)
         m = [:,1]
         
-        return r
+        return m
 
     def forward(self, x, adapter_id):
         ii = adapter_id
