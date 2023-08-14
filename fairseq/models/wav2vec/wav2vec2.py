@@ -1618,6 +1618,8 @@ class DynamicAdapterFast(AdapterFast):
         
         ## For diff masking
         mask = self.get_prune_mask(adapter_id)
+        if np.random.random() < 0.001:
+            print(sum(mask))
         W_a = self.W_a[ii] * ratio
         b_a = self.b_a[ii] * ratio
         
