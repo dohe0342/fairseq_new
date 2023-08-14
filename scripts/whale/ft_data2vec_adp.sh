@@ -10,9 +10,8 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
-	optimization.max_update=0 \
-	optimization.max_epoch=30 \
-	optimization.lr=[0.0001] \
+	optimization.max_update=20000 \
+	optimization.lr=[0.00003] \
 	criterion._name=ctc \
 	+task.min_sample_size=16000 \
 	+model.layer_type=trf_adp \
