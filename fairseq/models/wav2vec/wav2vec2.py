@@ -1612,7 +1612,7 @@ class DynamicAdapterFast(AdapterFast):
         h = x
         h = F.layer_norm(h, (self.input_dim, ), self.ln_W[ii], self.ln_b[ii])
 
-        h = F.linear(h, self.W_a[ii], self.b_a[ii])
+        h = F.linear(h, W_a, b_a)
         h = self.act_fn(h)
         h = F.linear(h, self.W_b[ii], self.b_b[ii])
         outputs = h
