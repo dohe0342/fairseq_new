@@ -1593,12 +1593,14 @@ class DynamicAdapterFast(AdapterFast):
         self.default_dim = 4
         self.predefined_ratio = [i-1 if i != 0 else 0 for i in range(0, 61, 6)]
 
+    def get_prune_ratio(self, adapter_id):
+        ii = adapter_id
+        dynamic_dim = F.gumbel_softmax(self.dynamic_ratio, tau=1, hard=True, dim=-1)
+        dynamic_dim = 
+
     def forward(self, x, adapter_id):
         ii = adapter_id
-
-        dynamic_dim = F.gumbel_softmax(self.dynamic_ratio, tau=1, hard=True, dim=-1)
         
-
         h = x
         h = F.layer_norm(h, (self.input_dim, ), self.ln_W[ii], self.ln_b[ii])
         h = F.linear(h, self.W_a[ii], self.b_a[ii])
