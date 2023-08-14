@@ -583,7 +583,6 @@ class CtcCriterion(FairseqCriterion):
         return True
 
 
-
 @register_criterion("interctc", dataclass=CtcCriterionConfig)
 class InterCtcCriterion(CtcCriterion):
     def __init__(
