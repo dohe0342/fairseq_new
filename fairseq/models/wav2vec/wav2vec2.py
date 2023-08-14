@@ -1590,15 +1590,13 @@ class DynamicAdapterFast(AdapterFast):
         super().__init__()
         
         self.dynamic_ratio = nn.Paramter(torch.empty(adapter_num, 11))
-        self.default_dim = 4
-        self.predefined_ratio = torch.IntTensor([i-1 if i != 0 else 0 for i in range(0, 61, 6)])
+        self.predefined_ratio = torch.FloatTensor([i-1 if i != 0 else 0 for i in range(0, 61, 6)])
 
     def get_prune_ratio(self, adapter_id):
         ii = adapter_id
         dynamic_dim = F.gumbel_softmax(self.dynamic_ratio, tau=1, hard=True, dim=-1)
         dynamic_dim = dynamic_dim[ii] * self.predefined_ratio
         argmax = torch.nonzero(dynamic_dim)[0][0]
-
         
         return dynamic_dim[argmax]
 
