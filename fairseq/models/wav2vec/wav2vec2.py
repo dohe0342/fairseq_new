@@ -1000,6 +1000,20 @@ class TransformerEncoder(nn.Module):
                     layer_norm_first=args.layer_norm_first,
                 )
 
+        elif args.layer_type == "dyn_trf_adp":
+            layer = TransformerSentenceEncoderWithDynamicAdapterLayer(
+                embedding_dim=self.embedding_dim,
+                ffn_embedding_dim=args.encoder_ffn_embed_dim,
+                num_attention_heads=args.encoder_attention_heads,
+                dropout=self.dropout,
+                attention_dropout=args.attention_dropout,
+                activation_dropout=args.activation_dropout,
+                activation_fn=args.activation_fn,
+                layer_norm_first=args.layer_norm_first,
+                adapter_num=args.adp_num,
+                adapter_dim=args.adp_dim,
+                adapter_act_fn=args.adp_act_fn,
+
         layer = fsdp_wrap(layer)
         if args.checkpoint_activations:
             layer = checkpoint_wrapper(layer)
