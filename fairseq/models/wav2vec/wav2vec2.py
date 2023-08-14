@@ -1603,12 +1603,12 @@ class DynamicAdapterFast(AdapterFast):
         and without using ModuleList orto speed up training throughput.
         """
         super().__init__(adapter_num, input_dim, hidden_dim, act_fn)
-        self.dynamic_mask = nn.Parameter(torch.empty(adapter_num, hidden_dim, 2))
+        self.dynamic_mask = nn.Parameter(torch.rand(adapter_num, hidden_dim, 2))
 
     def get_prune_mask(self, adapter_id):
         ii = adapter_id
-        m = self.dynamic_mask[ii]
-        #m = self.act_fn(self.dynamic_mask[ii])
+        #m = self.dynamic_mask[ii]
+        m = self.act_fn(self.dynamic_mask[ii])
         m = F.gumbel_softmax(m, hard=True, dim=-1)
         m = m[:,1]
         
