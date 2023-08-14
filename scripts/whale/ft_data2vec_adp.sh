@@ -21,7 +21,7 @@ for i in {1..11}; do
 		+model.adp_trf_idx=$i:12
 done
 
-for i in {11..2}; do
+for i in {11..1}; do
 	fairseq-hydra-train \
 		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 		--config-name base_100h \
