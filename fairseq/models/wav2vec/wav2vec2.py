@@ -1013,6 +1013,7 @@ class TransformerEncoder(nn.Module):
                 adapter_num=args.adp_num,
                 adapter_dim=args.adp_dim,
                 adapter_act_fn=args.adp_act_fn,
+            )
 
         layer = fsdp_wrap(layer)
         if args.checkpoint_activations:
