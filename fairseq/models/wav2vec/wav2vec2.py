@@ -1626,6 +1626,7 @@ class DynamicAdapterFast(AdapterFast):
         W_a = W_a.T
         
         W_b = self.W_b[ii] * mask
+        b_b = self.b_b[ii]
         
         h = x
         h = F.layer_norm(h, (self.input_dim, ), self.ln_W[ii], self.ln_b[ii])
