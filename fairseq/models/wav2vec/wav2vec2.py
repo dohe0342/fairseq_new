@@ -1681,7 +1681,7 @@ class TransformerSentenceEncoderWithDynamicAdapterLayer(TransformerSentenceEncod
 
         self.adapter_num = adapter_num
         self.adapter_dim = adapter_dim
-        self.adapter_layer = AdapterFast(adapter_num, self.embedding_dim, self.adapter_dim, adapter_act_fn)
+        self.adapter_layer = DynamicAdapterFast(adapter_num, self.embedding_dim, self.adapter_dim, adapter_act_fn)
 
     def forward(
         self,
