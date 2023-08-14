@@ -1581,7 +1581,7 @@ class TransformerSentenceEncoderWithAdapterLayer(TransformerSentenceEncoderLayer
         return x, (attn, layer_result)
 
 
-class DynamicAdapterFast(nn.Module):
+class DynamicAdapterFast(AdapterFast):
     def __init__(self, adapter_num, input_dim, hidden_dim, act_fn):
         """
         Implements adapter modules directly with 3D tensor weight as parameters
