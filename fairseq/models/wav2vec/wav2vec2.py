@@ -1591,7 +1591,7 @@ class DynamicAdapterFast(AdapterFast):
         
         self.dynamic_ratio = nn.Paramter(torch.empty(adapter_num, 11))
         self.default_dim = 4
-        self.predefined_ratio = [i-1 if i != 0 else 0 for i in range(0, 61, 6)]
+        self.predefined_ratio = torch.IntTensor([i-1 if i != 0 else 0 for i in range(0, 61, 6)])
 
     def get_prune_ratio(self, adapter_id):
         ii = adapter_id
