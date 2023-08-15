@@ -17,4 +17,4 @@ fairseq-hydra-train \
 	+task.min_sample_size=16000 \
 	+model.layer_type=trf_adp \
 	+model.adp_num=1 \
-	+model.adp_trf_idx=$i:12
+	+model.adp_trf_idx=0:8
