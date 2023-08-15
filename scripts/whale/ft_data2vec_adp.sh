@@ -20,7 +20,7 @@ fairseq-hydra-train \
 	+model.adp_num=1 \
 END
 
-for i in {5..11}; do
+for i in {6..11}; do
 	fairseq-hydra-train \
 		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 		--config-name base_100h \
