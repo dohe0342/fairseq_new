@@ -18,7 +18,6 @@ fairseq-hydra-train \
 	+model.layer_type=trf_adp \
 	+model.adp_num=1 \
 
-: <<'END'
 for i in {1..11}; do
 	fairseq-hydra-train \
 		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
@@ -62,7 +61,7 @@ for i in {11..1}; do
 		+model.adp_num=1 \
 		+model.adp_trf_idx=0:$i
 done
-END
+
 : <<'END'
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
