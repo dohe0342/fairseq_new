@@ -1535,7 +1535,6 @@ class AdapterFast(nn.Module):
         return ('adapter={}, input_dim={}, hidden_dim={}'.format(self.adapter_num, self.input_dim, self.hidden_dim))
 
 
-
 class TransformerSentenceEncoderWithAdapterLayer(TransformerSentenceEncoderLayer):
     """
     Implements a Transformer Encoder Layer with adapters used in BERT/XLM style pre-trained
