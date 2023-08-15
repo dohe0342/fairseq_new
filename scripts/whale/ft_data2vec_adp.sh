@@ -31,7 +31,7 @@ for i in {1..11}; do
 		checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1_first_$i \
 		dataset.train_subset=ted2_train \
 		dataset.valid_subset=ted2_dev \
-		optimization.max_update=20000 \
+		optimization.max_update=80000 \
 		optimization.lr=[0.0001] \
 		criterion._name=ctc \
 		+task.min_sample_size=16000 \
@@ -53,7 +53,7 @@ for i in {11..1}; do
 		checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1_last_$i \
 		dataset.train_subset=ted2_train \
 		dataset.valid_subset=ted2_dev \
-		optimization.max_update=20000 \
+		optimization.max_update=80000 \
 		optimization.lr=[0.0001] \
 		criterion._name=ctc \
 		+task.min_sample_size=16000 \
