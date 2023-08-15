@@ -11,6 +11,7 @@ fairseq-hydra-train \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
 	optimization.max_update=20000 \
+	optimization.max_epoch=100 \
 	optimization.lr=[0.00003] \
 	criterion._name=ctc \
 	lr_scheduler.phase_ratio=[0.05,0.65,0.3] \
