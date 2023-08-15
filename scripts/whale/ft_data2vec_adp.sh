@@ -32,7 +32,8 @@ for i in {1..11}; do
 		dataset.train_subset=ted2_train \
 		dataset.valid_subset=ted2_dev \
 		optimization.max_update=80000 \
-		optimization.lr=[0.0001] \
+		optimization.max_epoch=100 \
+		optimization.lr=[0.00003] \
 		criterion._name=ctc \
 		+task.min_sample_size=16000 \
 		+model.layer_type=trf_adp \
@@ -54,7 +55,8 @@ for i in {11..1}; do
 		dataset.train_subset=ted2_train \
 		dataset.valid_subset=ted2_dev \
 		optimization.max_update=80000 \
-		optimization.lr=[0.0001] \
+		optimization.max_epoch=100 \
+		optimization.lr=[0.00003] \
 		criterion._name=ctc \
 		+task.min_sample_size=16000 \
 		+model.layer_type=trf_adp \
