@@ -13,7 +13,7 @@ fairseq-hydra-train \
 	optimization.max_update=80000 \
 	optimization.max_epoch=100 \
 	optimization.lr=[0.00003] \
-	criterion._name=ctc \
+	criterion._name=prompt \
 	+task.min_sample_size=16000 \
 	+model.layer_type=trf_adp \
 	+model.adp_num=1 \
