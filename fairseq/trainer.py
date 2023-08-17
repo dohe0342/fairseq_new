@@ -332,7 +332,7 @@ class Trainer(object):
             )
         
         logger.info("-----------------------------------------")
-        logger.info(params)
+        logger.info(len(params))
         logger.info("-----------------------------------------")
 
         if self.is_fsdp and self.cfg.common.fp16:
