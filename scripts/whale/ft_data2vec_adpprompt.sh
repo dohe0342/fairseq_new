@@ -1,4 +1,3 @@
-: <<'END'
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
@@ -17,9 +16,7 @@ fairseq-hydra-train \
 	criterion._name=ctc \
 	+task.min_sample_size=16000 \
 	+model.layer_type=trf_adp \
-	+model.adp_num=1 \
-	+model.adp_trf_idx=0:3
-END
+	+model.adp_num=1
 
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
