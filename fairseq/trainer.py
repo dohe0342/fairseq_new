@@ -308,6 +308,13 @@ class Trainer(object):
                     params.append(p)
                     self.param_names.append(n)
         else:
+            for n, p in self.model.named_parameters():
+                if 'adapter' in n or 'norm' in n:
+                    logger.info(f"{n} requires grad = True")
+                    p.requires_grad = True
+                else:
+                    p.requries_grad = False
+
             params = list(
                 filter(
                     lambda p: p.requires_grad,
