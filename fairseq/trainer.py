@@ -330,6 +330,7 @@ class Trainer(object):
                     chain(self.model.parameters(), self.criterion.parameters()),
                 )
             )
+            print('here')
         
         logger.info("-----------------------------------------")
         logger.info(len(params))
