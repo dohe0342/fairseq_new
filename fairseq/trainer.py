@@ -317,6 +317,8 @@ class Trainer(object):
         
         logger.info("-----------------------------------------")
         logger.info(len(params))
+        for p in params:
+            logger.info(p.size())
         logger.info("-----------------------------------------")
 
         if self.is_fsdp and self.cfg.common.fp16:
