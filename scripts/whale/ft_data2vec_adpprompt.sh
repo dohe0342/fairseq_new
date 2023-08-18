@@ -14,9 +14,9 @@ fairseq-hydra-train \
 	optimization.max_epoch=100 \
 	optimization.lr=[0.00003] \
 	criterion._name=ctc \
-	+task.min_sample_size=16000 \
-	+model.layer_type=trf_adp \
-	+model.adp_num=1
+	+task.min_sample_size=16000
+	#+model.layer_type=trf_adp \
+	#+model.adp_num=1
 
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
@@ -34,6 +34,6 @@ fairseq-hydra-train \
 	optimization.max_epoch=100 \
 	optimization.lr=[0.00003] \
 	criterion._name=prompt \
-	+task.min_sample_size=16000 \
-	+model.layer_type=trf_adp \
-	+model.adp_num=1
+	+task.min_sample_size=16000
+	#+model.layer_type=trf_adp \
+	#+model.adp_num=1
