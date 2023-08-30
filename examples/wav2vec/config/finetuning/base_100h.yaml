@@ -16,7 +16,7 @@ task:
   labels: ltr
 
 dataset:
-  num_workers: 10
+  num_workers: 2
   max_tokens: 3200000
   skip_invalid_size_inputs_valid_test: true
   train_subset: train-100
