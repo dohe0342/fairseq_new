@@ -1621,6 +1621,8 @@ class DynamicAdapterFast(AdapterFast):
         if np.random.random() < 0.001:
             print(sum(mask))
 
+        mask = GradMultiply.apply(mask, self.feature_grad_mult)
+
         W_a = self.W_a[ii].T * mask
         b_a = self.b_a[ii] * mask
         W_a = W_a.T
