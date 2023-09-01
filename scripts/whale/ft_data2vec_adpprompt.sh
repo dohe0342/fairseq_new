@@ -37,5 +37,5 @@ fairseq-hydra-train \
 	optimization.lr=[0.0002] \
 	criterion._name=ctc \
 	+task.min_sample_size=16000 \
-	+model.layer_type=dyn_trf_adp \
+	+model.layer_type=trf_adp \
 	+model.adp_num=1
