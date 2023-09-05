@@ -848,7 +848,7 @@ class PromptCtcCriterion(CtcCriterion):
             new_emb[i] = torch.normal(float(mean), float(std), size=(1,50)).squeeze()
         new_emb = new_emb.transpose(1,0)
         self.prompt = torch.nn.Parameter(new_emb)
-        print('-'*20)
+        self.prompt = self.prompt.half()
         print(self.prompt)
         print(new_emb)
         print('-'*20)
