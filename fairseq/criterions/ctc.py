@@ -839,6 +839,21 @@ class PromptCtcCriterion(CtcCriterion):
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
         super().__init__(cfg, task, rdrop_alpha)
+        if prompt:
+            #statistic = open(f'/home/work/workspace/icefall/egs/librispeech/ASR/conv_feat/{self.sid}/{sid}_statistic.txt', 'r').readlines()
+            self.prompt = torch.nn.Parameter(torch.rand((50, 512)))
+            #print(self.prompt)
+            '''
+            new_emb = torch.empty(512, 50)
+            for i in range(512):
+                mean, std = statistic[i].strip().split(' ')
+                print(new_emb[i].size())
+                print(float(mean), float(std))
+                new_emb[i] = torch.normal(float(mean), float(std), size=(1,50)).squeeze()
+            new_emb = new_emb.transpose(1,0)
+            self.prompt = torch.nn.Parameter(new_emb)
+            print(self.prompt)
+            '''
         self.prompt = torch.nn.Parameter(torch.randn(50, 512)/10.)
         #self.prompt = torch.nn.Parameter(torch.rand(50, 512))
         
