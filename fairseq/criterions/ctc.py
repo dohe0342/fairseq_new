@@ -852,6 +852,7 @@ class PromptCtcCriterion(CtcCriterion):
         
     def forward(self, model, sample, reduce=True, **kwargs):
         print(sample['net_input'].keys())
+        device = sample['net_input']['source'].device
         sample['net_input']['prompt'] = self.prompt
         net_output = model(**sample["net_input"])
         lprobs = model.get_normalized_probs(
