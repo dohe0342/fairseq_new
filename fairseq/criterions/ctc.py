@@ -840,9 +840,6 @@ class PromptCtcCriterion(CtcCriterion):
     ):
         super().__init__(cfg, task, rdrop_alpha)
         statistic = open(f'/home/work/workspace/icefall/egs/librispeech/ASR/conv_feat/1284/1284_statistic.txt', 'r').readlines()
-        self.prompt = torch.nn.Parameter(torch.rand((50, 512)))
-        #print(self.prompt)
-        '''
         new_emb = torch.empty(512, 50)
         for i in range(512):
             mean, std = statistic[i].strip().split(' ')
@@ -851,9 +848,7 @@ class PromptCtcCriterion(CtcCriterion):
             new_emb[i] = torch.normal(float(mean), float(std), size=(1,50)).squeeze()
         new_emb = new_emb.transpose(1,0)
         self.prompt = torch.nn.Parameter(new_emb)
-        print(self.prompt)
-        '''
-        self.prompt = torch.nn.Parameter(torch.randn(50, 512)/10.)
+        #self.prompt = torch.nn.Parameter(torch.randn(50, 512)/10.)
         #self.prompt = torch.nn.Parameter(torch.rand(50, 512))
         
     def forward(self, model, sample, reduce=True, **kwargs):
