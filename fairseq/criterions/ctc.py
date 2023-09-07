@@ -999,8 +999,8 @@ class PrefixCtcCriterion(CtcCriterion):
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
         super().__init__(cfg, task, rdrop_alpha)
-        key_prefix = [torch.nn.Parameter(torch.rand(50, 768)) for i in range(12)]
-        value_prefix = [torch.nn.Parameter(torch.rand(50, 768)) for i in range(12)]
+        key_prefix = [torch.nn.Parameter(torch.rand(50, 768)/10.) for i in range(12)]
+        value_prefix = [torch.nn.Parameter(torch.rand(50, 768)/10.) for i in range(12)]
         self.prefix = [key_prefix, value_prefix]
         
     def forward(self, model, sample, reduce=True, **kwargs):
