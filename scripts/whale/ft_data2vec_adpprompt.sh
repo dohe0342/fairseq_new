@@ -1,4 +1,3 @@
-for dim in 4 8 16 32; do
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
@@ -19,7 +18,6 @@ fairseq-hydra-train \
 	+model.layer_type=trf_adp \
 	+model.adp_num=1 \
 	+model.adp_dim=$dim
-done
 
 '''
 fairseq-hydra-train \
