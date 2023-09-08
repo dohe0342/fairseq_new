@@ -19,6 +19,7 @@ fairseq-hydra-train \
 	+model.layer_type=trf_adp \
 	+model.adp_num=1 \
 	+model.adp_dim=2
+done
 
 '''
 fairseq-hydra-train \
