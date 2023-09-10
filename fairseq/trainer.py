@@ -289,7 +289,7 @@ class Trainer(object):
     def _build_optimizer(self):
         for n, p in self.model.named_parameters():
             #if 'adapter' in n or 'norm' in n:# or 'w2v_encoder.proj' in n:
-            if 'q_proj' in n or 'v_proj' in n or 'norm' in n:
+            if 'q_proj' in n or 'v_proj' in n or 'norm' in n or 1:
                 logger.info(f"{n} requires grad = True")
                 p.requires_grad = True
             else:
