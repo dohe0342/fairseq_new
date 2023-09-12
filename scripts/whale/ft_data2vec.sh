@@ -1,6 +1,6 @@
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_100h \
+	--config-name vox_100h \
 	common.user_dir=examples/data2vec \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
