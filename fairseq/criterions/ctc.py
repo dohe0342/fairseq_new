@@ -847,7 +847,8 @@ class PromptCtcCriterion(CtcCriterion):
             #print(float(mean), float(std))
             new_emb[i] = torch.normal(float(mean), float(std), size=(1,50)).squeeze()
         new_emb = new_emb.transpose(1,0)
-        self.prompt = torch.nn.Parameter(new_emb).half()
+        #self.prompt = torch.nn.Parameter(new_emb).half()
+        self.prompt = torch.nn.Parameter(new_emb)
         #self.prompt = torch.nn.Parameter(torch.randn(50, 512)/10.)
         
     def forward(self, model, sample, reduce=True, **kwargs):
@@ -858,8 +859,6 @@ class PromptCtcCriterion(CtcCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
-
-        print(self.prompt)
 
         print(sample["target"])
         print(sample["target"].size())
