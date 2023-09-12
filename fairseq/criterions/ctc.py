@@ -859,7 +859,7 @@ class PromptCtcCriterion(CtcCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
-        lprobs = lprobs[50:, :, :]
+        #lprobs = lprobs[50:, :, :]
 
         #print(sample["target"])
         #print(sample["target"].size())
@@ -889,7 +889,7 @@ class PromptCtcCriterion(CtcCriterion):
             input_lengths = sample["net_input"]["src_lengths"]
         else:
             if net_output["padding_mask"] is not None:
-                net_output["padding_mask"] = net_output["padding_mask"][:,50:]
+                #net_output["padding_mask"] = net_output["padding_mask"][:,50:]
                 non_padding_mask = ~net_output["padding_mask"]
                 input_lengths = non_padding_mask.long().sum(-1)
             else:
