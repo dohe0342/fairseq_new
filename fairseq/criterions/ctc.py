@@ -858,6 +858,9 @@ class PromptCtcCriterion(CtcCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
+
+        print(sample["target"])
+        exit()
         #if 1: lprobs = lprobs[50:, :, :]
 
         # CTC loss is calculated over duplicated inputs
