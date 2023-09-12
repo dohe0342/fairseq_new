@@ -89,7 +89,8 @@ def main(cfg: FairseqConfig) -> None:
     assert cfg.criterion, "Please specify criterion to train a model"
 
     # Build model and criterion
-    ckp = torch.load('/home/work/workspace/models/data2vec_model/vox_960h.pt')
+    #ckp = torch.load('/home/work/workspace/models/data2vec_model/vox_960h.pt')
+    ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_960.pt')
     if cfg.distributed_training.ddp_backend == "fully_sharded":
         for n, p in model.named_parameters():
             p.data = ckp['model'][n]
