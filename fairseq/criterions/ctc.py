@@ -860,6 +860,7 @@ class PromptCtcCriterion(CtcCriterion):
         ).contiguous()  # (T, B, C) from the encoder
 
         print(sample["target"])
+        print(sample["target"].size())
         exit()
         #if 1: lprobs = lprobs[50:, :, :]
 
