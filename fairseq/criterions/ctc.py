@@ -859,6 +859,7 @@ class PromptCtcCriterion(CtcCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
+        lprobs = lprobs[50:, :, :]
 
         #print(sample["target"])
         #print(sample["target"].size())
