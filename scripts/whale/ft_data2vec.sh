@@ -11,8 +11,8 @@ fairseq-hydra-train \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
 	optimization.max_update=80000 \
-	optimization.lr=[0.0001] \
-	criterion._name=ctc \
+	optimization.lr=[0.0003] \
+	criterion._name=prefix \
 	+task.min_sample_size=16000 \
 
 : <<'END'
