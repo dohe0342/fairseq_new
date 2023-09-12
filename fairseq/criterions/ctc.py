@@ -848,8 +848,8 @@ class PromptCtcCriterion(CtcCriterion):
             new_emb[i] = torch.normal(float(mean), float(std), size=(1,50)).squeeze()
         new_emb = new_emb.transpose(1,0)
         #self.prompt = torch.nn.Parameter(new_emb).half()
-        self.prompt = torch.nn.Parameter(new_emb)
-        #self.prompt = torch.nn.Parameter(torch.randn(50, 512)/10.)
+        #self.prompt = torch.nn.Parameter(new_emb)
+        self.prompt = torch.nn.Parameter(torch.randn(50, 512)/10.)
         
     def forward(self, model, sample, reduce=True, **kwargs):
         device = sample['net_input']['source'].device
