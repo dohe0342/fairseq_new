@@ -859,6 +859,8 @@ class PromptCtcCriterion(CtcCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
 
+        print(self.prompt)
+
         print(sample["target"])
         print(sample["target"].size())
         exit()
