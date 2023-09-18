@@ -1230,7 +1230,7 @@ class CtcCriterion(FairseqCriterion):
 
             tgt_list.append(tgt_words)
         
-        lm_input = model.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
+        lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
         with torch.cuda.amp.autocast(enabled=True):
             with torch.no_grad():
                 lm_output = self.lm(**lm_input)
