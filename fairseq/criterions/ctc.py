@@ -1280,10 +1280,8 @@ class CtcCriterion(FairseqCriterion):
         targets_flat = sample["target"].masked_select(pad_mask)
         if "target_lengths" in sample:
             target_lengths = sample["target_lengths"]
-            print('4444')
         else:
             target_lengths = pad_mask.sum(-1)
-            print('5555')
 
         print('111', pad_mask)
         print('222', targets_flat)
