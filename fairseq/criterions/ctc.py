@@ -1232,6 +1232,7 @@ class CtcCriterion(FairseqCriterion):
         
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_padding_mask=True)
         am_output = net_output['encoder_feat']
+        am_output = self.lm_linear(am_output)
 
         
         #############################3
