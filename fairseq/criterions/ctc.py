@@ -1248,6 +1248,7 @@ class CtcCriterion(FairseqCriterion):
                 print(softmax[0][100])
                 print(softmax[0][200])
                 print(softmax[0][300])
+                print('-'*20)
 
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
