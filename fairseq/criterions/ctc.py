@@ -1243,7 +1243,7 @@ class CtcCriterion(FairseqCriterion):
             
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
             if np.random.rand() < 0.1 and1:
-                softmax = F.softmax(lm_am_sim, dim=-1)
+                softmax = F.softmax(lm_am_sim / 3, dim=-1)
                 print(softmax.size(), softmax[0][0].size(), softmax[0][0])
                 print(softmax[0][100])
                 print(softmax[0][200])
