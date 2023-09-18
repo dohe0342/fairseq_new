@@ -1234,10 +1234,10 @@ class CtcCriterion(FairseqCriterion):
         with torch.no_grad():
             lm_output = self.lm(**lm_input)
 
-        am_output = net_output['encoder_feat']
+        am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
         am_output = self.lm_linear(am_output)
         
-        lm_am_sim = 
+        lm_am_sim = torch.bmm(
         ##############################
 
         # CTC loss is calculated over duplicated inputs
