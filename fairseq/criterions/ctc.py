@@ -1229,6 +1229,8 @@ class CtcCriterion(FairseqCriterion):
 
             tgt_list.append(tgt_word)
         
+        lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True)
+        
         #############################3
 
         # CTC loss is calculated over duplicated inputs
