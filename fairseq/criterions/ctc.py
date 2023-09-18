@@ -1441,7 +1441,7 @@ class CtcCriterion(FairseqCriterion):
             "ctc_loss", ctc_loss_sum / sample_size / math.log(2), sample_size, round=3
         )
         metrics.log_scalar(
-            "distill_loss", loss_sum / sample_size / math.log(2), sample_size, round=3
+            "distill_loss", distill_loss_sum / sample_size / math.log(2), sample_size, round=3
         )
 
         metrics.log_scalar("ntokens", ntokens)
