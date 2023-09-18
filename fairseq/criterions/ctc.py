@@ -1228,7 +1228,7 @@ class CtcCriterion(FairseqCriterion):
             tgt_pieces = self.tgt_dict.string(target_tokens.int().cpu())
             tgt_words = post_process(tgt_pieces, 'letter')
 
-            tgt_list.append(tgt_word)
+            tgt_list.append(tgt_words)
         
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_padding_mask=True).to(device)
         with torch.no_grad():
