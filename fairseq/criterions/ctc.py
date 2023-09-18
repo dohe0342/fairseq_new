@@ -1342,7 +1342,8 @@ class CtcCriterion(FairseqCriterion):
         sample_size = sample["target"].size(0) if self.sentence_avg else ntokens
         logging_output = {
             "loss": utils.item(loss.data),  # * sample['ntokens'],
-            "distill_loss": utils.item(
+            "ctc_loss": utils.item(ctc_loss.data),  # * sample['ntokens'],
+            "distill_loss": utils.item(distill_loss.data),
             "ntokens": ntokens,
             "nsentences": sample["id"].numel(),
             "sample_size": sample_size,
