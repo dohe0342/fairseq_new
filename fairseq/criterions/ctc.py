@@ -1223,6 +1223,7 @@ class CtcCriterion(FairseqCriterion):
             target_tokens = utils.strip_pad(toks, self.tgt_dict.pad())
             tgt_pieces = self.tgt_dict.string(target_tokens.int().cpu())
             tgt_words = post_process(tgt_pieces, 'letter')
+
             tgt_list.append(tgt_word)
 
         # CTC loss is calculated over duplicated inputs
