@@ -1306,7 +1306,11 @@ class CtcCriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
-
+            
+            print('1', lprobs.dtype)
+            print('2', targets_flat.dtype)
+            print('3', input_lengths.dtype)
+            print('4', target_lengths,dtype)
             distill_loss = F.ctc_loss(
                 lm_am_sim,
                 alignment_flat,
