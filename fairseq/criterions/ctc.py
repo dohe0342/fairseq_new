@@ -1227,7 +1227,7 @@ class CtcCriterion(FairseqCriterion):
             # Processes target.
             target_tokens = utils.strip_pad(toks, self.tgt_dict.pad())
             tgt_pieces = self.tgt_dict.string(target_tokens.int().cpu())
-            tgt_words = post_process(tgt_pieces, 'letter')
+            tgt_words = post_process(tgt_pieces, 'letter').lower()
 
             tgt_list.append(tgt_words)
         
@@ -1286,8 +1286,9 @@ class CtcCriterion(FairseqCriterion):
             target_lengths = sample["target_lengths"]
         else:
             target_lengths = pad_mask.sum(-1)
-
-        alignment_pad_mask = lm_input["attention_mask"] > 0
+        
+        #############for alignment target ###############################
+        #alignment_pad_mask = lm_input["attention_mask"] > 0
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
         alignment_flat = torch.linspace(
                                             1, 
@@ -1299,6 +1300,7 @@ class CtcCriterion(FairseqCriterion):
             temp_target = torch.linspace(1, i, steps=i).to(device)
             alignment_flat = torch.cat([alignment_flat, temp_target])
             alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
+        #############for alignment target ###############################
 
         with torch.backends.cudnn.flags(enabled=False):
             loss = F.ctc_loss(
@@ -1331,7 +1333,7 @@ class CtcCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
 
-            loss = loss + 0.0001*distill_loss
+            loss = loss + 0.01*distill_loss
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()

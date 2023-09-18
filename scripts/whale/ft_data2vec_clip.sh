@@ -10,8 +10,6 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
-	optimization.max_update=80000 \
-	optimization.lr=[0.00005] \
 	criterion._name=clip
 
 : <<'END'
