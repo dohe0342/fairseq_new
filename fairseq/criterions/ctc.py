@@ -1231,6 +1231,7 @@ class CtcCriterion(FairseqCriterion):
             tgt_list.append(tgt_word)
         
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_padding_mask=True)
+        am_output = net_output['encoder_feat']
 
         
         #############################3
