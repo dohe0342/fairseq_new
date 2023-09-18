@@ -1231,10 +1231,11 @@ class CtcCriterion(FairseqCriterion):
             tgt_list.append(tgt_word)
         
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_padding_mask=True)
+        lm_output = self.lm(**lm_input)
         am_output = net_output['encoder_feat']
         am_output = self.lm_linear(am_output)
         
-        #############################3
+        ##############################
 
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
