@@ -1309,12 +1309,12 @@ class CtcCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             
-            print('1', lprobs.size())
-            print('2', targets_flat.dtype)
-            print('3', input_lengths.dtype)
-            print('4', target_lengths.dtype)
+            #print('1', lprobs.size())
+            #print('2', targets_flat.dtype)
+            #print('3', input_lengths.dtype)
+            #print('4', target_lengths.dtype)
                 
-            print('5', lm_am_sim.size())
+            #print('5', lm_am_sim.size())
             #print('6', alignment_flat.dtype)
             #print('7', input_lengths.dtype)
             #print('8', alignment_lengths.dtype)
