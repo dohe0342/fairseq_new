@@ -1162,12 +1162,12 @@ class CtcCriterion(FairseqCriterion):
         super().__init__(task)
         
         ########### for gpt2
-        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-        self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.lm = GPT2Model.from_pretrained('gpt2')
+        #self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        #self.tokenizer.pad_token = self.tokenizer.eos_token
+        #self.lm = GPT2Model.from_pretrained('gpt2')
         self.task = task
         self.tgt_dict = task.target_dictionary
-        self.lm_linear = Linear(768, 768)
+        #self.lm_linear = Linear(768, 768)
         ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
