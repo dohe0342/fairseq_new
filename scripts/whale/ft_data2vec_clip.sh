@@ -12,8 +12,7 @@ fairseq-hydra-train \
 	dataset.valid_subset=dev-other \
 	optimization.max_update=80000 \
 	optimization.lr=[0.00005] \
-	criterion._name=clip \
-	+task.min_sample_size=16000 \
+	criterion._name=clip
 
 : <<'END'
 fairseq-hydra-train \
