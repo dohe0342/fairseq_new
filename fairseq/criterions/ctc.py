@@ -1238,7 +1238,7 @@ class CtcCriterion(FairseqCriterion):
 
         with torch.cuda.amp.autocast(enabled=True):
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
-            am_output = model.lm_linear(am_output)
+            am_output = self.lm_linear(am_output)
             
             lm_am_sim = torch.bmm(lm_output, am_output.transpose(1, 2))
             lm_am_sim = torch.nn.functional.log_softmax(lm_am_sim, dim=-1)
