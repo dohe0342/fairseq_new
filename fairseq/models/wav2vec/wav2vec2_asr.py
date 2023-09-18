@@ -624,7 +624,7 @@ class Wav2VecEncoder(FairseqEncoder):
             padding_mask = res["padding_mask"]
 
             # B x T x C -> T x B x C
-            x_ = x.transpose(0, 1)
+            x = x.transpose(0, 1)
 
         x_ = self.final_dropout(x)
 
