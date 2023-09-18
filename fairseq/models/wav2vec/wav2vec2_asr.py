@@ -275,7 +275,7 @@ class Wav2VecCtc(BaseFairseqModel):
 
 
 @register_model("wav2vec_ctc_distill", dataclass=Wav2Vec2CtcConfig)
-class Wav2VecCtc(BaseFairseqModel):
+class Wav2VecCtcDistill(BaseFairseqModel):
     def __init__(self, cfg: Wav2Vec2CtcConfig, w2v_encoder: BaseFairseqModel):
         super().__init__()
         self.cfg = cfg
