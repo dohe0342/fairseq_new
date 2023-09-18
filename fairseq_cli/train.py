@@ -101,12 +101,12 @@ def main(cfg: FairseqConfig) -> None:
     else:
         model = task.build_model(cfg.model)
         if 0:
-        for n, p in model.named_parameters():
-            try: 
-                p.data = ckp['model'][n]
-                logger.info(f"{n} replaced")
-            except: 
-                logger.info(f"adapter {n}")
+            for n, p in model.named_parameters():
+                try: 
+                    p.data = ckp['model'][n]
+                    logger.info(f"{n} replaced")
+                except: 
+                    logger.info(f"adapter {n}")
     del ckp
     criterion = task.build_criterion(cfg.criterion)
     logger.info(model)
