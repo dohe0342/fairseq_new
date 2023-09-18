@@ -22,6 +22,8 @@ from fairseq.tasks import FairseqTask
 from fairseq.logging.meters import safe_round
 from fairseq.models.wav2vec.wav2vec2_asr import Linear
 
+from transformers import GPT2Tokenizer, GPT2Model
+
 
 @dataclass
 class CtcCriterionConfig(FairseqDataclass):
@@ -1183,7 +1185,7 @@ class CtcCriterion(FairseqCriterion):
             dec_args.nbest = 1
             dec_args.criterion = "ctc"
             dec_args.kenlm_model = cfg.wer_kenlm_model
-            dec_args.lexicon = cfg.wer_lexicon
+            dec_args.lmlmtoammicon = cfg.wer_lexicon
             dec_args.beam = 50
             dec_args.beam_size_token = min(50, len(task.target_dictionary))
             dec_args.beam_threshold = min(50, len(task.target_dictionary))
