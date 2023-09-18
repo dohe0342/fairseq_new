@@ -1217,7 +1217,7 @@ class CtcCriterion(FairseqCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
         
-        ############for distillation
+        ############for distillation###########
         toks_list = sample["target"]
         tgt_list = []
         for toks in toks_list:
