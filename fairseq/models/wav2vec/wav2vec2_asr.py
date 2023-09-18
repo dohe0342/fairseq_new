@@ -282,6 +282,10 @@ class Wav2VecCtc(BaseFairseqModel):
         self.w2v_encoder = w2v_encoder
         self.blank_weight = cfg.blank_weight
         self.blank_mode = cfg.blank_mode
+        
+        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.lm = GPT2Model.from_pretrained('gpt2')
 
     def upgrade_state_dict_named(self, state_dict, name):
         super().upgrade_state_dict_named(state_dict, name)
