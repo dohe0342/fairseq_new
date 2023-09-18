@@ -1235,7 +1235,7 @@ class CtcCriterion(FairseqCriterion):
             lm_output = self.lm(**lm_input)
             lm_output = lm_output['last_hidden_state']
             print('-'*20)
-            print(lm_outputs.dtype)
+            print(lm_output.dtype)
             print('-'*20)
 
         am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
