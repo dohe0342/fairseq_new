@@ -1236,7 +1236,7 @@ class CtcCriterion(FairseqCriterion):
                 lm_output = model.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
 
-        with torch.cuda.amp.autocast(enabled=(isinstance(optimizer, AMPOptimizer))):
+        with torch.cuda.amp.autocast(enabled=True):
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             am_output = model.lm_linear(am_output)
             
