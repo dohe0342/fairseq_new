@@ -1162,6 +1162,7 @@ class CtcCriterion(FairseqCriterion):
 
         self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
         self.model = GPT2Model.from_pretrained('gpt2')
+
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
             if hasattr(task, "blank_symbol")
