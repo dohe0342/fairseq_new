@@ -1245,6 +1245,9 @@ class CtcCriterion(FairseqCriterion):
             if np.random.rand() < 0.1:
                 softmax = F.softmax(lm_am_sim, dim=-1)
                 print(softmax.size(), softmax[0][0].size(), softmax[0][0])
+                print(softmax[0][100])
+                print(softmax[0][200])
+                print(softmax[0][300])
 
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
