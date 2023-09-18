@@ -1217,11 +1217,11 @@ class CtcCriterion(FairseqCriterion):
         ).contiguous()  # (T, B, C) from the encoder
 
         toks = sample["target"]
+        tgt_list = []
         # Processes target.
         target_tokens = utils.strip_pad(toks, self.tgt_dict.pad())
         tgt_pieces = self.tgt_dict.string(target_tokens.int().cpu())
         tgt_words = post_process(tgt_pieces, 'letter')
-        print(tgt_words)
 
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
