@@ -624,12 +624,12 @@ class Wav2VecEncoder(FairseqEncoder):
             padding_mask = res["padding_mask"]
 
             # B x T x C -> T x B x C
-            x = x.transpose(0, 1)
+            x_ = x.transpose(0, 1)
 
-        x = self.final_dropout(x)
+        x_ = self.final_dropout(x)
 
         if self.proj:
-            x = self.proj(x)
+            x_ = self.proj(x_)
 
         if self.hyperbolic:
             T, B, C = x.size()
