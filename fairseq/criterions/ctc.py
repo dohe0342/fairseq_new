@@ -1294,7 +1294,7 @@ class CtcCriterion(FairseqCriterion):
                                             0, 
                                             alignment_lengths[0]-1, 
                                             steps=alignment_lengths[0]
-                                    )
+                                    ).to(device)
         for i in 
         #alignment_target = 
 
