@@ -1296,7 +1296,6 @@ class CtcCriterion(FairseqCriterion):
             alignment_flat = torch.cat([alignment_flat, temp_target])
             alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
 
-
         with torch.backends.cudnn.flags(enabled=False):
             loss = F.ctc_loss(
                 lprobs,
