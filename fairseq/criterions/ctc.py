@@ -1162,6 +1162,7 @@ class CtcCriterion(FairseqCriterion):
 
         self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
         self.lm = GPT2Model.from_pretrained('gpt2')
+        self.task = task
         self.tgt_dict = task.target_dictionary
 
         self.blank_idx = (
