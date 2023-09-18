@@ -92,9 +92,10 @@ def main(cfg: FairseqConfig) -> None:
     #ckp = torch.load('/home/work/workspace/models/data2vec_model/vox_960h.pt')
     #ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_ls_960h.pt')
     if cfg.distributed_training.ddp_backend == "fully_sharded":
-        for n, p in model.named_parameters():
-            p.data = ckp['model'][n]
-            logger.info(f"{n} replaced")
+        if 0:
+            for n, p in model.named_parameters():
+                p.data = ckp['model'][n]
+                logger.info(f"{n} replaced")
         with fsdp_enable_wrap(cfg.distributed_training):
             model = fsdp_wrap(task.build_model(cfg.model))
     else:
