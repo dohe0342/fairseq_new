@@ -1309,7 +1309,7 @@ class CtcCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             
-            #print('1', lprobs.dtype)
+            #print('1', lprobs.size())
             #print('2', targets_flat.dtype)
             #print('3', input_lengths.dtype)
             #print('4', target_lengths.dtype)
