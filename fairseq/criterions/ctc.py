@@ -1218,6 +1218,7 @@ class CtcCriterion(FairseqCriterion):
         ).contiguous()  # (T, B, C) from the encoder
         
         ############for distillation###########
+        device = lprobs.device
         toks_list = sample["target"]
         tgt_list = []
         for toks in toks_list:
@@ -1227,6 +1228,7 @@ class CtcCriterion(FairseqCriterion):
             tgt_words = post_process(tgt_pieces, 'letter')
 
             tgt_list.append(tgt_word)
+        
         #############################3
 
         # CTC loss is calculated over duplicated inputs
