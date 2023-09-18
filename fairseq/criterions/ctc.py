@@ -1154,7 +1154,7 @@ class PrefixCtcCriterion(CtcCriterion):
         return loss, sample_size, logging_output
 
 
-@register_criterion("lmtoam", dataclass=CtcCriterionConfig)
+@register_criterion("clip", dataclass=CtcCriterionConfig)
 class CtcCriterion(FairseqCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
