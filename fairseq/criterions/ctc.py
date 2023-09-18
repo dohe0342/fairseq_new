@@ -1283,6 +1283,9 @@ class CtcCriterion(FairseqCriterion):
         else:
             target_lengths = pad_mask.sum(-1)
 
+        print('111, 'pad_mask)
+        print('222', targets_flat)
+
         with torch.backends.cudnn.flags(enabled=False):
             loss = F.ctc_loss(
                 lprobs,
