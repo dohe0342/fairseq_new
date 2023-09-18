@@ -1303,7 +1303,7 @@ class CtcCriterion(FairseqCriterion):
         #############for alignment target ###############################
 
         with torch.backends.cudnn.flags(enabled=False):
-            loss = F.ctc_loss(
+            ctc_loss = F.ctc_loss(
                 lprobs,
                 targets_flat,
                 input_lengths,
@@ -1342,6 +1342,7 @@ class CtcCriterion(FairseqCriterion):
         sample_size = sample["target"].size(0) if self.sentence_avg else ntokens
         logging_output = {
             "loss": utils.item(loss.data),  # * sample['ntokens'],
+            "distill_loss": utils.item(
             "ntokens": ntokens,
             "nsentences": sample["id"].numel(),
             "sample_size": sample_size,
