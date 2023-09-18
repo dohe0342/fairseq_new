@@ -1289,7 +1289,7 @@ class CtcCriterion(FairseqCriterion):
         print('444', target_lengths)
 
         alignment_pad_mask = lm_input["attention_mask"] > 0
-        alignment_target = torch.sum(lm_input["attention_mask"], 1)
+        alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
         #alignment_target = 
 
         with torch.backends.cudnn.flags(enabled=False):
