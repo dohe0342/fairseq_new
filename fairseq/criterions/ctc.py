@@ -1244,6 +1244,7 @@ class CtcCriterion(FairseqCriterion):
             lm_am_sim = torch.nn.functional.log_softmax(lm_am_sim, dim=-1)
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
             print(lm_am_sim.size())
+            exit()
 
         ##############################
 
