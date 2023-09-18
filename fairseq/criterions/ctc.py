@@ -1216,7 +1216,8 @@ class CtcCriterion(FairseqCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
-
+        
+        ############for distillation
         toks_list = sample["target"]
         tgt_list = []
         for toks in toks_list:
@@ -1226,6 +1227,7 @@ class CtcCriterion(FairseqCriterion):
             tgt_words = post_process(tgt_pieces, 'letter')
 
             tgt_list.append(tgt_word)
+        #############################3
 
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
