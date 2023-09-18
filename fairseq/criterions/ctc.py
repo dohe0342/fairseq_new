@@ -1167,6 +1167,7 @@ class CtcCriterion(FairseqCriterion):
         self.lm = GPT2Model.from_pretrained('gpt2')
         self.task = task
         self.tgt_dict = task.target_dictionary
+        self.lm_linear = Linear(768, 768)
         ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
