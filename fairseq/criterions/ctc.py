@@ -9,6 +9,7 @@ from argparse import Namespace
 from dataclasses import dataclass, field
 from omegaconf import II
 from typing import Optional
+import numpy as np
 
 import torch
 import torch.nn.functional as F
