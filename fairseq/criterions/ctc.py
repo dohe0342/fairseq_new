@@ -1241,7 +1241,6 @@ class CtcCriterion(FairseqCriterion):
         lm_am_sim = torch.bmm(lm_output, am_output.transpose(1, 2))
         lm_am_sim = torch.nn.functional.log_softmax(lm_am_sim, dim=-1)
         lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
-    
 
         print(lm_am_sim.size())
         exit()
@@ -1294,6 +1293,16 @@ class CtcCriterion(FairseqCriterion):
                 input_lengths,
                 target_lengths,
                 blank=self.blank_idx,
+                reduction="sum",
+                zero_infinity=self.zero_infinity,
+            )
+
+            distill_loss = F.ctc_loss(
+                lm_am_sim,
+                alignment_flat,
+                input_lengths,
+                alignment_lengths,
+                blank=0,
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
