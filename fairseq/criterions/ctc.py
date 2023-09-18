@@ -1310,7 +1310,7 @@ class CtcCriterion(FairseqCriterion):
             print('1', lprobs.dtype)
             print('2', targets_flat.dtype)
             print('3', input_lengths.dtype)
-            print('4', target_lengths,dtype)
+            print('4', target_lengths.dtype)
                 
             print('5', lm_am_sim.dtype)
             print('6', alignment_flat.dtype)
