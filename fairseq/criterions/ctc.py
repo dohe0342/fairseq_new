@@ -1231,9 +1231,10 @@ class CtcCriterion(FairseqCriterion):
             tgt_list.append(tgt_words)
         
         lm_input = model.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
-        with torch.no_grad():
-            lm_output = model.lm(**lm_input)
-            lm_output = lm_output['last_hidden_state']
+        with torch.cuda.amp.autocast(enabled=(isinstance(optimizer, AMPOptimizer))):
+            with torch.no_grad():
+                lm_output = model.lm(**lm_input)
+                lm_output = lm_output['last_hidden_state']
 
         am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
         am_output = model.lm_linear(am_output)
