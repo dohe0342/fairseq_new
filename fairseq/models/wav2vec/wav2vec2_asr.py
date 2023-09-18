@@ -34,7 +34,7 @@ from fairseq.tasks import FairseqTask
 
 import fairseq.models.wav2vec.hyperbolic.hyptorch.nn as hypnn
 
-from transformers import GPT2Tokenizer, GPT2Model
+#from transformers import GPT2Tokenizer, GPT2Model
 
 logger = logging.getLogger(__name__)
 
