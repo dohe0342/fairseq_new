@@ -1297,11 +1297,7 @@ class CtcCriterion(FairseqCriterion):
                                     ).to(device)
         
         for i in alignment_lengths[1:]:
-            temp_target = torch.linspace(
-                                            0,
-                                            i-1,
-                                            steps=i
-                                    ).to(device)
+            temp_target = torch.linspace(0, i-1, steps=i).to(device)
             alignment_flat = torch.cat([alignment_flat, 
         #alignment_target = 
 
