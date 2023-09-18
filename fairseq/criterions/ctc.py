@@ -1242,7 +1242,7 @@ class CtcCriterion(FairseqCriterion):
             am_output = self.lm_linear(am_output)
             
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-            if np.random.rand() < 0.1 and 1:
+            if np.random.rand() < 0.1 and 0:
                 softmax = F.softmax(lm_am_sim / 3, dim=-1)
                 print(softmax.size(), softmax[0][0].size(), softmax[0][0])
                 print(softmax[0][100])
@@ -1250,7 +1250,7 @@ class CtcCriterion(FairseqCriterion):
                 print(softmax[0][300])
                 print('-'*20)
 
-            lm_am_sim = F.log_softmax(lm_am_sim / 3, dim=-1)
+            lm_am_sim = F.log_softmax(lm_am_sim / 5, dim=-1)
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
 
@@ -1341,7 +1341,7 @@ class CtcCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
 
-            loss = ctc_loss + 0.1*distill_loss
+            loss = ctc_loss + 0.05*distill_loss
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
