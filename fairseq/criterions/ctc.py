@@ -1233,6 +1233,7 @@ class CtcCriterion(FairseqCriterion):
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_padding_mask=True).to(device)
         with torch.no_grad():
             lm_output = self.lm(**lm_input)
+            lm_output = lm_output['last_hidden_state']
 
         am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
         am_output = self.lm_linear(am_output)
