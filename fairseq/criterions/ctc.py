@@ -1216,8 +1216,9 @@ class CtcCriterion(FairseqCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
 
-        toks = sample["target"]
+        toks_list = sample["target"]
         tgt_list = []
+        for 
         # Processes target.
         target_tokens = utils.strip_pad(toks, self.tgt_dict.pad())
         tgt_pieces = self.tgt_dict.string(target_tokens.int().cpu())
