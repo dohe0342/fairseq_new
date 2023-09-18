@@ -1229,7 +1229,7 @@ class CtcCriterion(FairseqCriterion):
 
             tgt_list.append(tgt_word)
         
-        lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True)
+        lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_padding_mask=True)
 
         
         #############################3
