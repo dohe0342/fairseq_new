@@ -1285,9 +1285,12 @@ class CtcCriterion(FairseqCriterion):
 
         print('111', pad_mask)
         print('222', targets_flat)
-        print('333', target_lengths)
+        print('333', sample["target"])
+        print('444', target_lengths)
 
         alignment_pad_mask = lm_input["attention_mask"] > 0
+        alignment_target = torch.sum(lm_input["attention_mask"], 1)
+        #alignment_target = 
 
         with torch.backends.cudnn.flags(enabled=False):
             loss = F.ctc_loss(
