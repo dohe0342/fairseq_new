@@ -1239,6 +1239,10 @@ class CtcCriterion(FairseqCriterion):
         
         lm_am_sim = torch.bmm(lm_output, am_output.transpose(1, 2))
         lm_am_sim = torch.nn.funcitonal.log_softmax(lm_am_sim, dim=-1)
+
+        print(lm_am_sim.size())
+        exit()
+
         ##############################
 
         # CTC loss is calculated over duplicated inputs
