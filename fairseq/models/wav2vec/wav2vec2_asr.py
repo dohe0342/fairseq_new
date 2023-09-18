@@ -288,8 +288,8 @@ class Wav2VecCtcDistill(BaseFairseqModel):
         self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.lm = GPT2Model.from_pretrained('gpt2')
-        for n, p in self.lm:
-            p.requires_grad = False
+        #for n, p in self.lm:
+        #    p.requires_grad = False
         self.lm_linear = Linear(768, 768)
 
     def upgrade_state_dict_named(self, state_dict, name):
