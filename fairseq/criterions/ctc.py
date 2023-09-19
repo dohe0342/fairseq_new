@@ -1236,10 +1236,11 @@ class CtcCriterion(FairseqCriterion):
             with torch.no_grad():
                 lm_output = self.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
+                lm_output = F.norm(lm_output, dim=2)
 
-        with torch.cuda.amp.autocast(enabled=True):
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             am_output = self.lm_linear(am_output)
+            am_output = F.norm(am_output, dim=2)
             
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
             if np.random.rand() < 0.1 and 0:
