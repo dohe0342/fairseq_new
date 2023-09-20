@@ -1239,6 +1239,7 @@ class CtcCriterion(FairseqCriterion):
                 lm_output = F.normalize(lm_output, dim=2)
 
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
+            am_output = F.gelu(am_output)
             am_output = self.lm_linear(am_output)
             am_output = F.normalize(am_output, dim=2)
             
