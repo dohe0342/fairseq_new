@@ -1169,7 +1169,7 @@ class CtcCriterion(FairseqCriterion):
         self.task = task
         self.tgt_dict = task.target_dictionary
         self.lm_linear = Linear(768, 1280)
-        self.ins_norm = torch.nn.InstanceNorm1d(768)
+        self.ins_norm = torch.nn.InstanceNorm1d(1280)
         ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
