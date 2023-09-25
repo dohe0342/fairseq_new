@@ -1165,8 +1165,8 @@ class CtcCriterion(FairseqCriterion):
         ########### for gpt2
         self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        #self.lm = GPT2Model.from_pretrained('gpt2-large')
-        self.lm = GPT2Model.from_pretrained('/home/work/workspace/models/checkpoint-420500')
+        self.lm = GPT2Model.from_pretrained('gpt2')
+        #self.lm = GPT2Model.from_pretrained('/home/work/workspace/models/checkpoint-420500')
         self.task = task
         self.tgt_dict = task.target_dictionary
         self.lm_linear = Linear(768, 768)
