@@ -1163,12 +1163,13 @@ class CtcCriterion(FairseqCriterion):
         super().__init__(task)
         
         ########### for gpt2
-        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2-large')
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.lm = GPT2Model.from_pretrained('gpt2')
+        self.lm = GPT2Model.from_pretrained('gpt2-large')
         self.task = task
         self.tgt_dict = task.target_dictionary
-        self.lm_linear = Linear(768, 768)
+        self.lm_linear = Linear(768, 1280)
+        self.ins_norm = torch.nn.InstanceNorm1d(1280)
         ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
@@ -1241,7 +1242,8 @@ class CtcCriterion(FairseqCriterion):
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             #am_output = F.gelu(am_output)
             am_output = self.lm_linear(am_output)
-            am_output = F.normalize(am_output, dim=2)
+            am_output = self.ins_norm(am_output)
+            #am_output = F.normalize(am_output, dim=2)
             
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
             if np.random.rand() < 0.1 and 0:
@@ -1344,7 +1346,7 @@ class CtcCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
 
-            loss = ctc_loss + 0.0001*distill_loss
+            loss = ctc_loss + 3*distill_loss
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
