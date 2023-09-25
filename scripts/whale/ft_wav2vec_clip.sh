@@ -4,7 +4,7 @@ fairseq-hydra-train \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
-	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
+	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip
 
