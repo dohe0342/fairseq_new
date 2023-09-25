@@ -793,7 +793,7 @@ class Wav2Vec2Model(BaseFairseqModel):
         return self.quantizer.forward_idx(x)
 
     def extract_features(
-        self, source, padding_mask, mask=False, layer=None, corpus_key=None, **kwargs
+        self, source, padding_mask, mask=False, layer=None, corpus_key=None, **kwargs,
     ):
         res = self.forward(
             source,
