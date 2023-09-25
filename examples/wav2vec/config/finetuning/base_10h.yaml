@@ -22,9 +22,10 @@ dataset:
   num_workers: 6
   max_tokens: 3200000
   skip_invalid_size_inputs_valid_test: true
+  train_subset: vox-10
   validate_after_updates: 10000
   validate_interval: 50
-  valid_subset: dev_other
+  valid_subset: dev-other
 
 distributed_training:
   ddp_backend: legacy_ddp
