@@ -1346,7 +1346,7 @@ class CtcCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
 
-            loss = ctc_loss + 10**distill_loss
+            loss = ctc_loss + 3**distill_loss
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
