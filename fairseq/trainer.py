@@ -317,9 +317,9 @@ class Trainer(object):
                     chain(self.model.parameters(), self.criterion.parameters()),
                 )
             )
-            for n, p in self.model.named_parameters():
-                if p.requires_grad:
-                    logger.info(n)
+            #for n, p in self.model.named_parameters():
+            #    if p.requires_grad:
+            #        logger.info(n)
         
         logger.info("-----------------------------------------")
         logger.info(len(params))
