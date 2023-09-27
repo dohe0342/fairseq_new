@@ -1172,8 +1172,8 @@ class CtcCriterion(FairseqCriterion):
         #self.lm = GPT2Model.from_pretrained('/home/work/workspace/models/checkpoint-420500')
         self.task = task
         self.tgt_dict = task.target_dictionary
-        self.lm_linear = Linear(768, 768)
-        self.ins_norm = torch.nn.InstanceNorm1d(768)
+        self.lm_linear = Linear(768, 1024)
+        self.ins_norm = torch.nn.InstanceNorm1d(1024)
         ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
