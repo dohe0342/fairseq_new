@@ -23,7 +23,7 @@ from fairseq.tasks import FairseqTask
 from fairseq.logging.meters import safe_round
 from fairseq.models.wav2vec.wav2vec2_asr import Linear
 
-from transformers import GPT2Tokenizer, GPT2Model
+from transformers import GPT2Tokenizer, GPT2Model, BertTokenizer, BertModel
 from fairseq.data.data_utils import post_process
 
 
