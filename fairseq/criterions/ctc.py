@@ -1310,6 +1310,8 @@ class CtcCriterion(FairseqCriterion):
         #############for alignment target ###############################
         #alignment_pad_mask = lm_input["attention_mask"] > 0
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
+        if 1:
+            alignment_lengths -= 1
         alignment_flat = torch.linspace(
                                             1, 
                                             alignment_lengths[0], 
