@@ -7,7 +7,7 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/dim"$dim".log \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
-	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
+	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/dim"$dim" \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
