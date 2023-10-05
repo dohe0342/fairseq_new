@@ -90,7 +90,8 @@ def main(cfg: FairseqConfig) -> None:
 
     # Build model and criterion
     #ckp = torch.load('/home/work/workspace/models/data2vec_model/vox_960h.pt')
-    ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_ls_960h.pt')
+    #ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_ls_960h.pt')
+    ckp = torch.load('/home/work/workspace/models/wav2vec_model/wav2vec_small_960h.pt')
     if cfg.distributed_training.ddp_backend == "fully_sharded":
         if 1:
             for n, p in model.named_parameters():
