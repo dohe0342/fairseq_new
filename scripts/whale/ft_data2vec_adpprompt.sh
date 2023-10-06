@@ -15,7 +15,7 @@ fairseq-hydra-train \
 	optimization.max_epoch=200 \
 	optimization.lr=[0.0002] \
 	criterion._name=prompt \
-	+task.min_sample_size=16000 \
+	+task.min_sample_size=16000
 	#+model.layer_type=trf_adp \
 	#+model.adp_num=1 \
 	#+model.adp_dim=$dim
