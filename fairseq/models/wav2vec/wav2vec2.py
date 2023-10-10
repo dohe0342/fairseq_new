@@ -645,6 +645,10 @@ class Wav2Vec2Model(BaseFairseqModel):
 
         ## for prompt tuning
         if prompt is not None:
+            noise_prompt = None
+            for fname in filename:
+                if 'animal' in fname:
+                    
             prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             
             # scale gradients (this only affects backward, not forward)
