@@ -866,15 +866,14 @@ class PromptCtcCriterion(CtcCriterion):
         self.prompt = torch.nn.Parameter(torch.randn(200, 512)/10.)
         self.hook_module = []
         
+                
+    def forward(self, model, sample, reduce=True, **kwargs):
         for modules in model.modules():
             if isinstance(modules, fairseq.modules.multihead_attention.MultiheadAttention):
                 for module in modules.modules():
                     if isinstance(module, torch.nn.Linear):
                         print(module)
-        exit()
 
-        
-    def forward(self, model, sample, reduce=True, **kwargs):
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
         sample['net_input']['prompt'] = self.prompt
