@@ -873,11 +873,14 @@ class PromptCtcCriterion(CtcCriterion):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
+        count = 0
         for modules in model.modules():
             if isinstance(modules, fairseq.modules.multihead_attention.MultiheadAttention):
                 for module in modules.modules():
                     if isinstance(module, torch.nn.Linear):
                         module.register_forward_hook(self.hook_fn)
+                        count += 1
+        print('count = ', count)
         
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
