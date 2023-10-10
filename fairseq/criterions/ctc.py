@@ -882,8 +882,7 @@ class PromptCtcCriterion(CtcCriterion):
                         module.register_forward_hook(self.hook_fn)
                         count += 1
         '''
-        print(sample.keys())
-        print(sample['net_input'].keys())
+        print(sample['id'])
         exit()
 
         device = sample['net_input']['source'].device
