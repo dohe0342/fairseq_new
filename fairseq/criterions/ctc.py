@@ -1243,7 +1243,7 @@ class CtcCriterion(FairseqCriterion):
             with torch.no_grad():
                 lm_output = self.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
-                if 1:
+                if 10:
                     lm_output = lm_output[:,1:,:]
                 lm_output = F.normalize(lm_output, dim=2)
 
