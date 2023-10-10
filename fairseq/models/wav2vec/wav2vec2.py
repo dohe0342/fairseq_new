@@ -604,6 +604,8 @@ class Wav2Vec2Model(BaseFairseqModel):
         mask_channel_indices=None,
         padding_count=None,
         corpus_key=None,
+        prompt=None,
+        filename=None,
     ):
 
         if self.feature_grad_mult > 0:
