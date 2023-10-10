@@ -1314,6 +1314,7 @@ class CtcCriterion(FairseqCriterion):
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
         if 0:
             alignment_lengths -= 1
+
         alignment_flat = torch.linspace(
                                             1, 
                                             alignment_lengths[0], 
