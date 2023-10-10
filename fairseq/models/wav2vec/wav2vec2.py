@@ -649,10 +649,10 @@ class Wav2Vec2Model(BaseFairseqModel):
             if filename is not None:
                 for fname in filename:
                     if 'animal' in fname:
-                        try: noise_prompt = noise_prompt.cat([noise_prompt, prompt[0].unsqueeze(0)], dim=0)
+                        try: noise_prompt = torch.cat([noise_prompt, prompt[0].unsqueeze(0)], dim=0)
                         except: noise_prompt = prompt[0].unsqueeze(0)
                     else:
-                        try: noise_prompt = noise_prompt.cat([noise_prompt, prompt[1].unsqueeze(0)], dim=0)
+                        try: noise_prompt = torch.cat([noise_prompt, prompt[1].unsqueeze(0)], dim=0)
                         except: noise_prompt = prompt[1].unsqueeze(0)
                     print(noise_prompt.size())
 
