@@ -865,7 +865,6 @@ class PromptCtcCriterion(CtcCriterion):
         
         self.prompt = torch.nn.Parameter(torch.randn(200, 512)/10.)
         self.hook_module = []
-        
                 
     def forward(self, model, sample, reduce=True, **kwargs):
         for modules in model.modules():
