@@ -5,16 +5,11 @@ fairseq-hydra-train \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
-	task.normalize=true \
-	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
-	model.layerdrop=0.0 \
+	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	dataset.train_subset=ted2_train \
+	dataset.train_subset= \
 	dataset.valid_subset=ted2_dev \
-	optimization.max_update=80000 \
-	optimization.lr=[0.00005] \
-	criterion._name=prompt \
-	+task.min_sample_size=16000 \
+	criterion._name=ctc 
 
 : <<'END'
 fairseq-hydra-train \
