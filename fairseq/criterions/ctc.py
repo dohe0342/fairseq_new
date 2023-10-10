@@ -837,7 +837,7 @@ class InterCtcCriterion(CtcCriterion):
         return True
 
 
-class LoRAHook():
+class AttnHook():
     def __init__(self, module):
         self.hook = module.register_forward_hook(self.hook_fn)
         self.lora = LoRAModule(
