@@ -14,9 +14,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-print('fuck!!')
 import fairseq
-print('fuck!!!!!!!!!!')
 from fairseq import utils
 from fairseq.logging import metrics
 from fairseq.criterions import FairseqCriterion, register_criterion
