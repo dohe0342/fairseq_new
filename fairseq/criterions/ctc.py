@@ -873,6 +873,7 @@ class PromptCtcCriterion(CtcCriterion):
                 for module in modules.modules():
                     if isinstance(module, torch.nn.Linear):
                         print(module)
+        exit()
 
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
