@@ -1061,15 +1061,6 @@ class Prompt2CtcCriterion(CtcCriterion):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
-        '''
-        count = 0
-        for modules in model.modules():
-            if isinstance(modules, fairseq.modules.multihead_attention.MultiheadAttention):
-                for module in modules.modules():
-                    if isinstance(module, torch.nn.Linear):
-                        module.register_forward_hook(self.hook_fn)
-                        count += 1
-        '''
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
         sample['net_input']['prompt'] = self.prompt
@@ -1077,17 +1068,6 @@ class Prompt2CtcCriterion(CtcCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
-
-        #print(len(self.attn_output))
-        #for i, output in enumerate(self.attn_output):
-        #    print(i, output.size())
-
-        #lprobs = lprobs[50:, :, :]
-
-        #print(sample["target"])
-        #print(sample["target"].size())
-        #exit()
-        #if 1: lprobs = lprobs[50:, :, :]
 
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
@@ -1119,8 +1099,7 @@ class Prompt2CtcCriterion(CtcCriterion):
                 input_lengths = lprobs.new_full(
                     (lprobs.size(1),), lprobs.size(0), dtype=torch.long
                 )
-        #if input_lengths is not None:
-        #    input_lengths -= 50
+        
         pad_mask = (sample["target"] != self.pad_idx) & (
             sample["target"] != self.eos_idx
         )
