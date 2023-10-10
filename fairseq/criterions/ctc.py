@@ -1106,7 +1106,7 @@ class Prompt2CtcCriterion(CtcCriterion):
                 )
         
         if input_lengths is not None:
-            input_lengths -= 50
+            input_lengths -= 120
 
         pad_mask = (sample["target"] != self.pad_idx) & (
             sample["target"] != self.eos_idx
