@@ -838,12 +838,19 @@ class InterCtcCriterion(CtcCriterion):
         return True
 
 
+'''
 class AttnHook():
     def __init__(self, module):
         self.hook = module.register_forward_hook(self.hook_fn)
 
     def hook_fn(self, module, input, output):
         return output
+'''
+
+
+def hook_fn(modul, input, output):
+    return output
+
 
 @register_criterion("prompt", dataclass=CtcCriterionConfig)
 class PromptCtcCriterion(CtcCriterion):
