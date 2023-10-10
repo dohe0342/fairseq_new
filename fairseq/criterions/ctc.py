@@ -883,7 +883,6 @@ class PromptCtcCriterion(CtcCriterion):
                         count += 1
         '''
         print(sample.keys())
-        print(sample['net_input'])
         print(sample['net_input'].keys())
         exit()
 
