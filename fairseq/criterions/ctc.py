@@ -850,6 +850,7 @@ class PromptCtcCriterion(CtcCriterion):
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
         super().__init__(cfg, task, rdrop_alpha)
+        
         if 0:
             statistic = open(f'/home/work/workspace/icefall/egs/librispeech/ASR/conv_feat/1284/1284_statistic.txt', 'r').readlines()
             new_emb = torch.empty(512, 50)
@@ -861,7 +862,16 @@ class PromptCtcCriterion(CtcCriterion):
             new_emb = new_emb.transpose(1,0)
         #self.prompt = torch.nn.Parameter(new_emb).half()
         #self.prompt = torch.nn.Parameter(new_emb)
+        
         self.prompt = torch.nn.Parameter(torch.randn(200, 512)/10.)
+        self.hook_module = []
+        
+        for modules in model.modules():
+            if isinstance(modules, fairseq.modules.multihead_attention.MultiheadAttention):
+                for module in modules.modules():
+                    if isinstance(module, torch.nn.Linear):
+                        print(module)
+
         
     def forward(self, model, sample, reduce=True, **kwargs):
         device = sample['net_input']['source'].device
