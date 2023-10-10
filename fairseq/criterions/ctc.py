@@ -871,6 +871,7 @@ class PromptCtcCriterion(CtcCriterion):
                 for module in modules.modules():
                     if isinstance(module, torch.nn.Linear):
                         print(module)
+        exit()
 
         
     def forward(self, model, sample, reduce=True, **kwargs):
