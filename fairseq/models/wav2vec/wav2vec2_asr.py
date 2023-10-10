@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Wav2Vec2AsrConfig(FairseqDataclass):
     w2v_path: str = field(
-        default='/home/work/workspace/models/wav2vec_model/wav2vec_small.pt' , metadata={"help": "path to wav2vec 2.0 model"}
+        default='/home/work/workspace/models/wav2vec_model/wav2vec_small.pt', metadata={"help": "path to wav2vec 2.0 model"}
     )
     no_pretrained_weights: bool = field(
         default=False, metadata={"help": "if true, does not load pretrained weights"}
