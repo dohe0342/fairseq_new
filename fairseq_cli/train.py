@@ -101,7 +101,7 @@ def main(cfg: FairseqConfig) -> None:
             model = fsdp_wrap(task.build_model(cfg.model))
     else:
         model = task.build_model(cfg.model)
-        if 1:
+        if 0:
             for n, p in model.named_parameters():
                 try: 
                     p.data = ckp['model'][n]
