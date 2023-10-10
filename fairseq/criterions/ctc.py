@@ -1248,6 +1248,8 @@ class CtcCriterion(FairseqCriterion):
                 
                 if 1:
                     lm_output = lm_output.transpose(1, 2)
+                    _, t, _ = lm_output.size()
+                    lm_output = F.interpolate(lm_output, size=2*t, mode='linear')
                 lm_output = F.normalize(lm_output, dim=2)
 
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
