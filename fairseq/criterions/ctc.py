@@ -877,7 +877,7 @@ class PromptCtcCriterion(CtcCriterion):
             if isinstance(modules, fairseq.modules.multihead_attention.MultiheadAttention):
                 for module in modules.modules():
                     if isinstance(module, torch.nn.Linear):
-                        hook_fn(module)
+                        self.hook_fn(module)
         
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
