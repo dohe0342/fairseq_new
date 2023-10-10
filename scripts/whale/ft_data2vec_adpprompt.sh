@@ -10,7 +10,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/adapter_prompt_dim$dim \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
-	optimization.max_update=320000 \
+	optimization.max_update=80000 \
 	optimization.max_epoch=1000 \
 	optimization.lr=[0.0002] \
 	criterion._name=prompt \
