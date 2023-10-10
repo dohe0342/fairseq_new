@@ -654,10 +654,8 @@ class Wav2Vec2Model(BaseFairseqModel):
                     else:
                         try: noise_prompt = torch.cat([noise_prompt, prompt[1].unsqueeze(0)], dim=0)
                         except: noise_prompt = prompt[1].unsqueeze(0)
-                    print(noise_prompt.size())
 
                 prompt = noise_prompt
-                print(prompt.size())
 
             else:
                 prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
