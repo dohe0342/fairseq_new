@@ -837,6 +837,25 @@ class InterCtcCriterion(CtcCriterion):
         return True
 
 
+class LoRAHook():
+    def __init__(self, module):
+        self.hook = module.register_forward_hook(self.hook_fn)
+        self.lora = LoRAModule(
+                           embedding_dim=768,
+                           rank=6,
+                           lora_alpha=10000.,
+                    )
+
+    def hook_fn(self, module, input, output):
+        lora_out = self.lora(input[0])
+        output += lora_out
+
+    def save_checkpoint(self, i, iter_, save_dir):
+        if isinstance(self.lora, DDP):
+            lora = self.lora.module
+        torch.save(lora.state_dict(), f"{save_dir}/lora_{iter_}_{i}.pt")
+
+
 @register_criterion("prompt", dataclass=CtcCriterionConfig)
 class PromptCtcCriterion(CtcCriterion):
     def __init__(
