@@ -882,7 +882,7 @@ class PromptCtcCriterion(CtcCriterion):
                         module.register_forward_hook(self.hook_fn)
                         count += 1
         '''
-        print(sample['id'])
+        print(sample['filename'])
         exit()
 
         device = sample['net_input']['source'].device
