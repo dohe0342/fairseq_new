@@ -646,15 +646,16 @@ class Wav2Vec2Model(BaseFairseqModel):
         ## for prompt tuning
         if prompt is not None:
             noise_prompt = None
-            for fname in filename:
-                if 'animal' in fname:
-                    try: noise_prompt = noise_prompt.cat([noise_prompt, prompt[0].unsqueeze(0)], dim=0)
-                    except: noise_prompt = prompt[0].unsqueeze(0)
-                else:
-                    try: noise_prompt = noise_prompt.cat([noise_prompt, prompt[1].unsqueeze(0)], dim=0)
-                    except: noise_prompt = prompt[1].unsqueeze(0)
-
-            prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
+            if filename is not None:
+                for fname in filename:
+                    if 'animal' in fname:
+                        try: noise_prompt = noise_prompt.cat([noise_prompt, prompt[0].unsqueeze(0)], dim=0)
+                        except: noise_prompt = prompt[0].unsqueeze(0)
+                    else:
+                        try: noise_prompt = noise_prompt.cat([noise_prompt, prompt[1].unsqueeze(0)], dim=0)
+                        except: noise_prompt = prompt[1].unsqueeze(0)
+            else:
+                prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             
             # scale gradients (this only affects backward, not forward)
             features = torch.cat([prompt, features], dim=1)
