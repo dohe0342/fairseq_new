@@ -847,11 +847,6 @@ class AttnHook():
         return output
 '''
 
-
-def hook_fn(modul, input, output):
-    return output
-
-
 @register_criterion("prompt", dataclass=CtcCriterionConfig)
 class PromptCtcCriterion(CtcCriterion):
     def __init__(
@@ -872,14 +867,17 @@ class PromptCtcCriterion(CtcCriterion):
         #self.prompt = torch.nn.Parameter(new_emb)
         
         self.prompt = torch.nn.Parameter(torch.randn(200, 512)/10.)
-        self.hook_module = []
+        self.attn_output = []
                 
+    def hook_fn(module, input, output):
+        self.attn_output.append(output)
+
     def forward(self, model, sample, reduce=True, **kwargs):
         for modules in model.modules():
             if isinstance(modules, fairseq.modules.multihead_attention.MultiheadAttention):
                 for module in modules.modules():
                     if isinstance(module, torch.nn.Linear):
-                        print(module)
+                        hook_fn(module)
         
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
