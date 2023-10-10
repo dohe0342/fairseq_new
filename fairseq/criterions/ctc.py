@@ -840,11 +840,6 @@ class InterCtcCriterion(CtcCriterion):
 class AttnHook():
     def __init__(self, module):
         self.hook = module.register_forward_hook(self.hook_fn)
-        self.lora = LoRAModule(
-                           embedding_dim=768,
-                           rank=6,
-                           lora_alpha=10000.,
-                    )
 
     def hook_fn(self, module, input, output):
         lora_out = self.lora(input[0])
