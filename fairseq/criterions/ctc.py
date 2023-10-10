@@ -14,6 +14,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
+import fairseq
 from fairseq import utils
 from fairseq.logging import metrics
 from fairseq.criterions import FairseqCriterion, register_criterion
