@@ -888,6 +888,8 @@ class PromptCtcCriterion(CtcCriterion):
         ).contiguous()  # (T, B, C) from the encoder
 
         print(len(self.attn_output))
+        for output in self.attn_output:
+            print(output.size())
         exit()
         #lprobs = lprobs[50:, :, :]
 
