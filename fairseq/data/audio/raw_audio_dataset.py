@@ -149,6 +149,7 @@ class RawAudioDataset(FairseqDataset):
         if self.corpus_key is not None:
             input["corpus_key"] = [self.corpus_key] * len(sources)
         out = {"id": torch.LongTensor([s["id"] for s in samples])}
+        out["filename"] = [s["filename"] for s in samples]
         if self.pad:
             input["padding_mask"] = padding_mask
 
