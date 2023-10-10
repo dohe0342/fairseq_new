@@ -845,12 +845,6 @@ class AttnHook():
         lora_out = self.lora(input[0])
         output += lora_out
 
-    def save_checkpoint(self, i, iter_, save_dir):
-        if isinstance(self.lora, DDP):
-            lora = self.lora.module
-        torch.save(lora.state_dict(), f"{save_dir}/lora_{iter_}_{i}.pt")
-
-
 @register_criterion("prompt", dataclass=CtcCriterionConfig)
 class PromptCtcCriterion(CtcCriterion):
     def __init__(
