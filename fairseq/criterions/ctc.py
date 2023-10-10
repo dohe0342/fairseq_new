@@ -1105,8 +1105,8 @@ class Prompt2CtcCriterion(CtcCriterion):
                     (lprobs.size(1),), lprobs.size(0), dtype=torch.long
                 )
         
-        if input_lengths is not None:
-            input_lengths -= 120
+        #if input_lengths is not None:
+        #    input_lengths -= 120
 
         pad_mask = (sample["target"] != self.pad_idx) & (
             sample["target"] != self.eos_idx
