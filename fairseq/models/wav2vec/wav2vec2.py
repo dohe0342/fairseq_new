@@ -701,14 +701,15 @@ class Wav2Vec2Model(BaseFairseqModel):
                 mask_indices=mask_indices,
                 mask_channel_indices=mask_channel_indices,
             )
-            if not is_xla_tensor(x) and mask_indices is not None:
-                # tpu-comment: reducing the size in a dynamic way causes
-                # too many recompilations on xla.
-                y = unmasked_features[mask_indices].view(
-                    unmasked_features.size(0), -1, unmasked_features.size(-1)
-                )
-            else:
-                y = unmasked_features
+            if 0:
+                if not is_xla_tensor(x) and mask_indices is not None:
+                    # tpu-comment: reducing the size in a dynamic way causes
+                    # too many recompilations on xla.
+                    y = unmasked_features[mask_indices].view(
+                        unmasked_features.size(0), -1, unmasked_features.size(-1)
+                    )
+                else:
+                    y = unmasked_features
         else:
             x = features
             y = unmasked_features
