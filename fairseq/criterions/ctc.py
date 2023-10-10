@@ -873,6 +873,7 @@ class PromptCtcCriterion(CtcCriterion):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
+        '''
         count = 0
         for modules in model.modules():
             if isinstance(modules, fairseq.modules.multihead_attention.MultiheadAttention):
@@ -880,7 +881,7 @@ class PromptCtcCriterion(CtcCriterion):
                     if isinstance(module, torch.nn.Linear):
                         module.register_forward_hook(self.hook_fn)
                         count += 1
-        print('count = ', count)
+        '''
         
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
@@ -890,11 +891,11 @@ class PromptCtcCriterion(CtcCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
 
-        print(len(self.attn_output))
-        for i, output in enumerate(self.attn_output):
-            print(i, output.size())
+        #print(len(self.attn_output))
+        #for i, output in enumerate(self.attn_output):
+        #    print(i, output.size())
 
-        exit()
+        #exit()
         #lprobs = lprobs[50:, :, :]
 
         #print(sample["target"])
