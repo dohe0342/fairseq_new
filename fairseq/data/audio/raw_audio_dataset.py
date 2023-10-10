@@ -325,7 +325,7 @@ class FileAudioDataset(RawAudioDataset):
         feats = torch.from_numpy(wav).float()
         feats = self.postprocess(feats, curr_sample_rate)
 
-        v = {"id": index, "filename": path_or_fp, ."source": feats}
+        v = {"id": index, "filename": path_or_fp, "source": feats}
 
         if self.is_compute_mask:
             T = self._get_mask_indices_dims(feats.size(-1))
