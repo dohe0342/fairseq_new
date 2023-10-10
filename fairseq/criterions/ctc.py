@@ -883,6 +883,7 @@ class PromptCtcCriterion(CtcCriterion):
                         count += 1
         '''
         print(sample['net_input'])
+        print(sample['net_input'].keys())
         exit()
 
         device = sample['net_input']['source'].device
