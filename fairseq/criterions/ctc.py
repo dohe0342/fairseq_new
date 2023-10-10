@@ -869,7 +869,7 @@ class PromptCtcCriterion(CtcCriterion):
         self.prompt = torch.nn.Parameter(torch.randn(200, 512)/10.)
         self.attn_output = []
                 
-    def hook_fn(module, input, output):
+    def hook_fn(self, module, input, output):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
