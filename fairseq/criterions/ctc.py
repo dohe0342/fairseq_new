@@ -1072,7 +1072,7 @@ class Prompt2CtcCriterion(CtcCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
 
-        lprobs = lprobs[120:, :, :]
+        #lprobs = lprobs[120:, :, :]
 
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
@@ -1097,7 +1097,7 @@ class Prompt2CtcCriterion(CtcCriterion):
             input_lengths = sample["net_input"]["src_lengths"]
         else:
             if net_output["padding_mask"] is not None:
-                net_output["padding_mask"] = net_output["padding_mask"][:,120:]
+                #net_output["padding_mask"] = net_output["padding_mask"][:,120:]
                 non_padding_mask = ~net_output["padding_mask"]
                 input_lengths = non_padding_mask.long().sum(-1)
             else:
