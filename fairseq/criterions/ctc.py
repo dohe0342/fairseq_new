@@ -1072,6 +1072,8 @@ class Prompt2CtcCriterion(CtcCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
 
+        lprobs = lprobs[120:, :, :]
+
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
         if self.rdrop_alpha > 0:
