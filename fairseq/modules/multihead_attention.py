@@ -527,7 +527,7 @@ class MultiheadAttention(FairseqIncrementalDecoder):
             # for input embedding dimention and K,Q,V projection dimension.
             # Since pruning will break the dimension check and it is not easy to modify the pytorch API,
             # it is preferred to bypass the pytorch MHA when we need to skip embed_dim_check
-            and not self.skip_embed_dim_check and 1
+            and not self.skip_embed_dim_check and 0
         ):
             assert key is not None and value is not None
 
