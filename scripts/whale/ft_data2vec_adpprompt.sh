@@ -3,7 +3,7 @@ fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
 	common.user_dir=examples/data2vec \
-	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/dim"$dim" \
+	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/adapter_prompt_dim$dim \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/dim"$dim".log \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
