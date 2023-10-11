@@ -9,7 +9,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=train-100-noisy \
 	dataset.valid_subset=dev-other \
-	criterion._name=prompt2
+	criterion._name=ctc
 
 #task.data=/dev/shm/manifests \
 : <<'END'
