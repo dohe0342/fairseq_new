@@ -1061,7 +1061,7 @@ class Prompt2CtcCriterion(CtcCriterion):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
-        if model.num_updates > 10000:
+        if model.w2v_encoder.num_updates > 10000:
             device = sample['net_input']['source'].device
             self.prompt = self.prompt.to(device)
             
