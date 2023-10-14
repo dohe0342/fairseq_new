@@ -1062,12 +1062,16 @@ class Prompt2CtcCriterion(CtcCriterion):
 
     def forward(self, model, sample, reduce=True, **kwargs):
         #if model.w2v_encoder.num_updates > 40000:
+        if model.w2v_encoder.num_updates % 2 == 0:
+            self.prompt.requires_grad = False
+        else:
+            self.prompt_requries_grad = True
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
         
         sample['net_input']['prompt'] = self.prompt
         sample['net_input']['filename'] = sample['filename']
-        
+
         net_output = model(**sample["net_input"])
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
