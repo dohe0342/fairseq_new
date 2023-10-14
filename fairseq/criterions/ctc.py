@@ -1064,6 +1064,8 @@ class Prompt2CtcCriterion(CtcCriterion):
         #if model.w2v_encoder.num_updates > 40000:
         if model.w2v_encoder.num_updates % 2 == 0:
             self.prompt.requires_grad = False
+            for n, p in model.named_parameters():
+                p.requires_grad = True
         else:
             self.prompt_requries_grad = True
         device = sample['net_input']['source'].device
