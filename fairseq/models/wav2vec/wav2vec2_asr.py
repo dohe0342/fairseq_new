@@ -229,8 +229,8 @@ class Wav2VecCtc(BaseFairseqModel):
     @classmethod
     def build_model(cls, cfg: Wav2Vec2CtcConfig, task: FairseqTask):
         """Build a new model instance."""
-        w2v_encoder = Wav2VecEncoder(cfg, 32)
-        #w2v_encoder = Wav2VecEncoder(cfg, len(task.target_dictionary))
+        try: w2v_encoder = Wav2VecEncoder(cfg, len(task.target_dictionary))
+        except: w2v_encoder = Wav2VecEncoder(cfg, 32)
         return cls(cfg, w2v_encoder)
 
     def get_logits(self, net_output, normalize=False):
