@@ -1065,6 +1065,11 @@ class Prompt2CtcCriterion(CtcCriterion):
         if model.w2v_encoder.num_updates % 2 == 0:
             self.prompt.requires_grad = False
             for n, p in model.named_parameters():
+                if 'norm' in n or 'w2v_encoder.proj' in n:
+                    logger.info(f"{n} requires grad = True")
+                    p.requires_grad = True
+                else:
+                    p.requires_grad = False
                 p.requires_grad = True
         else:
             self.prompt_requries_grad = True
