@@ -1068,6 +1068,9 @@ class Prompt2CtcCriterion(CtcCriterion):
                 p.requires_grad = True
         else:
             self.prompt_requries_grad = True
+            for n, p in model.named_parameters():
+                p.requires_grad = False
+
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
         
