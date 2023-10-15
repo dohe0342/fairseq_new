@@ -1062,6 +1062,7 @@ class Prompt2CtcCriterion(CtcCriterion):
 
     def forward(self, model, sample, reduce=True, **kwargs):
         #if model.w2v_encoder.num_updates > 40000:
+        '''
         if model.w2v_encoder.num_updates % 2 == 0:
             self.prompt.requires_grad = False
             for n, p in model.named_parameters():
@@ -1073,6 +1074,7 @@ class Prompt2CtcCriterion(CtcCriterion):
                     p.requires_grad = True
                 else:
                     p.requires_grad = False
+        '''
 
         device = sample['net_input']['source'].device
         self.prompt = self.prompt.to(device)
