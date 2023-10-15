@@ -1,15 +1,17 @@
+noise=$1
+exp_name="w2v2_200h_clean+$noise"
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
 	common.user_dir=examples/data2vec \
-	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
+	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
+	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
-	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	dataset.train_subset=train-200-speech \
+	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
+	dataset.train_subset=train-200-$noise \
 	dataset.valid_subset=dev-other \
-	criterion._name=prompt2
+	criterion._name=ctc
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
 : <<'END'
