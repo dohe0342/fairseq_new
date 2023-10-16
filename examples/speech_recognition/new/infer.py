@@ -337,6 +337,8 @@ class InferenceProcessor:
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
         
+        device = sample['net_input']['source'].device
+        self.prompt = self.prompt.to(device)
         sample['net_input']['prompt'] = self.prompt
         sample['net_input']['filename'] = sample['filename']
 
