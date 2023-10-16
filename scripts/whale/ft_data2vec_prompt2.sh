@@ -10,7 +10,7 @@ fairseq-hydra-train \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 	dataset.train_subset=train-200-$noise \
-	dataset.valid_subset=dev-other \
+	dataset.valid_subset=dev-other-speech_mixed \
 	criterion._name=prompt2
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
