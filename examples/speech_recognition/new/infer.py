@@ -336,6 +336,10 @@ class InferenceProcessor:
 
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
+        
+        print('-'*20)
+        print(sample)
+        print('-'*20)
         hypos = self.task.inference_step(
             generator=self.generator,
             models=self.models,
