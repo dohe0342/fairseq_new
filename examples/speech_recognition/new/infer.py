@@ -107,11 +107,12 @@ class InferenceProcessor:
         criterion = ckpt['criterion']
         if 'prompt' in criterion:
             self.prompt = criterion['prompt']
-            logger.info('-'*20)
             logger.info('Using prompt...')
-            logger.info('-'*20)
         else:
             self.prompt = None
+
+        del ckpt, criterion
+
 
         ### LOAD ADAPTER ####
         ckpt_obj = checkpoint_utils.load_checkpoint_to_cpu(self.cfg.common_eval.path)
