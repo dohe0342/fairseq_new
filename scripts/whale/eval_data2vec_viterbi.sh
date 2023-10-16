@@ -15,8 +15,8 @@ do
 		CUDA_VISIBLE_DEVICES=$2 python /home/work/workspace/fairseq/examples/speech_recognition/new/infer.py \
 			--config-dir /home/work/workspace/fairseq/examples/hubert/config/decode \
 			--config-name infer_viterbi \
-			task.data=/home/work/workspace/LibriSpeech/manifests \
 			task.normalize=false \
+			task.data=/dev/shm/manifests \
 			dataset.gen_subset=$subset \
 			common_eval.path=/home/work/workspace/models/hubert_model/$model 
 	else
@@ -37,3 +37,5 @@ do
 	echo ""
 	echo ""
 done
+
+#task.data=/home/work/workspace/LibriSpeech/manifests \
