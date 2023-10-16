@@ -113,7 +113,6 @@ class InferenceProcessor:
 
         del ckpt, criterion
 
-
         ### LOAD ADAPTER ####
         ckpt_obj = checkpoint_utils.load_checkpoint_to_cpu(self.cfg.common_eval.path)
         if "adapter" in ckpt_obj:
