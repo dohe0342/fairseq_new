@@ -43,7 +43,7 @@ optimizer:
 
 lr_scheduler:
   _name: tri_stage
-  phase_ratio: [0.2, 0.4, 0.5]
+  phase_ratio: [0.2, 0.36, 0.44]
   final_lr_scale: 0.05
 
 model:
