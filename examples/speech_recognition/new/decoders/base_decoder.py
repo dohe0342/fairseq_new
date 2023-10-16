@@ -12,7 +12,8 @@ from fairseq.models.fairseq_model import FairseqModel
 
 
 class BaseDecoder:
-    def __init__(self, tgt_dict: Dictionary) -> None:
+    def __init__(self, tgt_dict: Dictionary, prompt=None) -> None:
+        self.prompt = 
         self.tgt_dict = tgt_dict
         self.vocab_size = len(tgt_dict)
 
