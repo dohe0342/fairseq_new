@@ -342,10 +342,6 @@ class InferenceProcessor:
         sample['net_input']['prompt'] = self.prompt
         sample['net_input']['filename'] = sample['filename']
 
-        print('-'*20)
-        print(sample['net_input'].keys())
-        print('-'*20)
-        
         hypos = self.task.inference_step(
             generator=self.generator,
             models=self.models,
