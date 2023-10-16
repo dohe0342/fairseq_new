@@ -1061,7 +1061,6 @@ class Prompt2CtcCriterion(CtcCriterion):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
-        '''
         if model.w2v_encoder.num_updates < 40000:
             self.prompt.requries_grad = False
         else:
@@ -1079,7 +1078,7 @@ class Prompt2CtcCriterion(CtcCriterion):
                 p.requires_grad = True
         else:
             self.prompt.requires_grad = True
-
+        '''
         '''
         if model.w2v_encoder.num_updates % 2 == 0:
             self.prompt.requires_grad = False
