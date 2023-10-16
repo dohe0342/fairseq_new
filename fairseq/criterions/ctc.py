@@ -1072,7 +1072,7 @@ class Prompt2CtcCriterion(CtcCriterion):
                 if 'w2v_encoder.proj' in n:
                     p.requires_grad = True
                 else:
-                    p.reuqires_grad = False
+                    p.requires_grad = False
         elif model.w2v_encoder.num_updates >= 10000 and model.w2v_encoder.num_updates < 50000:
             self.prompt.requires_grad = False
             for n, p in model.named_parameters():
