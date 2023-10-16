@@ -104,7 +104,7 @@ class InferenceProcessor:
         models, saved_cfg = self.load_model_ensemble()
 
         print('-'*20)
-        print(self.cfg.common_eval_path)
+        print(self.cfg.common_eval.path)
         print('-'*20)
 
         ### LOAD ADAPTER ####
