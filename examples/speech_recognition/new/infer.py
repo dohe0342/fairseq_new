@@ -337,8 +337,11 @@ class InferenceProcessor:
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
         
+        sample['net_input']['prompt'] = self.prompt
+        sample['net_input']['filename'] = sample['filename']
+
         print('-'*20)
-        print(sample)
+        print(sample['net_input'].keys())
         print('-'*20)
         
         hypos = self.task.inference_step(
