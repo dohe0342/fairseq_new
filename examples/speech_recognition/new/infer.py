@@ -143,7 +143,7 @@ class InferenceProcessor:
             self.cfg.dataset.gen_subset,
             task_cfg=saved_cfg.task,
         )
-        self.generator = Decoder(cfg.decoding, self.tgt_dict, self.prompt)
+        self.generator = Decoder(cfg.decoding, self.tgt_dict)
         self.gen_timer = StopwatchMeter()
         self.wps_meter = TimeMeter()
         self.num_sentences = 0
@@ -340,6 +340,7 @@ class InferenceProcessor:
         print('-'*20)
         print(sample)
         print('-'*20)
+        
         hypos = self.task.inference_step(
             generator=self.generator,
             models=self.models,
