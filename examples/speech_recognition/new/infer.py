@@ -103,6 +103,10 @@ class InferenceProcessor:
 
         models, saved_cfg = self.load_model_ensemble()
 
+        print('-'*20)
+        print(self.cfg.common_eval_path)
+        print('-'*20)
+
         ### LOAD ADAPTER ####
         ckpt_obj = checkpoint_utils.load_checkpoint_to_cpu(self.cfg.common_eval.path)
         if "adapter" in ckpt_obj:
