@@ -107,7 +107,9 @@ class InferenceProcessor:
         criterion = ckpt['criterion']
         if 'prompt' in criterion:
             self.prompt = criterion['prompt']
-            logger.info('Using prompt')
+            logger.info('-'*20)
+            logger.info('Using prompt...')
+            logger.info('-'*20)
         else:
             self.prompt = None
 
