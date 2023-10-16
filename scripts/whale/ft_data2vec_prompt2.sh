@@ -2,7 +2,7 @@ noise=$1
 exp_name="w2v2_200h_clean+"$noise"_prompt_freeze40000"
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_100h \
+	--config-name base_100h_prompt \
 	common.user_dir=examples/data2vec \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
