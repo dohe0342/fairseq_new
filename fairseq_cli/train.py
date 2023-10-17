@@ -109,7 +109,7 @@ def main(cfg: FairseqConfig) -> None:
                     logger.info(f"{n} replaced")
                 except: 
                     logger.info(f"adapter {n}")
-    del ckp
+    #del ckp
     criterion = task.build_criterion(cfg.criterion)
     logger.info(model)
     logger.info("task: {}".format(task.__class__.__name__))
