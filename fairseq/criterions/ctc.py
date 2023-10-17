@@ -1058,7 +1058,7 @@ class Prompt2CtcCriterion(CtcCriterion):
         #self.prompt = torch.nn.Parameter(new_emb).half()
         #self.prompt = torch.nn.Parameter(new_emb)
         
-        self.prompt = torch.nn.Parameter(torch.randn(2, 120, 512)/10.)
+        self.prompt = torch.nn.Parameter(torch.randn(2, 50, 512)/10.)
         self.attn_output = []
                 
     def hook_fn(self, module, input, output):
