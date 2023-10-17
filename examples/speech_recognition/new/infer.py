@@ -105,7 +105,7 @@ class InferenceProcessor:
 
         ckpt = torch.load(self.cfg.common_eval.path)
         try: criterion = ckpt['criterion']
-        else: criterion = None
+        except: criterion = None
         if criterion is not None and 'prompt' in criterion:
             self.prompt = criterion['prompt']
             logger.info('Using prompt...')
