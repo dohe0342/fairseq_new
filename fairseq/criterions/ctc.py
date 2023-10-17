@@ -1067,7 +1067,8 @@ class Prompt2CtcCriterion(CtcCriterion):
     def forward(self, model, sample, reduce=True, **kwargs):
         if model.w2v_encoder.num_updates < 90000:
             #self.prompt.requries_grad = False
-            self.prompt = self.prompt.detach()
+            try: self.prompt = self.prompt.detach()
+            except: pass
         else:
             self.prompt.requries_grad = True
         '''
