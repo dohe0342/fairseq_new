@@ -11,7 +11,8 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 	dataset.train_subset=train-200-$noise \
 	dataset.valid_subset=dev-other-"$noise"_mixed \
-	criterion._name=prompt2
+	criterion._name=prompt2 \
+	optimization.lr=[0.03]
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
 : <<'END'
