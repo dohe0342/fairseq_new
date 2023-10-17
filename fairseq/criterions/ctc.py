@@ -1058,7 +1058,7 @@ class Prompt2CtcCriterion(CtcCriterion):
         #self.prompt = torch.nn.Parameter(new_emb).half()
         #self.prompt = torch.nn.Parameter(new_emb)
         
-        self.prompt = torch.nn.Parameter(torch.randn(2, 50, 512)/10.)
+        self.prompt = torch.nn.Parameter(torch.randn(2, 120, 512)/10.)
         #torch.nn.init.orthogonal_(self.prompt)
         '''
         ckpt = torch.load('/home/work/workspace/fairseq/scripts/whale/outputs/w2v2_200h_clean+speech_mixed-valid_prompt_prompt-freeze80000_orthogonal/checkpoint_best.pt')
