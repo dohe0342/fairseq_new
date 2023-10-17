@@ -104,13 +104,13 @@ class InferenceProcessor:
         models, saved_cfg = self.load_model_ensemble()
 
         ckpt = torch.load(self.cfg.common_eval.path)
-        if 'criterion' in ckpt:
-            self.prompt = ckpt['criterion']['prompt']
+        if 'prompt' in ckpt:
+            self.prompt = criterion['prompt']
             logger.info('Using prompt...')
         else:
             self.prompt = None
 
-        del ckpt
+        del ckpt, criterion
 
         ### LOAD ADAPTER ####
         ckpt_obj = checkpoint_utils.load_checkpoint_to_cpu(self.cfg.common_eval.path)
