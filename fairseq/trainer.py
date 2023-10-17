@@ -311,12 +311,21 @@ class Trainer(object):
                     params.append(p)
                     self.param_names.append(n)
         else:
+            '''
             params = list(
                 filter(
                     lambda p: p.requires_grad,
                     chain(self.model.parameters(), self.criterion.parameters()),
                 )
             )
+            '''
+            params = list(
+                filter(
+                    lambda p: p.requires_grad,
+                    chain(self.criterion.parameters()),
+                )
+            )
+
             #for n, p in self.model.named_parameters():
             #    if p.requires_grad:
             #        logger.info(n)
