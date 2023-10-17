@@ -72,6 +72,10 @@ class CtcCriterionConfig(FairseqDataclass):
             "help": "DEPRECATED: tuple of (wer_kenlm_model, wer_lexicon, wer_lm_weight, wer_word_score)"
         },
     )
+    prompt: bool = field(
+        default=False,
+        metadata={"help": "use prompt as guidance of data augmentation"},
+    )
 
 
 @register_criterion("ctc", dataclass=CtcCriterionConfig)
@@ -1054,15 +1058,17 @@ class Prompt2CtcCriterion(CtcCriterion):
         #self.prompt = torch.nn.Parameter(new_emb).half()
         #self.prompt = torch.nn.Parameter(new_emb)
         
-        self.prompt = torch.nn.Parameter(torch.randn(2, 120, 512)/10.)
-        self.attn_output = []
+        self.prompt = torch.nn.Parameter(torch.randn(2, 50, 512)/10.)
+        torch.nn.init.orthogonal_(self.prompt)
                 
     def hook_fn(self, module, input, output):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
-        if model.w2v_encoder.num_updates < 40000:
-            self.prompt.requries_grad = False
+        if model.w2v_encoder.num_updates < 90000:
+            #self.prompt.requries_grad = False
+            try: self.prompt = self.prompt.detach()
+            except: pass
         else:
             self.prompt.requries_grad = True
         '''
