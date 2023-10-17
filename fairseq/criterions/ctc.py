@@ -72,6 +72,10 @@ class CtcCriterionConfig(FairseqDataclass):
             "help": "DEPRECATED: tuple of (wer_kenlm_model, wer_lexicon, wer_lm_weight, wer_word_score)"
         },
     )
+    prompt: bool = field(
+        default=False,
+        metadata{"help": "use prompt as guidance of data augmentation"},
+    ):
 
 
 @register_criterion("ctc", dataclass=CtcCriterionConfig)
