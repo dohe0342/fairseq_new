@@ -1058,11 +1058,13 @@ class Prompt2CtcCriterion(CtcCriterion):
         #self.prompt = torch.nn.Parameter(new_emb).half()
         #self.prompt = torch.nn.Parameter(new_emb)
         
-        #self.prompt = torch.nn.Parameter(torch.randn(2, 50, 512)/10.)
+        self.prompt = torch.nn.Parameter(torch.randn(2, 50, 512)/10.)
         #torch.nn.init.orthogonal_(self.prompt)
+        '''
         ckpt = torch.load('/home/work/workspace/fairseq/scripts/whale/outputs/w2v2_200h_clean+speech_mixed-valid_prompt_prompt-freeze80000_orthogonal/checkpoint_best.pt')
         self.prompt = ckpt['criterion']['prompt']
         self.prompt = torch.nn.Parameter(self.prompt)
+        '''
                 
     def hook_fn(self, module, input, output):
         self.attn_output.append(output)
