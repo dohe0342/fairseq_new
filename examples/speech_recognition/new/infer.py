@@ -110,7 +110,7 @@ class InferenceProcessor:
         else:
             self.prompt = None
 
-        del ckpt, criterion
+        del ckpt
 
         ### LOAD ADAPTER ####
         ckpt_obj = checkpoint_utils.load_checkpoint_to_cpu(self.cfg.common_eval.path)
