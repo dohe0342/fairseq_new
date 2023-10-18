@@ -111,7 +111,6 @@ class InferenceProcessor:
             logger.info('Using prompt...')
         else:
             self.prompt = None
-
         #self.prompt = None
 
         del ckpt, criterion
