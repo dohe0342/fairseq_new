@@ -649,7 +649,7 @@ class Wav2Vec2Model(BaseFairseqModel):
             if filename is not None:
                 for fname in filename:
                     #if '_animal' in fname or '_speech' in fname or '_car' in fname or '_thunder' in fname:
-                    if 1:
+                    if 0:
                         try: noise_prompt = torch.cat([noise_prompt, prompt[0].unsqueeze(0)], dim=0)
                         except: noise_prompt = prompt[0].unsqueeze(0)
                     else:
