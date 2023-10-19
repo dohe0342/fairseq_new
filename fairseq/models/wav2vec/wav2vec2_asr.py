@@ -987,8 +987,6 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
 
         # TODO: update this when transformer gets converted to dataclass configs
         transformer_cfg = copy.deepcopy(cfg)
-        print(transformer_cfg)
-        print(type(transformer_cfg))
         #with open_dict(transformer_cfg):
         if 1:
             transformer_cfg.dropout = transformer_cfg.decoder_dropout
