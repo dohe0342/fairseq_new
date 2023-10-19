@@ -11,6 +11,8 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
+	dataset.max_tokens=3200000 \
+	optimization.update_freq=[2] \
 	criterion._name=ctc
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
