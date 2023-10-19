@@ -81,7 +81,7 @@ class CtcCriterionConfig(FairseqDataclass):
 @dataclass
 class ClipCriterionConfig(CtcCriterionConfig):
     lm: str = field(
-        default='transf',
+        default='gpt2',
         metadata={"help": "which structures to use as lm decoder"},
     )
 
