@@ -1064,6 +1064,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
             else None
         )
         print(positions.size())
+        exit()
 
         if incremental_state is not None:
             prev_output_tokens = prev_output_tokens[:, -1:]
