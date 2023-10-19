@@ -79,7 +79,7 @@ class CtcCriterionConfig(FairseqDataclass):
 
 
 @dataclass
-class ClipCriterionConfig(FairseqDataclass):
+class ClipCriterionConfig(CtcCriterionConfig):
     zero_infinity: bool = field(
         default=False,
         metadata={"help": "zero inf loss when source length <= target length"},
