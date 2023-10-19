@@ -1812,7 +1812,7 @@ class Clip2Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if cfg.lm_decoder == 'transf':
-            self.lm_decoder = 
+            self.lm_decoder = None
         
         ##############################################################
         self.blank_idx = (
