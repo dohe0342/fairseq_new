@@ -471,7 +471,7 @@ class TransformerDecoderClip(FairseqIncrementalDecoder):
         #input_embed_dim = embed_tokens.embedding_dim
         embed_dim = cfg.embed_dim
         self.embed_dim = embed_dim
-        self.output_embed_dim = cfg.decoder.output_dim
+        self.output_embed_dim = cfg.output_dim
 
         self.padding_idx = embed_tokens.padding_idx
         self.max_target_positions = cfg.max_target_positions
