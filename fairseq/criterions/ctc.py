@@ -1817,7 +1817,7 @@ class Clip2Criterion(FairseqCriterion):
         if cfg.decoder == 'transf':
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
-            self.lm_decoder = None
+            temp = torch.rand(1, 10, 768)
         
         ##############################################################
         self.blank_idx = (
