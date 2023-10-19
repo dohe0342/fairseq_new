@@ -1403,7 +1403,7 @@ class PrefixCtcCriterion(CtcCriterion):
 
 
 @register_criterion("clip", dataclass=CtcCriterionConfig)
-class CtcCriterion(FairseqCriterion):
+class ClipCriterion(FairseqCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
