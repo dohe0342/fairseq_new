@@ -6,8 +6,8 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	task.normalize=true \
-	model.w2v_path=/home/work/workspace/models/data2vec_model/audio_base_ls.pt \
-	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
+	model.w2v_path=/workspace/models/audio_base_ls.pt \
+	checkpoint.save_dir=/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.max_tokens=320000 \
 	optimization.update_freq=[2] \
 	criterion._name=clip2
