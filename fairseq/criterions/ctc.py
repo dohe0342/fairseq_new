@@ -1974,15 +1974,16 @@ class Clip2Criterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             
-            distill_loss = F.ctc_loss(
-                lm_am_sim,
-                alignment_flat,
-                input_lengths,
-                alignment_lengths,
-                blank=0,
-                reduction="sum",
-                zero_infinity=self.zero_infinity,
-            )
+            with torch.autograd.set_detect_anomaly(True):
+                distill_loss = F.ctc_loss(
+                    lm_am_sim,
+                    alignment_flat,
+                    input_lengths,
+                    alignment_lengths,
+                    blank=0,
+                    reduction="sum",
+                    zero_infinity=self.zero_infinity,
+                )
 
             loss = ctc_loss + self.lm_decay*distill_loss
 
