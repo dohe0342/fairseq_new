@@ -947,8 +947,7 @@ class TransformerDecoderForDistill(TransformerDecoder):
         self,
         cfg: Wav2Vec2Seq2SeqConfig,
         dictionary,
-        embed_tokens,
-        no_encoder_attn=False,
+        no_encoder_attn=True,
     ):
         super().__init__(cfg, dictionary, embed_tokens, no_encoder_attn)
 
