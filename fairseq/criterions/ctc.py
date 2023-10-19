@@ -2164,6 +2164,51 @@ class Clip2Criterion(FairseqCriterion):
         return True
 
 
+class LanguageModelDistillationDecoder(FairseqEncoderDecoderModel):
+    def __init__(self, encoder, decoder):
+        super().__init__(encoder, decoder)
+
+    @classmethod
+    def build_model(cls, cfg: Wav2Vec2Seq2SeqConfig, task: FairseqTask):
+        """Build a new model instance."""
+
+        assert (
+            cfg.autoregressive
+        ), "Please set task.autoregressive=true for seq2seq asr models"
+
+        src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
+
+        def build_embedding(dictionary, embed_dim):
+            num_embeddings = len(dictionary)
+            padding_idx = dictionary.pad()
+            emb = Embedding(num_embeddings, embed_dim, padding_idx)
+            return emb 
+
+        decoder_embed_tokens = build_embedding(tgt_dict, cfg.decoder_embed_dim)
+
+        encoder = cls.build_encoder(cfg)
+        decoder = cls.build_decoder(cfg, tgt_dict, decoder_embed_tokens)
+
+        return Wav2Vec2Seq2SeqModel(encoder, decoder)
+
+    @classmethod
+    def build_encoder(cls, cfg: Wav2Vec2AsrConfig):
+        return Wav2VecEncoder(cfg)
+
+    @classmethod
+    def build_decoder(cls, cfg: Wav2Vec2Seq2SeqConfig, tgt_dict, embed_tokens):
+        return TransformerDecoder(cfg, tgt_dict, embed_tokens)
+
+    def forward(self, **kwargs):
+        encoder_out = self.encoder(**kwargs)
+        decoder_out = self.decoder(encoder_out=encoder_out, **kwargs)
+        return decoder_out
+
+    def upgrade_state_dict_named(self, state_dict, name):
+        super().upgrade_state_dict_named(state_dict, name)
+        return state_dict
+
+
 def Linear(in_features, out_features, bias=True):
     m = torch.nn.Linear(in_features, out_features, bias)
     torch.nn.init.xavier_uniform_(m.weight)
