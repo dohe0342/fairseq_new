@@ -23,6 +23,7 @@ from fairseq.data.data_utils import post_process
 from fairseq.tasks import FairseqTask
 from fairseq.logging.meters import safe_round
 from fairseq.models.wav2vec.wav2vec2_asr import Linear
+from fariseq.models.wav2vec.wav2vec2_asr import Wav2Vec2Seq2SeqConfig
 
 from transformers import GPT2Tokenizer, GPT2Model, BertTokenizer, BertModel
 from fairseq.data.data_utils import post_process
@@ -1812,7 +1813,7 @@ class Clip2Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if cfg.lm_decoder == 'transf':
-            self.lm_decoder
+            self.lm_decoder = 
         
         ##############################################################
         self.blank_idx = (
