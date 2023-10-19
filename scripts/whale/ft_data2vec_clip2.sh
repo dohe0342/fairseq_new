@@ -1,5 +1,5 @@
 fairseq-hydra-train \
-	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
+	--config-dir /workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
 	common.user_dir=examples/data2vec \
 	common.log_file=/workspace/fairseq/scripts/whale/outputs/$1.log \
