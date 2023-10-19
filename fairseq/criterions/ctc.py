@@ -1819,7 +1819,7 @@ class Clip2Criterion(FairseqCriterion):
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             temp = torch.rand(10, 100, 768)
             temp2 = self.lm_decoder(temp)
-            print(temp.size(), temp2.size())
+            print(temp.size(), temp2[0].size())
         
         self.lm_decay = cfg.lm_decay
         ##############################################################
