@@ -1812,6 +1812,8 @@ class Clip2Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if cfg.lm_decoder == 'transf':
+            lm_cfg = Wav2Vec2Seq2SeqConfig()
+            model = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             self.lm_decoder = None
         
         ##############################################################
