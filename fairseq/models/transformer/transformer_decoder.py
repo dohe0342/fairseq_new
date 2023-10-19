@@ -453,9 +453,8 @@ class TransformerDecoderClip(FairseqIncrementalDecoder):
     def __init__(
         self,
         cfg,
-        dictionary,
         embed_tokens,
-        no_encoder_attn=False,
+        no_encoder_attn=True,
         output_projection=None,
     ):
         self.cfg = cfg
