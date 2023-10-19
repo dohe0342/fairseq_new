@@ -4,7 +4,7 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
-	checkpoint.save_dir=/workspace/fairseq_new/scripts/whale/outputs/$1 \
+	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
 	criterion._name=clip2
