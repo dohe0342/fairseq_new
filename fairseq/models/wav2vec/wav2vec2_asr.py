@@ -1075,7 +1075,8 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
             x = self.project_in_dim(x)
 
         if positions is not None:
-            x += positions
+            #x += positions
+            x = x + positions
         x = F.dropout(x, p=self.dropout, training=self.training)
 
         # B x T x C -> T x B x C
