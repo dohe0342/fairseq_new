@@ -78,6 +78,56 @@ class CtcCriterionConfig(FairseqDataclass):
     )
 
 
+@dataclass
+class ClipCriterionConfig(FairseqDataclass):
+    zero_infinity: bool = field(
+        default=False,
+        metadata={"help": "zero inf loss when source length <= target length"},
+    )
+    sentence_avg: bool = II("optimization.sentence_avg")
+    post_process: str = field(
+        default="letter",
+        metadata={
+            "help": "how to post process predictions into words. can be letter, "
+            "wordpiece, BPE symbols, etc. "
+            "See fairseq.data.data_utils.post_process() for full list of options"
+        },
+    )
+    wer_kenlm_model: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "if this is provided, use kenlm to compute wer (along with other wer_* args)"
+        },
+    )
+    wer_lexicon: Optional[str] = field(
+        default=None,
+        metadata={"help": "lexicon to use with wer_kenlm_model"},
+    )
+    wer_lm_weight: float = field(
+        default=2.0,
+        metadata={"help": "lm weight to use with wer_kenlm_model"},
+    )
+    wer_word_score: float = field(
+        default=-1.0,
+        metadata={"help": "lm word score to use with wer_kenlm_model"},
+    )
+    wer_sil_weight: float = field(
+        default=0,
+        metadata={"help": "lm word score to use with wer_kenlm_model"},
+    )
+
+    wer_args: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "DEPRECATED: tuple of (wer_kenlm_model, wer_lexicon, wer_lm_weight, wer_word_score)"
+        },
+    )
+    prompt: bool = field(
+        default=False,
+        metadata={"help": "use prompt as guidance of data augmentation"},
+    )
+
+
 @register_criterion("ctc", dataclass=CtcCriterionConfig)
 class CtcCriterion(FairseqCriterion):
     def __init__(
@@ -1786,6 +1836,8 @@ class Clip2Criterion(FairseqCriterion):
         self.tgt_dict = task.target_dictionary
         #self.lm_linear = Linear(768, 768)
         #self.ins_norm = torch.nn.InstanceNorm1d(768)
+
+        
         ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
