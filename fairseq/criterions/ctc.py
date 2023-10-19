@@ -1822,7 +1822,7 @@ class Clip2Criterion(FairseqCriterion):
             print(temp.size())
             print('-'*20)
             print(self.lm_decoder)
-            temp2 = self.lm_decoder(temp)
+            temp2 = self.lm_decoder({'prev_output_tokens': temp})
         
         ##############################################################
         self.blank_idx = (
