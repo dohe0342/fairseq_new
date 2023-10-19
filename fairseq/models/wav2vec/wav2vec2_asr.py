@@ -951,7 +951,7 @@ class TransformerDecoderForDistill(TransformerDecoder):
         no_encoder_attn=True,
     ):
         #super().__init__(cfg, dictionary, None, no_encoder_attn)
-        FairseqIncrementalDecoder().__init__(dictionary)
+        FairseqIncrementalDecoder().__init__(self, dictionary)
         self.dropout = cfg.decoder_dropout
 
         embed_dim = cfg.decoder_embed_dim
