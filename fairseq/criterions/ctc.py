@@ -2166,7 +2166,7 @@ class Clip2Criterion(FairseqCriterion):
 
 class LanguageModelDistillationDecoder(FairseqLanguageModel):
     def __init__(self, decoder):
-        self.decoder = 
+        self.decoder = decoder
 
     @classmethod
     def build_model(cls, cfg: Wav2Vec2Seq2SeqConfig, task: FairseqTask):
