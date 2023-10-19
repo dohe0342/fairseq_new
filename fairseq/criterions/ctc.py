@@ -1818,7 +1818,7 @@ class Clip2Criterion(FairseqCriterion):
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             temp = torch.rand(1, 10, 768)
-            temp2 = self.lm_decoder(temp)
+            temp2 = self.lm_decoder(temp, {'a':'a'})
         
         ##############################################################
         self.blank_idx = (
