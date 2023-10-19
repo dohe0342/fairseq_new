@@ -84,7 +84,6 @@ class ClipCriterionConfig(CtcCriterionConfig):
         default='gpt2',
         metadata={"help": "which language model to use as distillation"},
     )
-
     decoder: str = field(
         default='transf',
         metadata={"help": "which structures to use as lm decoder"},
