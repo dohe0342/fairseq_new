@@ -2191,10 +2191,6 @@ class LanguageModelDistillationDecoder(FairseqLanguageModel):
         return LanguageModelDistillationDecoder(decoder)
 
     @classmethod
-    def build_encoder(cls, cfg: Wav2Vec2AsrConfig):
-        return Wav2VecEncoder(cfg)
-
-    @classmethod
     def build_decoder(cls, cfg: Wav2Vec2Seq2SeqConfig, tgt_dict, embed_tokens):
         return TransformerDecoder(cfg, tgt_dict, embed_tokens)
 
