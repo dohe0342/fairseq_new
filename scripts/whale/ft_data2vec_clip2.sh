@@ -4,7 +4,7 @@ fairseq-hydra-train \
 	common.user_dir=examples/data2vec \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
-	task.data=/home/work/workspace/LibriSpeech/manifests \
+	task.data=/workspace/LibriSpeech/manifests \
 	task.normalize=true \
 	model.w2v_path=/workspace/models/audio_base_ls.pt \
 	checkpoint.save_dir=/workspace/fairseq/scripts/whale/outputs/$1 \
