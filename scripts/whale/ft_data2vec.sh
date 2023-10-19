@@ -1,5 +1,5 @@
 noise=$1
-exp_name="w2v2_200h_clean+"$noise"_mixed-valid"
+exp_name="w2v2_100h_vanilla"
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
