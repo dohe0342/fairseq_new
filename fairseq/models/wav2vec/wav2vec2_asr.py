@@ -1070,7 +1070,8 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
                 positions = positions[:, -1:]
 
         # embed tokens and positions
-        x = self.embed_scale * self.embed_tokens(prev_output_tokens)
+        #x = self.embed_scale * self.embed_tokens(prev_output_tokens)
+        x = prev_output_tokens
 
         if self.project_in_dim is not None:
             x = self.project_in_dim(x)
