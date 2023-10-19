@@ -9,8 +9,8 @@ fairseq-hydra-train \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
-	dataset.train_subset=train-200-$noise \
-	dataset.valid_subset=dev-other-"$noise"_mixed \
+	dataset.train_subset=train-100 \
+	dataset.valid_subset=dev-other \
 	criterion._name=ctc
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
