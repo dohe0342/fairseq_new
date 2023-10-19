@@ -964,7 +964,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
         #self.embed_tokens = embed_tokens
         self.embed_scale = math.sqrt(embed_dim)  # todo: try with input_embed_dim
 
-        input_embed_dim = 658
+        input_embed_dim = 768
 
         self.project_in_dim = (
             Linear(input_embed_dim, embed_dim, bias=False)
