@@ -80,7 +80,7 @@ class CtcCriterionConfig(FairseqDataclass):
 
 @dataclass
 class ClipCriterionConfig(CtcCriterionConfig):
-    wer_lm_weight: float = field(
+    decoder: float = field(
         default=2.0,
         metadata={"help": "lm weight to use with wer_kenlm_model"},
     )
