@@ -84,8 +84,7 @@ class ClipCriterionConfig(CtcCriterionConfig):
         default='transf',
         metadata={"help": "which structures to use as lm decoder"},
     )
-
-    decoder: float = field(
+    lm_decay: float = field(
         default=2.0,
         metadata={"help": "lm weight to use with wer_kenlm_model"},
     )
