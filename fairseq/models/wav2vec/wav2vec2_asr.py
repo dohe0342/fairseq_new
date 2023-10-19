@@ -958,7 +958,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
 
         self.layerdrop = cfg.decoder_layerdrop
 
-        self.padding_idx = embed_tokens.padding_idx
+        #self.padding_idx = embed_tokens.padding_idx
         self.max_target_positions = cfg.max_target_positions
 
         self.embed_tokens = embed_tokens
