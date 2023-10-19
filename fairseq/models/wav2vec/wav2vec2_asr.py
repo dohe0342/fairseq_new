@@ -963,6 +963,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
 
         #self.embed_tokens = embed_tokens
         self.embed_scale = math.sqrt(embed_dim)  # todo: try with input_embed_dim
+        self.share_input_output_embed = cfg.share_decoder_input_output_embed
 
         input_embed_dim = 768
         self.padding_idx = 0
@@ -1005,7 +1006,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
                 for _ in range(transformer_cfg.decoder_layers)
             ]
         )
-
+        
         if not self.share_input_output_embed:
             self.embed_out = nn.Parameter(
                 torch.Tensor(len(dictionary), self.output_embed_dim)
