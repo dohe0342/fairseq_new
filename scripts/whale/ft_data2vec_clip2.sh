@@ -10,7 +10,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
-	criterion._name=clip
+	criterion._name=clip2
 
 : <<'END'
 fairseq-hydra-train \
