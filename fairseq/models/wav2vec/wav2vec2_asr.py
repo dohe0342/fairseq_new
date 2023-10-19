@@ -1078,6 +1078,9 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
             #x += positions
             x = x + positions
         x = F.dropout(x, p=self.dropout, training=self.training)
+        print('-'*20)
+        print(self.training)
+        print('-'*20)
 
         # B x T x C -> T x B x C
         x = x.transpose(0, 1)
