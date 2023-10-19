@@ -950,7 +950,7 @@ class TransformerDecoderForDistill(TransformerDecoder):
         dictionary,
         no_encoder_attn=True,
     ):
-        super().__init__(cfg, dictionary, embed_tokens, no_encoder_attn)
+        super().__init__(cfg, dictionary, None, no_encoder_attn)
         self.dropout = cfg.decoder_dropout
 
         embed_dim = cfg.decoder_embed_dim
