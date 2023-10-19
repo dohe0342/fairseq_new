@@ -1,11 +1,9 @@
 fairseq-hydra-train \
 	--config-dir /workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
-	common.user_dir=examples/data2vec \
 	common.log_file=/workspace/fairseq/scripts/whale/outputs/$1.log \
 	task.data=/workspace/LibriSpeech/manifests \
-	task.normalize=true \
-	model.w2v_path=/workspace/models/audio_base_ls.pt \
+	model.w2v_path=/workspace/models/wav2vec_small.pt \
 	checkpoint.save_dir=/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.max_tokens=320000 \
 	optimization.update_freq=[2] \
