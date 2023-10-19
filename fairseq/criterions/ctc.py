@@ -1820,6 +1820,7 @@ class Clip2Criterion(FairseqCriterion):
             temp = torch.zeros(10, 900, 768)
             temp2 = self.lm_decoder(temp)
             print(temp.size(), temp2[0].size())
+            exit()
         
         self.lm_decay = cfg.lm_decay
         ##############################################################
