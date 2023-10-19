@@ -1816,6 +1816,7 @@ class Clip2Criterion(FairseqCriterion):
             model = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             print(model)
             self.lm_decoder = None
+            exit()
         
         ##############################################################
         self.blank_idx = (
