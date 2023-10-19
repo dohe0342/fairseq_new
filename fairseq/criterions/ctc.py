@@ -1821,6 +1821,7 @@ class Clip2Criterion(FairseqCriterion):
             print('-'*20)
             print(temp.size())
             print('-'*20)
+            print(self.lm_decoder)
             temp2 = self.lm_decoder(temp)
         
         ##############################################################
