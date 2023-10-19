@@ -966,7 +966,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
         self.share_input_output_embed = cfg.share_decoder_input_output_embed
 
         input_embed_dim = 768
-        self.padding_idx = 0
+        self.padding_idx = 1000
 
         self.project_in_dim = (
             Linear(input_embed_dim, embed_dim, bias=False)
