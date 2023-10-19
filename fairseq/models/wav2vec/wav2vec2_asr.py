@@ -1063,6 +1063,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
             if self.embed_positions is not None
             else None
         )
+        print(positions.size())
 
         if incremental_state is not None:
             prev_output_tokens = prev_output_tokens[:, -1:]
