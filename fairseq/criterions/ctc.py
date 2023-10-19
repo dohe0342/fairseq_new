@@ -1818,6 +1818,7 @@ class Clip2Criterion(FairseqCriterion):
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
         
+        self.lm_decay = cfg.lm_decay
         ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
