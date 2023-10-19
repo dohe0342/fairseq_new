@@ -1909,7 +1909,7 @@ class Clip2Criterion(FairseqCriterion):
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
 
-            lm_am_sim = GradMultiply(
+            lm_am_sim = GradMultiply(1000)
 
         ##############################
 
