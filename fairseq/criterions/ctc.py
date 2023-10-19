@@ -99,10 +99,6 @@ class ClipCriterionConfig(CtcCriterionConfig):
         default=0.1,
         metadata={"help": ""},
     )
-    prompt: bool = field(
-        default=False,
-        metadata={"help": "use prompt as guidance of data augmentation"},
-    )
 
 
 @register_criterion("ctc", dataclass=CtcCriterionConfig)
