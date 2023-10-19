@@ -1894,7 +1894,7 @@ class Clip2Criterion(FairseqCriterion):
                 if 0:
                     lm_output = lm_output[:,1:,:]
                 
-                lm_output = F.normalize(lm_output, dim=2)
+                #lm_output = F.normalize(lm_output, dim=2)
             
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             am_output = GradMultiply.apply(am_output, 0.001)
