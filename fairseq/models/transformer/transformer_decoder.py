@@ -458,18 +458,18 @@ class TransformerDecoderClip(FairseqIncrementalDecoder):
         output_projection=None,
     ):
         self.cfg = cfg
-        super().__init__(dictionary)
-        self.register_buffer("version", torch.Tensor([3]))
-        self._future_mask = torch.empty(0)
+        #super().__init__(dictionary)
+        #self.register_buffer("version", torch.Tensor([3]))
+        #self._future_mask = torch.empty(0)
 
-        self.dropout_module = FairseqDropout(
-            cfg.dropout, module_name=module_name_fordropout(self.__class__.__name__)
-        )
+        #self.dropout_module = FairseqDropout(
+        #    cfg.dropout, module_name=module_name_fordropout(self.__class__.__name__)
+        #)
         self.decoder_layerdrop = cfg.decoder.layerdrop
-        self.share_input_output_embed = cfg.share_decoder_input_output_embed
+        #self.share_input_output_embed = cfg.share_decoder_input_output_embed
 
-        input_embed_dim = embed_tokens.embedding_dim
-        embed_dim = cfg.decoder.embed_dim
+        #input_embed_dim = embed_tokens.embedding_dim
+        embed_dim = cfg.embed_dim
         self.embed_dim = embed_dim
         self.output_embed_dim = cfg.decoder.output_dim
 
@@ -835,7 +835,6 @@ class TransformerDecoderClip(FairseqIncrementalDecoder):
             state_dict[version_key] = torch.Tensor([1])
 
         return state_dict
-
 
 
 def Linear(in_features, out_features, bias=True):
