@@ -95,7 +95,6 @@ class ClipCriterionConfig(CtcCriterionConfig):
             "help": "how many layers to use as lm decoder"
         },
     )
-
     lm_decay: float = field(
         default=0.1,
         metadata={"help": ""},
