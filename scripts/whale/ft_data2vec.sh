@@ -1,5 +1,5 @@
 noise=$1
-exp_name="w2v2_200h_clean+"$noise"_mixed-valid"
+exp_name="w2v2_100h_vanilla"
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
@@ -9,8 +9,10 @@ fairseq-hydra-train \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
-	dataset.train_subset=train-200-$noise \
-	dataset.valid_subset=dev-other-"$noise"_mixed \
+	dataset.train_subset=train-100 \
+	dataset.valid_subset=dev-other \
+	dataset.max_tokens=3200000 \
+	optimization.update_freq=[2] \
 	criterion._name=ctc
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
