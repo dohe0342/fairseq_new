@@ -22,8 +22,7 @@ from fairseq.dataclass import FairseqDataclass
 from fairseq.data.data_utils import post_process
 from fairseq.tasks import FairseqTask
 from fairseq.logging.meters import safe_round
-from fairseq.models.wav2vec.wav2vec2_asr import Linear
-from fariseq.models.wav2vec.wav2vec2_asr import Wav2Vec2Seq2SeqConfig
+from fairseq.models.wav2vec.wav2vec2_asr import Linearm Wav2Vec2Seq2SeqConfig, LanguageModelDistillationDecoder
 
 from transformers import GPT2Tokenizer, GPT2Model, BertTokenizer, BertModel
 from fairseq.data.data_utils import post_process
@@ -2162,45 +2161,6 @@ class Clip2Criterion(FairseqCriterion):
         to True will improves distributed training speed.
         """
         return True
-
-
-class LanguageModelDistillationDecoder(FairseqLanguageModel):
-    def __init__(self, decoder):
-        self.decoder = decoder
-
-    @classmethod
-    def build_model(cls, cfg: Wav2Vec2Seq2SeqConfig, task: FairseqTask):
-        """Build a new model instance."""
-
-        assert (
-            cfg.autoregressive
-        ), "Please set task.autoregressive=true for seq2seq asr models"
-
-        src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
-
-        def build_embedding(dictionary, embed_dim):
-            num_embeddings = len(dictionary)
-            padding_idx = dictionary.pad()
-            emb = Embedding(num_embeddings, embed_dim, padding_idx)
-            return emb 
-
-        decoder_embed_tokens = build_embedding(tgt_dict, cfg.decoder_embed_dim)
-        
-        decoder = cls.build_decoder(cfg, tgt_dict, decoder_embed_tokens)
-
-        return LanguageModelDistillationDecoder(decoder)
-
-    @classmethod
-    def build_decoder(cls, cfg: Wav2Vec2Seq2SeqConfig, tgt_dict, embed_tokens):
-        return TransformerDecoder(cfg, tgt_dict, embed_tokens)
-
-    def forward(self, **kwargs):
-        decoder_out = self.decoder(**kwargs)
-        return decoder_out
-
-    def upgrade_state_dict_named(self, state_dict, name):
-        super().upgrade_state_dict_named(state_dict, name)
-        return state_dict
 
 
 def Linear(in_features, out_features, bias=True):
