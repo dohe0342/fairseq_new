@@ -1800,7 +1800,7 @@ class Clip2Criterion(FairseqCriterion):
         super().__init__(task)
         
         ########### for gpt2
-        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.lm = GPT2Model.from_pretrained('gpt2')
         
