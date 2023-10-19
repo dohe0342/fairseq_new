@@ -2,8 +2,7 @@ fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
 	common.user_dir=examples/data2vec \
-	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
+	common.log_file=/workspace/fairseq/scripts/whale/outputs/$1.log \
 	task.data=/workspace/LibriSpeech/manifests \
 	task.normalize=true \
 	model.w2v_path=/workspace/models/audio_base_ls.pt \
