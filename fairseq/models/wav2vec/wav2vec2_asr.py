@@ -972,7 +972,7 @@ class TransformerDecoderForDistill(TransformerDecoder):
         x, extra = self.extract_features(
             prev_output_tokens, encoder_out, incremental_state
         )
-        x = self.output_layer(x)
+        #x = self.output_layer(x)
         return x, extra
 
     def extract_features(
