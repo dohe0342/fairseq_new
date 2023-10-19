@@ -1769,6 +1769,7 @@ class ClipCriterion(FairseqCriterion):
         """
         return True
 
+
 @register_criterion("clip2", dataclass=CtcCriterionConfig)
 class Clip2Criterion(FairseqCriterion):
     def __init__(
