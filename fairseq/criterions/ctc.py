@@ -1792,7 +1792,7 @@ class ClipCriterion(FairseqCriterion):
         return True
 
 
-@register_criterion("clip2", dataclass=CtcCriterionConfig)
+@register_criterion("clip2", dataclass=ClipCriterionConfig)
 class Clip2Criterion(FairseqCriterion):
     def __init__(
         self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
