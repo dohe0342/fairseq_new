@@ -931,7 +931,7 @@ class TransformerDecoder(FairseqIncrementalDecoder):
         return state_dict
 
 
-class TransformerDecoderForDistill(TransformerDecoder):
+class TransformerDecoderForDistill(FairseqIncrementalDecoder):
     """
     Transformer decoder consisting of *args.decoder_layers* layers. Each layer
     is a :class:`TransformerDecoderLayer`.
