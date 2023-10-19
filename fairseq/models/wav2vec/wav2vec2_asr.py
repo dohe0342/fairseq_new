@@ -395,7 +395,7 @@ class LanguageModelDistillationDecoder(FairseqLanguageModel):
             emb = Embedding(num_embeddings, embed_dim, padding_idx)
             return emb  
 
-        decoder_embed_tokens = build_embedding(tgt_dict, cfg.decoder_embed_dim)
+        #decoder_embed_tokens = build_embedding(tgt_dict, cfg.decoder_embed_dim)
      
         decoder = cls.build_decoder(cfg, tgt_dict, decoder_embed_tokens)
 
@@ -952,69 +952,6 @@ class TransformerDecoderForDistill(TransformerDecoder):
         no_encoder_attn=False,
     ):
         super().__init__(cfg, dictionary, embed_tokens, no_encoder_attn)
-        super().__init__(dictionary)
-
-        self.dropout = cfg.decoder_dropout
-        self.share_input_output_embed = cfg.share_decoder_input_output_embed
-
-        input_embed_dim = embed_tokens.embedding_dim
-        embed_dim = cfg.decoder_embed_dim
-        self.output_embed_dim = cfg.decoder_embed_dim
-
-        self.layerdrop = cfg.decoder_layerdrop
-
-        self.padding_idx = embed_tokens.padding_idx
-        self.max_target_positions = cfg.max_target_positions
-
-        self.embed_tokens = embed_tokens
-        self.embed_scale = math.sqrt(embed_dim)  # todo: try with input_embed_dim
-
-        self.project_in_dim = (
-            Linear(input_embed_dim, embed_dim, bias=False)
-            if embed_dim != input_embed_dim
-            else None
-        )
-
-        self.embed_positions = (
-            PositionalEmbedding(
-                cfg.max_target_positions,
-                embed_dim,
-                self.padding_idx,
-                learned=cfg.decoder_learned_pos,
-            )
-            if not cfg.no_token_positional_embeddings
-            else None
-        )
-
-        # TODO: update this when transformer gets converted to dataclass configs
-        transformer_cfg = copy.deepcopy(cfg)
-        with open_dict(transformer_cfg):
-            transformer_cfg.dropout = transformer_cfg.decoder_dropout
-            transformer_cfg.attention_dropout = (
-                transformer_cfg.decoder_attention_dropout
-            )
-            transformer_cfg.activation_dropout = (
-                transformer_cfg.decoder_activation_dropout
-            )
-
-        self.layers = nn.ModuleList([])
-        self.layers.extend(
-            [
-                TransformerDecoderLayer(transformer_cfg, no_encoder_attn)
-                for _ in range(transformer_cfg.decoder_layers)
-            ]
-        )
-
-        if not self.share_input_output_embed:
-            self.embed_out = nn.Parameter(
-                torch.Tensor(len(dictionary), self.output_embed_dim)
-            )
-            nn.init.normal_(self.embed_out, mean=0, std=self.output_embed_dim**-0.5)
-
-        if transformer_cfg.decoder_normalize_before:
-            self.layer_norm = LayerNorm(embed_dim)
-        else:
-            self.layer_norm = None
 
     def forward(
         self, prev_output_tokens, encoder_out=None, incremental_state=None, **unused
