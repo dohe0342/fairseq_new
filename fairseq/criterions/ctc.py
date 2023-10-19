@@ -84,9 +84,16 @@ class ClipCriterionConfig(CtcCriterionConfig):
         default='transf',
         metadata={"help": "which structures to use as lm decoder"},
     )
+    decoder_layer_num: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "DEPRECATED: tuple of (wer_kenlm_model, wer_lexicon, wer_lm_weight, wer_word_score)"
+        },
+    )
+
     lm_decay: float = field(
         default=0.1,
-        metadata={"help": "lm weight to use with wer_kenlm_model"},
+        metadata={"help": ""},
     )
     prompt: bool = field(
         default=False,
