@@ -1808,8 +1808,11 @@ class Clip2Criterion(FairseqCriterion):
         self.tgt_dict = task.target_dictionary
 
         if cfg.lm_decoder == 'linear':
-            self.lm_linear = Linear(768, self.lm.embed_dim)
+            self.lm_decoder = Linear(768, self.lm.embed_dim)
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
+
+        if cfg.lm_decoder == 'transf':
+            self.lm_decoder
         
         ##############################################################
         self.blank_idx = (
