@@ -1810,8 +1810,6 @@ class Clip2Criterion(FairseqCriterion):
         if cfg.lm_decoder == 'linear':
             self.lm_linear = Linear(768, self.lm.embed_dim)
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
-
-
         
         ##############################################################
         self.blank_idx = (
