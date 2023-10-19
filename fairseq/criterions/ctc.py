@@ -2164,7 +2164,7 @@ class Clip2Criterion(FairseqCriterion):
         return True
 
 
-class LanguageModelDistillationDecoder(FairseqEncoderDecoderModel):
+class LanguageModelDistillationDecoder():
     def __init__(self, encoder, decoder):
         super().__init__(encoder, decoder)
 
