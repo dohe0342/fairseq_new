@@ -1810,11 +1810,11 @@ class Clip2Criterion(FairseqCriterion):
         self.task = task
         self.tgt_dict = task.target_dictionary
 
-        if cfg.lm_decoder == 'linear':
+        if cfg.decoder == 'linear':
             self.lm_decoder = Linear(768, self.lm.embed_dim)
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
-        if cfg.lm_decoder == 'transf':
+        if cfg.decoder == 'transf':
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             model = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             print(model)
