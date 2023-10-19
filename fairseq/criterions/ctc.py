@@ -1820,6 +1820,7 @@ class Clip2Criterion(FairseqCriterion):
             temp = torch.rand(1, 10, 768)
             temp2 = self.lm_decoder.decoder(temp)
             print(temp2.size())
+            exit()
         
         ##############################################################
         self.blank_idx = (
