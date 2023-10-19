@@ -1004,6 +1004,9 @@ class TransformerDecoderForDistill(TransformerDecoder):
         # embed tokens and positions
         x = self.embed_scale * self.embed_tokens(prev_output_tokens)
 
+        if self.project_in_dim is not None:
+            x = self.project_in_dim(x)
+
         if positions is not None:
             x += positions
         x = F.dropout(x, p=self.dropout, training=self.training)
