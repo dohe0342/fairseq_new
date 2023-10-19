@@ -27,6 +27,7 @@ from fairseq.models import (
     FairseqEncoderDecoderModel,
     FairseqIncrementalDecoder,
     register_model,
+    FairseqLanguageModel,
 )
 from fairseq.models.wav2vec.wav2vec2 import MASKING_DISTRIBUTION_CHOICES, LAYER_TYPE_CHOICES, AdapterFast
 from fairseq.modules import LayerNorm, PositionalEmbedding, TransformerDecoderLayer
