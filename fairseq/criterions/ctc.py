@@ -1892,7 +1892,6 @@ class Clip2Criterion(FairseqCriterion):
                 lm_output = self.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
                 
-            
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             am_output = GradMultiply.apply(am_output, 0.005)
             am_output = self.lm_decoder(am_output)
