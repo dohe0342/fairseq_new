@@ -1902,7 +1902,6 @@ class Clip2Criterion(FairseqCriterion):
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 
-                lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             if 1:
                 lm_output = F.normalize(lm_output, dim=2)
                 am_output = F.normalize(am_output, dim=2)
@@ -1911,7 +1910,7 @@ class Clip2Criterion(FairseqCriterion):
                 lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
                 lm_am_sim = -lm_am_dist
 
-            lm_am_dist = F.log_softmax(lm_am_dist, dim=-1)
+            lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
             #lm_am_sim = GradMultiply.apply(lm_am_sim, 200)
