@@ -1908,8 +1908,8 @@ class Clip2Criterion(FairseqCriterion):
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 
             if 0:
-                #lm_output = F.normalize(lm_output, dim=2)
-                #am_output = F.normalize(am_output, dim=2)
+                lm_output = F.normalize(lm_output, dim=2)
+                am_output = F.normalize(am_output, dim=2)
 
                 lm_am_dist = am_output.unsqueeze(2) - lm_output.unsqueeze(1)
                 lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
