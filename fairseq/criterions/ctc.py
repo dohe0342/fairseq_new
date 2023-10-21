@@ -1809,7 +1809,7 @@ class Clip2Criterion(FairseqCriterion):
         self.lm = GPT2Model.from_pretrained(cfg.lm)
 
         space_token = self.tokenizer(' ', return_tensors='pt')
-        self.space_token = self.lm(**space_token)
+        self.space_token = self.lm(**space_token)['last_hidden_state']
         
         self.task = task
         self.tgt_dict = task.target_dictionary
