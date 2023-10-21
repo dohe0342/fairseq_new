@@ -311,6 +311,7 @@ class Trainer(object):
                     params.append(p)
                     self.param_names.append(n)
         else:
+            '''
             params = list(
                 filter(
                     lambda p: p.requires_grad,
@@ -324,7 +325,6 @@ class Trainer(object):
                     chain(self.criterion.parameters()),
                 )
             )
-            '''
 
             #for n, p in self.model.named_parameters():
             #    if p.requires_grad:
