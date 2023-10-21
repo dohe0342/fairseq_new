@@ -1807,6 +1807,9 @@ class Clip2Criterion(FairseqCriterion):
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.lm = GPT2Model.from_pretrained(cfg.lm)
+
+        space_token = self.tokenizer(' ', return_tensors='pt')
+        self.space_token = self.lm(**space_token)
         
         self.task = task
         self.tgt_dict = task.target_dictionary
