@@ -10,6 +10,7 @@ fairseq-hydra-train \
 	model.freeze_finetune_updates=40000 \
 	model.apply_mask=true \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
+	checkpoint.reset_optimizer=true \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[1] \
 	optimization.lr=[0.3] \
