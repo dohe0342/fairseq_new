@@ -307,16 +307,16 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         },
     )
     decoder_dropout: float = field(
-        default=0.05, metadata={"help": "dropout probability in the decoder"}
+        default=0.0, metadata={"help": "dropout probability in the decoder"}
     )
     decoder_attention_dropout: float = field(
-        default=0.05,
+        default=0.0,
         metadata={
             "help": "dropout probability for attention weights inside the decoder"
         },
     )
     decoder_activation_dropout: float = field(
-        default=0.05,
+        default=0.0,
         metadata={
             "help": "dropout probability after activation in FFN inside the decoder"
         },
