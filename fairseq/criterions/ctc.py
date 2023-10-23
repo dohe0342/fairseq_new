@@ -1807,6 +1807,7 @@ class Clip2Criterion(FairseqCriterion):
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.lm = GPT2Model.from_pretrained(cfg.lm)
+        self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         space_token = self.tokenizer(' ', return_tensors='pt')
         self.space_token = self.lm(**space_token)['last_hidden_state']
@@ -1908,8 +1909,8 @@ class Clip2Criterion(FairseqCriterion):
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 
             if 1:
-                lm_output = F.normalize(lm_output, dim=2)
-                am_output = F.normalize(am_output, dim=2)
+                #lm_output = F.normalize(lm_output, dim=2)
+                #am_output = F.normalize(am_output, dim=2)
 
                 lm_am_dist = am_output.unsqueeze(2) - lm_output.unsqueeze(1)
                 lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
