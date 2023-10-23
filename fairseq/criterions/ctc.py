@@ -1807,7 +1807,6 @@ class Clip2Criterion(FairseqCriterion):
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.lm = GPT2Model.from_pretrained(cfg.lm)
-        self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         space_token = self.tokenizer(' ', return_tensors='pt')
         self.space_token = self.lm(**space_token)['last_hidden_state']
