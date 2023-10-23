@@ -1905,6 +1905,7 @@ class Clip2Criterion(FairseqCriterion):
             if type(am_output) == tuple: am_output = am_output[0]
             
             am_output = self.lm_linear2(am_output)
+            am_output = self.ln(am_output)
             
             if 0:
                 lm_output = F.normalize(lm_output, dim=2)
