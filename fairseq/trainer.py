@@ -1679,7 +1679,7 @@ class Trainer2(Trainer):
             params = list(
                 filter(
                     lambda p: p.requires_grad,
-                    chain(self.criterion.parameters()),
+                    chain(self.model.parameters()),
                 )
             )
                     
