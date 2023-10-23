@@ -2237,6 +2237,15 @@ class Trainer2(Trainer):
         else:
             metrics.log_scalar("lr2", new_lr, weight=0, priority=300)
         return new_lr
+    
+    def set_num_updates(self, num_updates):
+        """Set the number of parameters updates."""
+        self._num_updates = num_updates
+        self.lr_step_update()
+        self.lr_step_update2()
+        if self.quantizer:
+            self.quantizer.step_update(self._num_updates)
+        metrics.log_scalar("num_updates", self._num_updates, weight=0, priority=200)
 
 
 def _catalog_shared_params(module, memo=None, prefix=""):
