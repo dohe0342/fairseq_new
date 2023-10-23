@@ -1911,6 +1911,7 @@ class Clip2Criterion(FairseqCriterion):
             if 1:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
+                am_output = self.ins_norm(am_output)
 
                 lm_am_dist = am_output.unsqueeze(2) - lm_output.unsqueeze(1)
                 lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
