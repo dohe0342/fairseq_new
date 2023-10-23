@@ -2214,6 +2214,29 @@ class Trainer2(Trainer):
 
         metrics.log_stop_time("train_wall")
         return logging_output
+    
+    def lr_step_begin_epoch(self, epoch):
+        """Adjust the learning rate at the beginning of the epoch."""
+        self.lr_scheduler2.step_begin_epoch(epoch)
+        # prefer updating the LR based on the number of steps
+        return self.lr_step_update2()
+
+    def lr_step2(self, epoch, val_loss=None):
+        """Adjust the learning rate at the end of the epoch."""
+        self.lr_scheduler2.step(epoch, val_loss)
+        # prefer updating the LR based on the number of steps
+        return self.lr_step_update2()
+
+    def lr_step_update2(self):
+        """Update the learning rate after each update."""
+        new_lr = self.lr_scheduler2.step_update(self.get_num_updates())
+        if isinstance(new_lr, dict):
+            for k, v in new_lr.items():
+                metrics.log_scalar(f"lr_{k}", v, weight=0, priority=300)
+            new_lr = new_lr.get("default", next(iter(new_lr.values())))
+        else:
+            metrics.log_scalar("lr2", new_lr, weight=0, priority=300)
+        return new_lr
 
 
 def _catalog_shared_params(module, memo=None, prefix=""):
