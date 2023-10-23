@@ -11,7 +11,6 @@ fairseq-hydra-train \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[1] \
 	optimization.lr=[0.005] \
-	lr_scheduler=phase_ratio=[0.0, 0.5, 0.5] \
 	criterion._name=clip2
 
 : <<'END'
