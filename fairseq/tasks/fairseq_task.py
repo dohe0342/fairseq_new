@@ -525,6 +525,10 @@ class FairseqTask(object):
                   gradient
                 - logging outputs to display while training
         """
+        if type(optimizer) == list:
+            optimizer1 = optimizer[0]
+            optimizer2 = optimizer[1]
+
         model.train()
         model.set_num_updates(update_num)
         with torch.autograd.profiler.record_function("forward"):
