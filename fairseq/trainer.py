@@ -1654,16 +1654,6 @@ class Trainer2(Trainer):
         return self._lr_scheduler2
 
     def _build_optimizer(self):
-        if 0:
-            for n, p in self.model.named_parameters():
-                if 'adapter' in n or 'norm' in n or 'w2v_encoder.proj' in n:
-                #if 'q_proj' in n or 'v_proj' in n or 'norm' in n:
-                #if 'norm' in n or 'w2v_encoder.proj' in n:
-                    logger.info(f"{n} requires grad = True")
-                    p.requires_grad = True
-                else:
-                    p.requires_grad = False
-            
         if (
             self.cfg.optimization.debug_param_names
             and self.cfg.common.fp16_no_flatten_grads
@@ -1678,6 +1668,7 @@ class Trainer2(Trainer):
                     params.append(p)
                     self.param_names.append(n)
         else:
+            '''
             params = list(
                 filter(
                     lambda p: p.requires_grad,
@@ -1691,11 +1682,7 @@ class Trainer2(Trainer):
                     chain(self.criterion.parameters()),
                 )
             )
-            '''
-            #for n, p in self.model.named_parameters():
-            #    if p.requires_grad:
-            #        logger.info(n)
-        
+                    
         logger.info("-----------------------------------------")
         logger.info(len(params))
         for p in params:
