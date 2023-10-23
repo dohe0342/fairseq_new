@@ -6,7 +6,6 @@ fairseq-hydra-train \
 	distributed_training.distributed_world_size=8 \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
-	model.freeze_finetune_updates=40000 \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[1] \
