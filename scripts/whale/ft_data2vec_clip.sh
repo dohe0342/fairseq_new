@@ -5,7 +5,6 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
-	model.freeze_finetune_updates=10000 \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.max_tokens=3200000 \
 	criterion._name=clip2
