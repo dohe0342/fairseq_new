@@ -3,7 +3,7 @@ fairseq-hydra-train \
 	--config-name base_100h \
 	common.wandb_project=lm2am_distill \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
-	distributed_training.distributed_world_size=8 \
+	distributed_training.distributed_world_size=4 \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	model.freeze_finetune_updates=10000 \
