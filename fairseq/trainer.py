@@ -1626,7 +1626,7 @@ class Trainer2(Trainer):
     """
 
     def __init__(self, cfg: FairseqConfig, task, model, criterion, quantizer=None):
-        super().__init__(cfg, task, model, criterion, quanizer)
+        super().__init__(cfg, task, model, criterion, quantizer)
         
         self._lr_scheduler2 = None
         self._optim_history2 = None
