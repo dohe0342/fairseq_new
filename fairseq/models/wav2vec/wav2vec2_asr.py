@@ -316,7 +316,7 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         },
     )
     decoder_activation_dropout: float = field(
-        default=0.0,
+        default=0.05,
         metadata={
             "help": "dropout probability after activation in FFN inside the decoder"
         },
