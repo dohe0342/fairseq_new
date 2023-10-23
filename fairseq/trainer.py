@@ -1632,41 +1632,12 @@ class Trainer2(Trainer):
         self._optim_history2 = None
         self._optimizer2 = None
 
-        # TODO(myleott): support tpu
-        if self.cuda and self.data_parallel_world_size > 1:
-            self._grad_norm_buf = torch.cuda.DoubleTensor(self.data_parallel_world_size)
-        else:
-            self._grad_norm_buf = None
-
-        self.quantizer = quantizer
-        if self.quantizer is not None:
-            self.quantizer.set_trainer(self)
-
-        # get detailed cuda environment
-        if self.cuda:
-            self.cuda_env = utils.CudaEnvironment()
-            if self.data_parallel_world_size > 1:
-                self.cuda_env_arr = distributed_utils.all_gather_list(
-                    self.cuda_env, group=distributed_utils.get_global_group()
-                )
-            else:
-                self.cuda_env_arr = [self.cuda_env]
-            if self.data_parallel_rank == 0:
-                utils.CudaEnvironment.pretty_print_cuda_env_list(self.cuda_env_arr)
-        else:
-            self.cuda_env = None
-            self.cuda_env_arr = None
-
-        metrics.log_start_time("wall", priority=790, round=0)
-
-        self._start_time = time.time()
-        self._previous_training_time = 0
-        self._cumulative_training_time = None
-
     def reinitialize(self):
         """Reinitialize the Trainer, typically after model params change."""
         self._lr_scheduler = None
+        self._lr_scheduler2 = None
         self._optimizer = None
+        self._optimizer2 = None
         self._wrapped_criterion = None
         self._wrapped_model = None
 
