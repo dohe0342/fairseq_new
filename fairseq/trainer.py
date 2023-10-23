@@ -1000,7 +1000,7 @@ class Trainer(object):
                 # take an optimization step
                 for n, p in self.criterion.named_parameters():
                     logger.info(p.grad)
-                    p.grad *= 1000.
+                    p.grad *= 10000.
                     logger.info(p.grad)
                 self.task.optimizer_step(
                     self.optimizer, model=self.model, update_num=self.get_num_updates()
