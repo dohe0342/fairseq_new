@@ -2,7 +2,6 @@ fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
 	common.wandb_project=lm2am_distill \
-	common.min_loss_scale=0.0000000001 \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=8 \
 	task.data=/dev/shm/manifests \
