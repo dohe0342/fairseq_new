@@ -286,12 +286,12 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
     decoder_ffn_embed_dim: int = field(
         default=1024, metadata={"help": "decoder embedding dimension for FFN"}
     )
-    decoder_layers: int = field(default=12, metadata={"help": "num of decoder layers"})
+    decoder_layers: int = field(default=6, metadata={"help": "num of decoder layers"})
     decoder_layerdrop: float = field(
         default=0.05, metadata={"help": "decoder layerdrop chance"}
     )
     decoder_attention_heads: int = field(
-        default=8, metadata={"help": "num decoder attention heads"}
+        default=4, metadata={"help": "num decoder attention heads"}
     )
     decoder_learned_pos: bool = field(
         default=False,
@@ -307,7 +307,7 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         },
     )
     decoder_dropout: float = field(
-        default=0.0, metadata={"help": "dropout probability in the decoder"}
+        default=0.05, metadata={"help": "dropout probability in the decoder"}
     )
     decoder_attention_dropout: float = field(
         default=0.0,
