@@ -1999,6 +1999,7 @@ class Clip2Criterion(FairseqCriterion):
             )
 
             #loss = ctc_loss + self.lm_decay*distill_loss
+            distill_loss /= 100.
             loss = ctc_loss
             distill_loss = distill_loss
 
