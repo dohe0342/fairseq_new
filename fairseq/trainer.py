@@ -1797,7 +1797,7 @@ class Trainer2(Trainer):
             logger.info(f'optim2 {p.size()}')
         logger.info("-----------------------------------------")
         
-        self.cfg.optimization.lr=[0.01]
+        self.cfg.optimization.lr=[0.001]
 
         if self.is_fsdp and self.cfg.common.fp16:
             # FullyShardedDataParallel always uses MemoryEfficientFP16 wrapper,
@@ -1870,8 +1870,6 @@ class Trainer2(Trainer):
             self.optimizer2,
         )
         self._lr_scheduler2.step_update(0)
-
-        logger.info(self._optimizer2)
 
     @metrics.aggregate("train")
     def train_step(self, samples, raise_oom=False):
