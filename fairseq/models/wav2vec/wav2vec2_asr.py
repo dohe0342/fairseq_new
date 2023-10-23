@@ -291,7 +291,7 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         default=0.0, metadata={"help": "decoder layerdrop chance"}
     )
     decoder_attention_heads: int = field(
-        default=4, metadata={"help": "num decoder attention heads"}
+        default=8, metadata={"help": "num decoder attention heads"}
     )
     decoder_learned_pos: bool = field(
         default=False,
