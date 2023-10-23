@@ -1843,9 +1843,9 @@ class Trainer2(Trainer):
             )
 
         if self.cfg.optimization.use_bmuf:
-            self._optimizer = optim.FairseqBMUF(
+            self._optimizer2 = optim.FairseqBMUF(
                 self.cfg.bmuf,
-                self._optimizer,
+                self._optimizer2,
             )
 
         if self.cfg.distributed_training.zero_sharding == "os":
@@ -1859,13 +1859,13 @@ class Trainer2(Trainer):
                     "Please use --fp16-no-flatten-grads"
                 )
             else:
-                optim.shard_(self._optimizer, self.data_parallel_process_group)
+                optim.shard_(self._optimizer2, self.data_parallel_process_group)
 
         # We should initialize the learning rate scheduler immediately after
         # building the optimizer, so that the initial learning rate is set.
-        self._lr_scheduler = lr_scheduler.build_lr_scheduler(
+        self._lr_scheduler2 = lr_scheduler.build_lr_scheduler(
             self.cfg.lr_scheduler,
-            self.optimizer,
+            self.optimizer2,
         )
         self._lr_scheduler.step_update(0)
 
