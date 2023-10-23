@@ -1821,9 +1821,9 @@ class Trainer2(Trainer):
                     self.cfg, params
                 )
             elif self.cfg.common.amp:
-                self._optimizer = optim.AMPOptimizer.build_optimizer(self.cfg, params)
+                self._optimizer2 = optim.AMPOptimizer.build_optimizer(self.cfg, params)
             else:
-                self._optimizer = optim.FP16Optimizer.build_optimizer(self.cfg, params)
+                self._optimizer2 = optim.FP16Optimizer.build_optimizer(self.cfg, params)
         else:
             if self.cuda and torch.cuda.get_device_capability(0)[0] >= 7:
                 logger.info(
