@@ -11,7 +11,7 @@ fairseq-hydra-train \
 	checkpoint.reset_optimizer=true \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
-	optimization.lr=[0.0008] \
+	optimization.lr=[0.001] \
 	optimization.max_update=40000 \
 	criterion._name=clip2
 
