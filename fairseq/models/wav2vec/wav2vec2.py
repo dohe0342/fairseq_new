@@ -719,8 +719,6 @@ class Wav2Vec2Model(BaseFairseqModel):
             x, padding_mask=padding_mask, layer=layer, corpus_key=corpus_key
         )
 
-        x = GradMultiply.apply(x, 0.003)
-
         if features_only:
             return {
                 "x": x,
