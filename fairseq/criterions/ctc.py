@@ -2083,7 +2083,7 @@ class Clip2Criterion(FairseqCriterion):
                 logging_output["c_errors"] = c_err
                 logging_output["c_total"] = c_len
 
-        return loss, sample_size, logging_output
+        return (loss, distill_loss), sample_size, logging_output
 
     @staticmethod
     def reduce_metrics(logging_outputs) -> None:
