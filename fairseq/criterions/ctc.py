@@ -1897,10 +1897,9 @@ class Clip2Criterion(FairseqCriterion):
                 lm_output = lm_output['last_hidden_state']
                 
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
-            #am_output = GradMultiply.apply(am_output, 0.001)
+            am_output = GradMultiply.apply(am_output, 0.001)
             am_output = self.lm_decoder(am_output)
             if type(am_output) == tuple: am_output = am_output[0]
-            #am_output = GradMultiply.apply(am_output, 1000)
             if 0:
                 lm_output = F.normalize(lm_output, dim=2)
                 am_output = F.normalize(am_output, dim=2)
@@ -1916,6 +1915,8 @@ class Clip2Criterion(FairseqCriterion):
                 lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
                 lm_am_sim = -lm_am_dist
 
+            am_output = GradMultiply.apply(am_output, 1000)
+            
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
