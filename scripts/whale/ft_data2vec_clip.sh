@@ -5,6 +5,7 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=8 \
 	task.data=/dev/shm/manifests \
+	lr_scheduler=phase_ratio=[0.0, 0.5, 0.5]
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	model.freeze_finetune_updates=80000 \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
@@ -12,7 +13,6 @@ fairseq-hydra-train \
 	optimization.update_freq=[1] \
 	optimization.lr=[0.005] \
 	criterion._name=clip2 \
-	lr_scheduler=phase_ratio=[0.0, 0.5, 0.5]
 
 : <<'END'
 fairseq-hydra-train \
