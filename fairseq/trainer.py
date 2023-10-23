@@ -1829,13 +1829,13 @@ class Trainer2(Trainer):
                 logger.info(
                     "NOTE: your device may support faster training with --fp16 or --amp"
                 )
-            self._optimizer = optim.build_optimizer(self.cfg.optimizer, params)
+            self._optimizer2 = optim.build_optimizer(self.cfg.optimizer, params)
 
         if self.is_fsdp:
             assert (
                 not self.cfg.optimization.use_bmuf
             ), "--ddp-backend=fully_sharded is not compatible with BMUF"
-            assert self._optimizer.supports_flat_params, (
+            assert self._optimizer2.supports_flat_params, (
                 "--ddp-backend=fully_sharded is only compatible with pointwise "
                 "optimizers (e.g., Adam, AdamW, Adadelta, Adamax, SGD, etc.). "
                 "However, the sharding will result in slightly different results when "
