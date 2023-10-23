@@ -1642,111 +1642,16 @@ class Trainer2(Trainer):
         self._wrapped_model = None
 
     @property
-    def data_parallel_world_size(self):
-        if self.cfg.distributed_training.distributed_world_size == 1:
-            return 1
-        return distributed_utils.get_data_parallel_world_size()
+    def optimizer2(self):
+        if self._optimizer2 is None:
+            self._build_optimizer2()
+        return self._optimizer2
 
     @property
-    def data_parallel_process_group(self):
-        return distributed_utils.get_data_parallel_group()
-
-    @property
-    def data_parallel_rank(self):
-        if self.cfg.distributed_training.distributed_world_size == 1:
-            return 0
-        return distributed_utils.get_data_parallel_rank()
-
-    @property
-    def is_data_parallel_master(self):
-        # NOTE: this returns true for all model parallel replicas with data
-        # parallel rank 0
-        return self.data_parallel_rank == 0
-
-    @property
-    def use_distributed_wrapper(self) -> bool:
-        return (
-            self.data_parallel_world_size > 1 and not self.cfg.optimization.use_bmuf
-        ) or (self.is_fsdp and self.cfg.distributed_training.cpu_offload)
-
-    @property
-    def should_save_checkpoint_on_current_rank(self) -> bool:
-        """Indicates whether to save checkpoints on the current DDP rank."""
-        if (
-            self.is_fsdp and self.cfg.distributed_training.use_sharded_state
-        ) or getattr(self.cfg.model, "base_layers", 0) > 0:
-            return True
-        else:
-            return self.is_data_parallel_master
-
-    @property
-    def always_call_state_dict_during_save_checkpoint(self) -> bool:
-        if self.is_fsdp and not self.cfg.distributed_training.use_sharded_state:
-            # FSDP calls communication collective when consolidating checkpoints
-            return True
-        else:
-            return False
-
-    @property
-    def checkpoint_suffix(self) -> str:
-        """Suffix to add to the checkpoint file name."""
-        if self.is_fsdp and self.cfg.distributed_training.use_sharded_state:
-            return self.cfg.checkpoint.checkpoint_suffix + "-shard{0}".format(
-                self.data_parallel_rank
-            )
-        else:
-            return self.cfg.checkpoint.checkpoint_suffix or ""
-
-    @property
-    def criterion(self):
-        if self._wrapped_criterion is None:
-            if utils.has_parameters(self._criterion) and self.use_distributed_wrapper:
-                self._wrapped_criterion = models.DistributedFairseqModel(
-                    self.cfg.distributed_training,
-                    self._criterion,
-                    process_group=self.data_parallel_process_group,
-                    device=self.device,
-                )
-            else:
-                self._wrapped_criterion = self._criterion
-        return self._wrapped_criterion
-
-    @property
-    def model(self):
-        if self._wrapped_model is None:
-            if self.use_distributed_wrapper:
-                self._wrapped_model = models.DistributedFairseqModel(
-                    self.cfg.distributed_training,
-                    self._model,
-                    process_group=self.data_parallel_process_group,
-                    device=self.device,
-                )
-            else:
-                self._wrapped_model = self._model
-        return self._wrapped_model
-
-    @property
-    def ema(self):
-        if self._ema is None:
-            self._build_ema()
-        return self._ema
-
-    def _build_ema(self):
-        if self.cfg.ema.store_ema:
-            self._ema = build_ema(self._model, self.cfg.ema, self.device)
-            logger.info("Exponential Moving Average Shadow Model is initialized.")
-
-    @property
-    def optimizer(self):
-        if self._optimizer is None:
-            self._build_optimizer()
-        return self._optimizer
-
-    @property
-    def lr_scheduler(self):
-        if self._lr_scheduler is None:
-            self._build_optimizer()  # this will initialize self._lr_scheduler
-        return self._lr_scheduler
+    def lr_scheduler2(self):
+        if self._lr_scheduler2 is None:
+            self._build_optimizer2()  # this will initialize self._lr_scheduler
+        return self._lr_scheduler2
 
     def _build_optimizer(self):
         if 0:
