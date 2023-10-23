@@ -2087,7 +2087,7 @@ class Trainer2(Trainer):
                         sample,
                         self.model,
                         self.criterion,
-                        self.optimizer,
+                        [self.optimizer, self.optimizer2],
                         self.get_num_updates(),
                         ignore_grad=False,
                         **extra_kwargs,
