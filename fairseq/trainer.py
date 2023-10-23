@@ -2267,6 +2267,7 @@ class Trainer2(Trainer):
 
     def zero_grad(self):
         self.optimizer.zero_grad()
+        self.optimizer2.zero_grad()
 
     def lr_step_begin_epoch(self, epoch):
         """Adjust the learning rate at the beginning of the epoch."""
