@@ -1879,7 +1879,7 @@ class Clip2Criterion(FairseqCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
-        #lprobs = GradMultiply.apply(lprobs, 0.
+        lprobs = GradMultiply.apply(lprobs, 0.003)
         
         ############for distillation###########
         device = lprobs.device
