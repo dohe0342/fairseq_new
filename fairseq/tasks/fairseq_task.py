@@ -525,23 +525,15 @@ class FairseqTask(object):
                   gradient
                 - logging outputs to display while training
         """
-        if type(optimizer) == list:
-            optimizer1 = optimizer[0]
-            optimizer2 = optimizer[1]
-
         model.train()
         model.set_num_updates(update_num)
         with torch.autograd.profiler.record_function("forward"):
             with torch.cuda.amp.autocast(enabled=(isinstance(optimizer, AMPOptimizer))):
-                (loss, distill_loss), sample_size, logging_output = criterion(model, sample)
+                loss, sample_size, logging_output = criterion(model, sample)
         if ignore_grad:
             loss *= 0
         with torch.autograd.profiler.record_function("backward"):
             try: optimizer.backward(loss)
-            except: 
-                optimizer1.backward(loss, retain_graph=True)
-                optimizer2.backward(distill_loss)
-                #optimizer1.backward(distill_loss)
         return loss, sample_size, logging_output
 
     def valid_step(self, sample, model, criterion):
