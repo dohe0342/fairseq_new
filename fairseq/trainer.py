@@ -1797,7 +1797,7 @@ class Trainer2(Trainer):
             logger.info(f'optim2 {p.size()}')
         logger.info("-----------------------------------------")
         
-        self.cfg.optimization.lr=[0.01]
+        self.cfg.optimization.lr=[0.0001]
 
         if self.is_fsdp and self.cfg.common.fp16:
             # FullyShardedDataParallel always uses MemoryEfficientFP16 wrapper,
