@@ -307,10 +307,10 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         },
     )
     decoder_dropout: float = field(
-        default=0.05, metadata={"help": "dropout probability in the decoder"}
+        default=0.0, metadata={"help": "dropout probability in the decoder"}
     )
     decoder_attention_dropout: float = field(
-        default=0.05,
+        default=0.0,
         metadata={
             "help": "dropout probability for attention weights inside the decoder"
         },
@@ -669,10 +669,10 @@ class Wav2VecEncoder(FairseqEncoder):
             # B x T x C -> T x B x C
             x = x.transpose(0, 1)
 
-            x = self.final_dropout(x)
+        x = self.final_dropout(x)
 
-            if self.proj:
-                x_ = self.proj(x)
+        if self.proj:
+            x_ = self.proj(x)
 
         if self.hyperbolic:
             T, B, C = x.size()
