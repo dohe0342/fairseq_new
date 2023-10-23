@@ -96,7 +96,7 @@ class ClipCriterionConfig(CtcCriterionConfig):
         },
     )
     lm_decay: float = field(
-        default=2.0,
+        default=0.5,
         metadata={"help": ""},
     )
 
