@@ -1994,7 +1994,7 @@ class Clip2Criterion(FairseqCriterion):
                 input_lengths,
                 alignment_lengths,
                 blank=0,
-                reduction="mean",
+                reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
 
