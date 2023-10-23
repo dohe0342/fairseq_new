@@ -1794,7 +1794,7 @@ class Trainer2(Trainer):
         logger.info("-----------------------------------------")
         logger.info(len(params))
         for p in params:
-            logger.info('optim2', p.size())
+            logger.info(f'optim2 {p.size()}')
         logger.info("-----------------------------------------")
         
         self.cfg.optimization.lr=[0.3]
