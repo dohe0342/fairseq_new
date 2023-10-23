@@ -1998,7 +1998,9 @@ class Clip2Criterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
 
-            loss = ctc_loss + self.lm_decay*distill_loss
+            #loss = ctc_loss + self.lm_decay*distill_loss
+            loss = ctc_loss
+            distill_loss = distill_loss
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
