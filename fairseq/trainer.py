@@ -1920,7 +1920,7 @@ class Trainer2(Trainer):
                         sample=sample,
                         model=self.model,
                         criterion=self.criterion,
-                        optimizer=self.optimizer,
+                        optimizer=[self.optimizer, self.optimizer2]
                         update_num=self.get_num_updates(),
                         ignore_grad=is_dummy_batch,
                         **extra_kwargs,
