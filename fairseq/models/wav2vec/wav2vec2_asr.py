@@ -284,7 +284,7 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         default=256, metadata={"help": "decoder embedding dimension"}
     )
     decoder_ffn_embed_dim: int = field(
-        default=3072, metadata={"help": "decoder embedding dimension for FFN"}
+        default=1024, metadata={"help": "decoder embedding dimension for FFN"}
     )
     decoder_layers: int = field(default=12, metadata={"help": "num of decoder layers"})
     decoder_layerdrop: float = field(
