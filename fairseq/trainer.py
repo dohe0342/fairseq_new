@@ -342,8 +342,6 @@ class Trainer(object):
             # --memory-efficient-fp16 flag set, then we're effectively doing
             # regular --fp16 and can allow the use of optimizers that would
             # otherwise be unsupported by MemoryEfficientFP16Optimizer.
-            print('fuck!!!!!!!!')
-            exit()
             allow_unsupported = not self.cfg.common.memory_efficient_fp16
             self._optimizer = optim.MemoryEfficientFP16Optimizer.build_optimizer(
                 self.cfg, params, allow_unsupported=allow_unsupported
