@@ -541,7 +541,7 @@ class FairseqTask(object):
             except: 
                 optimizer1.backward(loss, retain_graph=True)
                 optimizer2.backward(distill_loss)
-                optimizer1.backward(distill_loss, retain_graph=true)
+                optimizer1.backward(distill_loss, retain_graph=True)
         return loss, sample_size, logging_output
 
     def valid_step(self, sample, model, criterion):
