@@ -10,6 +10,7 @@ fairseq-hydra-train \
 	optimization.update_freq=[2] \
 	criterion._name=clip2
 
+#common.wandb_project=lm2am_distill \
 : <<'END'
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
