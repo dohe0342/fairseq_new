@@ -1870,23 +1870,6 @@ class Trainer2(Trainer):
         self._lr_scheduler2.step_update(0)
 
 
-    @property
-    def is_fsdp(self):
-        return self.cfg.distributed_training.ddp_backend == "fully_sharded"
-
-    def consolidate_optimizer(self):
-        """For OSS, we need to consolidate the state dict."""
-        if self.cfg.checkpoint.no_save_optimizer_state:
-            return
-        self._gathered_optim_state = None
-        if hasattr(self.optimizer.optimizer, "consolidate_state_dict"):
-            self.optimizer.optimizer.consolidate_state_dict()
-        elif self.is_fsdp and not self.model.use_sharded_state:
-            st = self.model.gather_full_optim_state_dict(
-                self.optimizer
-            )  # only returns on rank 0
-            self._gathered_optim_state = st
-
     def state_dict(self):
         state_dict = {
             "args": None,  # legacy
