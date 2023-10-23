@@ -1871,6 +1871,8 @@ class Trainer2(Trainer):
         )
         self._lr_scheduler2.step_update(0)
 
+        logger.info(self._optimizer2)
+
     @metrics.aggregate("train")
     def train_step(self, samples, raise_oom=False):
         """Do forward, backward and parameter update."""
