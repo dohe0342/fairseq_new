@@ -1905,13 +1905,13 @@ class Clip2Criterion(FairseqCriterion):
             am_output = self.lm_linear2(am_output)
             am_output = self.ln(am_output)
             
-            if 0:
+            if 1:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 
-            if 1:
+            if 0:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 #am_output = self.ins_norm(am_output)
