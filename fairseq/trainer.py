@@ -2004,12 +2004,12 @@ class Trainer2(Trainer):
             with torch.autograd.profiler.record_function("reduce-grads"):
                 # reduce gradients across workers
                 self.optimizer.all_reduce_grads(self.model)
-                if utils.has_parameters(self.criterion):
-                    self.optimizer.all_reduce_grads(self.criterion)
+                #if utils.has_parameters(self.criterion):
+                #    self.optimizer.all_reduce_grads(self.criterion)
             
-                self.optimizer2.all_reduce_grads(self.model)
-                if utils.has_parameters(self.criterion):
-                    self.optimizer2.all_reduce_grads(self.criterion)
+                #self.optimizer2.all_reduce_grads(self.model)
+                #if utils.has_parameters(self.criterion):
+                self.optimizer2.all_reduce_grads(self.criterion)
 
             with torch.autograd.profiler.record_function("multiply-grads"):
                 # multiply gradients by (data_parallel_size / sample_size) since
