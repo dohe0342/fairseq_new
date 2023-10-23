@@ -2005,8 +2005,6 @@ class Trainer2(Trainer):
                 if utils.has_parameters(self.criterion):
                     self.optimizer.all_reduce_grads(self.criterion)
             
-            with torch.autograd.profiler.record_function("reduce-grads"):
-                # reduce gradients across workers
                 self.optimizer2.all_reduce_grads(self.model)
                 if utils.has_parameters(self.criterion):
                     self.optimizer2.all_reduce_grads(self.criterion)
@@ -2026,6 +2024,7 @@ class Trainer2(Trainer):
                     else 1
                 )
                 self.optimizer.multiply_grads(numer / (sample_size or 1.0))
+                self.optimizer2.multiply_grads(numer / (sample_size or 1.0))
                 # Note: (sample_size or 1.0) handles the case of a zero gradient, in a
                 # way that avoids CPU/device transfers in case sample_size is a GPU or
                 # TPU object. The assumption is that the gradient itself is also 0.
