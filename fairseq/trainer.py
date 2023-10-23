@@ -999,8 +999,7 @@ class Trainer(object):
             with torch.autograd.profiler.record_function("optimizer"):
                 # take an optimization step
                 for n, p in self.criterion.named_parameters():
-                    logger.info(n)
-                exit()
+                    p.grad *= 300.
                 self.task.optimizer_step(
                     self.optimizer, model=self.model, update_num=self.get_num_updates()
                 )
