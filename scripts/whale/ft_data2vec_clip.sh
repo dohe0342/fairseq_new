@@ -9,8 +9,6 @@ fairseq-hydra-train \
 	model.freeze_finetune_updates=80000 \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	checkpoint.reset_optimizer=true \
-	checkpoint.finetune_from_model=/home/work/workspace/models/wav2vec_models/wav2vec_small_100h.pt \
-	checkpoint.reset_optimizer=false \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
 	optimization.lr=[0.001] \
