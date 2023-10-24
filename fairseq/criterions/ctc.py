@@ -1905,8 +1905,8 @@ class Clip2Criterion(FairseqCriterion):
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             print('2', am_output.size())
             am_output = self.lm_decoder(am_output)
-            print('3', am_output.size())
             if type(am_output) == tuple: am_output = am_output[0]
+            print('3', am_output.size())
             
             am_output = self.lm_linear2(am_output)
             am_output = self.ln(am_output)
