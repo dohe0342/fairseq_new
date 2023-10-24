@@ -89,7 +89,7 @@ class ClipCriterionConfig(CtcCriterionConfig):
         metadata={"help": "which language model to use as distillation"},
     )
     decoder: str = field(
-        default='linear',
+        default='transf',
         metadata={"help": "which structures to use as lm decoder"},
     )
     decoder_layer_num: Optional[int] = field(
