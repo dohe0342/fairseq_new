@@ -1526,7 +1526,6 @@ class ClipCriterion(FairseqCriterion):
             #am_output = F.gelu(am_output)
             am_output = self.lm_linear(am_output)
 
-            
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
             if np.random.rand() < 0.1 and 0:
                 softmax = F.softmax(lm_am_sim / 3, dim=-1)
@@ -1535,7 +1534,8 @@ class ClipCriterion(FairseqCriterion):
                 print(softmax[0][200])
                 print(softmax[0][300])
                 print('-'*20)
-
+            
+            lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             #lm_am_sim = F.log_softmax(lm_am_sim / 3, dim=-1)
             if model.w2v_encoder.num_updates % 100 == 0:
