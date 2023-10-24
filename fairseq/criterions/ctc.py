@@ -1928,6 +1928,7 @@ class Clip2Criterion(FairseqCriterion):
             if np.random.rand() < 0.1:
                 for b in range(lm_am_sim_cp.size(0)):
                     plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
+                    os.makedir(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
                     plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/alingment{b}.png')
                     plt.close()
             
