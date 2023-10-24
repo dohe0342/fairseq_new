@@ -1922,7 +1922,7 @@ class Clip2Criterion(FairseqCriterion):
                 lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
                 lm_am_sim = -lm_am_dist
             
-            lm_am_sim_cp = lm_am_sim.copy()
+            lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             #lm_am_sim = F.softmax(lm_am_sim, dim=-1)
             if np.random.rand() < 0.1:
