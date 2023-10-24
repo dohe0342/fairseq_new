@@ -1948,14 +1948,12 @@ class Clip2Criterion(FairseqCriterion):
                             text = ax.text(j, i, sim[i, j],
                                            ha="center", va="center", color="w")
 
-                    ax.set_title("Harvest of local farmers (in tons/year)")
                     fig.tight_layout()
-                    plt.show()
                     
                     if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}'):
                         try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
                         except: pass
-                    #plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
+                    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
             
             #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
