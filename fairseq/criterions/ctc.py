@@ -1932,7 +1932,7 @@ class Clip2Criterion(FairseqCriterion):
                     #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
                     sim = lm_am_sim_cp[b].cpu().numpy()
                     fig, ax = plt.subplots()
-                    im = ax.imshow(harvest)
+                    im = ax.imshow(sim)
 
                     # Show all ticks and label them with the respective list entries
                     ax.set_xticks(np.arange(len(lm_am_sim_cp[b])))
