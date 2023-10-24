@@ -1930,7 +1930,7 @@ class Clip2Criterion(FairseqCriterion):
                 lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
                     #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
-                    sim = lm_am_sim_cp[b]cpu().numpy()
+                    sim = lm_am_sim_cp[b].cpu().numpy()
                     fig, ax = plt.subplots()
                     im = ax.imshow(harvest)
 
