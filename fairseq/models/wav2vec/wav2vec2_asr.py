@@ -298,7 +298,7 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         metadata={"help": "use learned positional embeddings in the decoder"},
     )
     decoder_normalize_before: bool = field(
-        default=False, metadata={"help": "apply layernorm before each decoder block"}
+        default=True, metadata={"help": "apply layernorm before each decoder block"}
     )
     no_token_positional_embeddings: bool = field(
         default=True,
