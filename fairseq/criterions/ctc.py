@@ -1929,11 +1929,32 @@ class Clip2Criterion(FairseqCriterion):
             if model.w2v_encoder.num_updates % 100 == 0:
                 lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
-                    plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
+                    #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
+                    fig, ax = plt.subplots()
+                    im = ax.imshow(harvest)
+
+                    # Show all ticks and label them with the respective list entries
+                    ax.set_xticks(np.arange(len(lm_am_sim_cp[b])))
+                    ax.set_yticks(np.arange(len(lm_am_sim_cp[b][0])))
+
+                    # Rotate the tick labels and set their alignment.
+                    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+                             rotation_mode="anchor")
+
+                    # Loop over data dimensions and create text annotations.
+                    for i in range(len(vegetables)):
+                        for j in range(len(farmers)):
+                            text = ax.text(j, i, harvest[i, j],
+                                           ha="center", va="center", color="w")
+
+                    ax.set_title("Harvest of local farmers (in tons/year)")
+                    fig.tight_layout()
+                    plt.show()
+                    
                     if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}'):
                         try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
                         except: pass
-                    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
+                    #plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
             
             #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
