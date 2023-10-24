@@ -1926,6 +1926,7 @@ class Clip2Criterion(FairseqCriterion):
             for b in range(lm_am_sim.size(0)):
                 plt.imshow(lm_am_sim[b].detach().cpu().numpy())
                 plt.savefig(f'alingment{b}.png')
+                plt.close()
             
             exit()
 
