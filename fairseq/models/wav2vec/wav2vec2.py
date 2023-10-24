@@ -1357,7 +1357,7 @@ class TransformerEncoderForDistill(nn.Module):
 
         if not self.layer_norm_first:
             x = self.layer_norm(x)
-        
+       
         x = F.dropout(x, p=self.dropout, training=self.training)
 
         # B x T x C -> T x B x C
@@ -1414,19 +1414,6 @@ class TransformerEncoderForDistill(nn.Module):
 
         # T x B x C -> B x T x C
         x = x.transpose(0, 1)
-
-        # undo paddding
-        if pad_length > 0:
-            x = x[:, :-pad_length]
-
-            def undo_pad(a, b, c):
-                return (
-                    a[:-pad_length],
-                    b[:-pad_length] if b is not None else b,
-                    c[:-pad_length],
-                )
-
-            layer_results = [undo_pad(*u) for u in layer_results]
 
         return x, layer_results
 
