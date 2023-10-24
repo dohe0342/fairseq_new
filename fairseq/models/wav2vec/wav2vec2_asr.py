@@ -961,6 +961,306 @@ class TransformerDecoder(FairseqIncrementalDecoder):
         return state_dict
 
 
+class TransformerEncoderForDistill(FairseqEncoder):
+    def __init__(self, cfg: Wav2Vec2AsrConfig, output_size=None):
+        self.apply_mask = cfg.apply_mask
+
+        arg_overrides = {
+            "dropout": cfg.dropout,
+            "activation_dropout": cfg.activation_dropout,
+            "dropout_input": cfg.dropout_input,
+            "attention_dropout": cfg.attention_dropout,
+            "mask_length": cfg.mask_length,
+            "mask_prob": cfg.mask_prob,
+            "require_same_masks": getattr(cfg, "require_same_masks", True),
+            "pct_holes": getattr(cfg, "mask_dropout", 0),
+            "mask_selection": cfg.mask_selection,
+            "mask_other": cfg.mask_other,
+            "no_mask_overlap": cfg.no_mask_overlap,
+            "mask_channel_length": cfg.mask_channel_length,
+            "mask_channel_prob": cfg.mask_channel_prob,
+            "mask_channel_before": cfg.mask_channel_before,
+            "mask_channel_selection": cfg.mask_channel_selection,
+            "mask_channel_other": cfg.mask_channel_other,
+            "no_mask_channel_overlap": cfg.no_mask_channel_overlap,
+            "encoder_layerdrop": cfg.layerdrop,
+            "feature_grad_mult": cfg.feature_grad_mult,
+            "checkpoint_activations": cfg.checkpoint_activations,
+            "offload_activations": cfg.offload_activations,
+            "min_params_to_wrap": cfg.min_params_to_wrap,
+            # d2v multi args
+            "encoder_dropout": cfg.dropout,
+            "drop_path": getattr(cfg, "drop_path", 0),
+            "mask_dropout": getattr(cfg, "mask_dropout", 0),
+            "zero_mask": getattr(cfg, "zero_mask", False),
+            "local_grad_mult": cfg.feature_grad_mult,
+            "layerdrop": cfg.layerdrop,
+            "prenet_layerdrop": cfg.layerdrop,
+            "prenet_dropout": cfg.dropout,
+            "post_mlp_drop": cfg.dropout,
+            "encoder_zero_mask": getattr(cfg, "zero_mask", False),
+            "inverse_mask": False,
+            "learned_alibi_scale": getattr(cfg, "update_alibi", True),
+        }
+
+        if cfg.w2v_args is None:
+            state = checkpoint_utils.load_checkpoint_to_cpu(cfg.w2v_path, arg_overrides)
+            w2v_args = state.get("cfg", None)
+            if w2v_args is None:
+                w2v_args = convert_namespace_to_omegaconf(state["args"])
+            w2v_args.criterion = None
+            w2v_args.lr_scheduler = None
+
+            cfg.w2v_args = w2v_args
+
+            logger.info(w2v_args)
+
+        else:
+            state = None
+            w2v_args = cfg.w2v_args
+            if isinstance(w2v_args, Namespace):
+                cfg.w2v_args = w2v_args = convert_namespace_to_omegaconf(w2v_args)
+
+        self.is_d2v_multi = "data2vec_multi" in w2v_args.model.get("_name", None)
+
+        if not self.is_d2v_multi:
+            model_normalized = w2v_args.task.get(
+                "normalize", w2v_args.model.get("normalize", False)
+            )
+            assert cfg.normalize == model_normalized, (
+                "Fine-tuning works best when data normalization is the same. "
+                "Please check that --normalize is set or unset for both pre-training and here"
+            )
+
+            with open_dict(w2v_args):
+                args_replacement = ["checkpoint_activations", "layer_type", 
+                    "adp_num", "adp_dim",
+                    "adp_act_fn", "adp_trf_idx"]
+                for _args in args_replacement:
+                    if hasattr(cfg, _args) and getattr(cfg, _args, None) is not None:
+                        w2v_args.model[_args] = getattr(cfg, _args, None)
+
+            if hasattr(cfg, "checkpoint_activations") and cfg.checkpoint_activations:
+                with open_dict(w2v_args):
+                    w2v_args.model.checkpoint_activations = cfg.checkpoint_activations
+
+            w2v_args.task.data = cfg.data
+            task = tasks.setup_task(w2v_args.task, from_checkpoint=True)
+            model = task.build_model(w2v_args.model, from_checkpoint=True)
+            model.remove_pretraining_modules()
+            d = w2v_args.model.encoder_embed_dim
+        else:
+            assert cfg.normalize
+
+            if hasattr(w2v_args.task, "audio"):
+                w2v_args.task.audio.data = cfg.data
+            else:
+                w2v_args.task.data = cfg.data
+            task = tasks.setup_task(w2v_args.task, from_checkpoint=True)
+
+            model = task.build_model(w2v_args.model, from_checkpoint=True)
+
+            model.remove_pretraining_modules(modality="audio")
+            d = w2v_args.model.embed_dim
+
+        if state is not None and not cfg.no_pretrained_weights:
+            if cfg.load_ema:
+                assert "_ema" in state["model"]
+                for k in state["model"]["_ema"]:
+                    mk = "encoder." + k
+                    assert mk in state["model"], mk
+                    state["model"][mk] = state["model"]["_ema"][k]
+            self.load_model_weights(state, model, cfg)
+
+        super().__init__(task.source_dictionary)
+
+        self.w2v_model = model
+
+        self.final_dropout = nn.Dropout(cfg.final_dropout)
+        self.freeze_finetune_updates = cfg.freeze_finetune_updates
+        self.num_updates = 0
+
+        targ_d = None
+        self.proj = None
+
+        if output_size is not None:
+            targ_d = output_size
+        elif getattr(cfg, "decoder_embed_dim", d) != d:
+            targ_d = cfg.decoder_embed_dim
+
+        if targ_d is not None:
+            self.proj = Linear(d, targ_d)
+
+        if cfg.freeze_regex is not None:
+            self.freeze_regex(cfg.freeze_regex)
+
+        layer_decay = getattr(cfg, "layer_decay", 1)
+        if layer_decay < 1:
+            mod_encs = list(model.modality_encoders.values())
+            assert len(mod_encs) == 1, len(mod_encs)
+            blocks = list(mod_encs[0].context_encoder.blocks) + list(model.blocks)
+            num_layers = len(blocks) + 1
+            layer_scales = list(
+                layer_decay ** (num_layers - i) for i in range(num_layers + 1)
+            )
+
+            for i, b in enumerate(blocks):
+                lid = i + 1
+                if layer_scales[lid] == 1.0:
+                    continue
+
+                for n, p in b.named_parameters():
+                    optim_override = getattr(p, "optim_overrides", {})
+                    if "optimizer" not in optim_override:
+                        optim_override["optimizer"] = {}
+
+                    optim_override["optimizer"]["lr_scale"] = layer_scales[lid]
+                    p.optim_overrides = optim_override
+
+        self.hyperbolic = cfg.hyperbolic
+        if self.hyperbolic:
+            self.tp = hypnn.ToPoincare(
+                c=0.1, train_x=False, train_c=False, ball_dim=2
+            )
+            self.mlr = hypnn.HyperbolicMLR(ball_dim=2, n_classes=targ_d, c=0.1)
+            del self.proj
+            self.proj = Linear(d, 2)
+
+    def freeze_regex(self, pattern):
+        unfrozen_names = []
+        for name, param in self.named_parameters():
+            if re.fullmatch(pattern, name) is not None:
+                param.requires_grad_(False)
+            else:
+                unfrozen_names.append(name)
+
+    def load_model_weights(self, state, model, cfg):
+        if cfg.ddp_backend == "fully_sharded":
+            from fairseq.distributed import FullyShardedDataParallel
+
+            for name, module in model.named_modules():
+                if "encoder.layers" in name and len(name.split(".")) == 3:
+                    # Only for layers, we do a special handling and load the weights one by one
+                    # We dont load all weights together as that wont be memory efficient and may
+                    # cause oom
+                    new_dict = {
+                        k.replace(name + ".", ""): v
+                        for (k, v) in state["model"].items()
+                        if name + "." in k
+                    }
+                    assert isinstance(module, FullyShardedDataParallel)
+                    with module.summon_full_params():
+                        module.load_state_dict(new_dict, strict=True)
+                    module._reset_lazy_init()
+
+            # Once layers are loaded, filter them out and load everything else.
+            r = re.compile("encoder.layers.\d.")
+            filtered_list = list(filter(r.match, state["model"].keys()))
+
+            new_big_dict = {
+                k: v for (k, v) in state["model"].items() if k not in filtered_list
+            }
+
+            model.load_state_dict(new_big_dict, strict=False)
+        else:
+            to_delete = {"_ema", "target_proj", "decoder"}
+            for k in to_delete:
+                if k in state["model"]:
+                    del state["model"][k]
+
+            if hasattr(model, "modality_encoders"):
+                if "modality_encoders.AUDIO.encoder_mask" not in state["model"]:
+                    model.modality_encoders["AUDIO"].encoder_mask = None
+                elif not cfg.zero_mask:
+                    model.modality_encoders["AUDIO"].encoder_mask = None
+                    del state["model"]["modality_encoders.AUDIO.encoder_mask"]
+
+                for k in list(state["model"].keys()):
+                    if k.startswith("modality_encoders.") and not k.startswith(
+                        "modality_encoders.AUDIO"
+                    ):
+                        del state["model"][k]
+
+            model.load_state_dict(state["model"], strict=False)
+
+    def set_num_updates(self, num_updates):
+        """Set the number of parameters updates."""
+        super().set_num_updates(num_updates)
+        self.num_updates = num_updates
+
+    def forward(self, source, padding_mask, **kwargs):
+        w2v_args = {
+            "source": source,
+            "padding_mask": padding_mask,
+            "mask": self.apply_mask and self.training,
+            "prompt": kwargs['prompt'] if 'prompt' in kwargs.keys() else None,
+            "prefix": kwargs['prefix'] if 'prefix' in kwargs.keys() else None,
+            "filename": kwargs['filename'] if 'filename' in kwargs.keys() else None,
+            #"layer": 3,
+        }
+
+        if "corpus_key" in kwargs:
+            w2v_args["corpus_key"] = kwargs["corpus_key"]
+
+        if self.is_d2v_multi:
+            w2v_args["mode"] = "AUDIO"
+
+        ft = self.freeze_finetune_updates <= self.num_updates
+
+        with torch.no_grad() if not ft else contextlib.ExitStack():
+            res = self.w2v_model.extract_features(**w2v_args)
+
+            x = res["x"]
+            padding_mask = res["padding_mask"]
+
+            # B x T x C -> T x B x C
+            x = x.transpose(0, 1)
+
+        x = self.final_dropout(x)
+
+        if self.proj:
+            x_ = self.proj(x)
+
+        if self.hyperbolic:
+            T, B, C = x.size()
+            x = x.view(-1, C)
+            x = self.tp(x)
+            x = self.mlr(x, c=self.tp.c)
+            x = x.view(T, B, -1)
+
+        return {
+            "encoder_out": x_,  # T x B x C,
+            "encoder_feat": x,  # T x B x C,
+            "padding_mask": padding_mask,  # B x T,
+            "layer_results": res["layer_results"],
+        }
+
+    def forward_torchscript(self, net_input):
+        if torch.jit.is_scripting():
+            return self.forward(net_input["source"], net_input["padding_mask"])
+        else:
+            return self.forward_non_torchscript(net_input)
+
+    def reorder_encoder_out(self, encoder_out, new_order):
+        if encoder_out["encoder_out"] is not None:
+            encoder_out["encoder_out"] = encoder_out["encoder_out"].index_select(
+                1, new_order
+            )
+        if encoder_out["padding_mask"] is not None:
+            encoder_out["padding_mask"] = encoder_out["padding_mask"].index_select(
+                0, new_order
+            )
+        return encoder_out
+
+    def max_positions(self):
+        """Maximum input length supported by the encoder."""
+        return None
+
+    def upgrade_state_dict_named(self, state_dict, name):
+        return state_dict
+
+
+
 class TransformerDecoderForDistill(FairseqIncrementalDecoder):
     """
     Transformer decoder consisting of *args.decoder_layers* layers. Each layer
