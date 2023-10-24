@@ -3,12 +3,12 @@ fairseq-hydra-train \
 	--config-name base_100h \
 	common.wandb_project=lm2am_distill \
 	common.log_file=/workspace/fairseq_new/scripts/whale/outputs/$1.log \
-	distributed_training.distributed_world_size=1 \
+	distributed_training.distributed_world_size=4 \
 	task.data=/DB/manifests \
 	model.w2v_path=/workspace/models/wav2vec_small.pt \
 	checkpoint.save_dir=/workspace/fairseq_new/scripts/whale/outputs/$1 \
 	dataset.max_tokens=3200000 \
-	optimization.update_freq=[1] \
+	optimization.update_freq=[2] \
 	criterion._name=clip
 
 #common.wandb_project=lm2am_distill \
