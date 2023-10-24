@@ -985,7 +985,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
 
         # TODO: update this when transformer gets converted to dataclass configs
         transformer_cfg = copy.deepcopy(cfg)
-        #with open_dict(transformer_cfg):
+        
         transformer_cfg.dropout = transformer_cfg.decoder_dropout
         transformer_cfg.attention_dropout = (
             transformer_cfg.decoder_attention_dropout
