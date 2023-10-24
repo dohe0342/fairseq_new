@@ -2225,7 +2225,7 @@ class Clip3Criterion(FairseqCriterion):
             #print(temp.size(), temp2[0].size())
             #exit()
         if cfg.decoder == 'transf_dec':
-            lm_cfg = Wav2Vec2Config()
+            lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             self.lm_linear2 = Linear(lm_cfg.decoder_embed_dim, 768)
 
