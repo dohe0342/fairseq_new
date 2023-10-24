@@ -1935,7 +1935,7 @@ class Clip2Criterion(FairseqCriterion):
                     im = ax.imshow(sim)
 
                     # Show all ticks and label them with the respective list entries
-                    ax.set_xticks(np.arange(len(lm_am_sim_cp[b])))
+                    ax.set_xticks(np.arange(len(sim)))
                     ax.set_yticks(np.arange(len(lm_am_sim_cp[b][0])))
 
                     # Rotate the tick labels and set their alignment.
