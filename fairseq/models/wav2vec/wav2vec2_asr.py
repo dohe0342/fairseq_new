@@ -379,7 +379,8 @@ class Wav2Vec2Seq2SeqModel(FairseqEncoderDecoderModel):
 
 class LanguageModelDistillationEncoder(FairseqEncoderModel):
     def __init__(self, encoder):
-        super().__init__(encoder)
+        #super().__init__(encoder)
+        self.encoder = encoder
 
     @classmethod
     def build_model(cls, cfg: Wav2Vec2Config, task: FairseqTask):
