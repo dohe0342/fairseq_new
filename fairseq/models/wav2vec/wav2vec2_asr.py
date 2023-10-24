@@ -414,6 +414,45 @@ class LanguageModelDistillationDecoder(FairseqLanguageModel):
         return state_dict
 
 
+class LanguageModelDistillationDecoder(FairseqLanguageModel):
+    def __init__(self, decoder):
+        super().__init__(decoder)
+
+    @classmethod
+    def build_model(cls, cfg: Wav2Vec2Seq2SeqConfig, task: FairseqTask):
+        """Build a new model instance."""
+
+        assert (
+            cfg.autoregressive
+        ), "Please set task.autoregressive=true for seq2seq asr models"
+
+        src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
+
+        def build_embedding(dictionary, embed_dim):
+            num_embeddings = len(dictionary)
+            padding_idx = dictionary.pad()
+            emb = Embedding(num_embeddings, embed_dim, padding_idx)
+            return emb  
+
+        #decoder_embed_tokens = build_embedding(tgt_dict, cfg.decoder_embed_dim)
+        encoder = cls.build_encoder(cfg, tgt_dict)
+        #decoder = cls.build_decoder(cfg, tgt_dict)
+
+        return LanguageModelDistillationDecoder(decoder)
+
+    @classmethod
+    def build_decoder(cls, cfg: Wav2Vec2Seq2SeqConfig, tgt_dict):
+        return TransformerDecoderForDistill(cfg, tgt_dict)
+
+    def forward(self, input, **kwargs):
+        decoder_out = self.decoder(input, **kwargs)
+        return decoder_out
+
+    def upgrade_state_dict_named(self, state_dict, name):
+        super().upgrade_state_dict_named(state_dict, name)
+        return state_dict
+
+
 class Wav2VecEncoder(FairseqEncoder):
     def __init__(self, cfg: Wav2Vec2AsrConfig, output_size=None):
         self.apply_mask = cfg.apply_mask
