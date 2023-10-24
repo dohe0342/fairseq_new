@@ -958,10 +958,8 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
 
         self.layerdrop = cfg.decoder_layerdrop
 
-        #self.padding_idx = embed_tokens.padding_idx
         self.max_target_positions = cfg.max_target_positions
 
-        #self.embed_tokens = embed_tokens
         self.embed_scale = math.sqrt(embed_dim)  # todo: try with input_embed_dim
         self.share_input_output_embed = cfg.share_decoder_input_output_embed
 
@@ -988,14 +986,13 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
         # TODO: update this when transformer gets converted to dataclass configs
         transformer_cfg = copy.deepcopy(cfg)
         #with open_dict(transformer_cfg):
-        if 1:
-            transformer_cfg.dropout = transformer_cfg.decoder_dropout
-            transformer_cfg.attention_dropout = (
-                transformer_cfg.decoder_attention_dropout
-            )
-            transformer_cfg.activation_dropout = (
-                transformer_cfg.decoder_activation_dropout
-            )
+        transformer_cfg.dropout = transformer_cfg.decoder_dropout
+        transformer_cfg.attention_dropout = (
+            transformer_cfg.decoder_attention_dropout
+        )
+        transformer_cfg.activation_dropout = (
+            transformer_cfg.decoder_activation_dropout
+        )
 
         self.layers = nn.ModuleList([])
         self.layers.extend(
