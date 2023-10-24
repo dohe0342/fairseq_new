@@ -376,7 +376,7 @@ class Wav2Vec2Seq2SeqModel(FairseqEncoderDecoderModel):
         return state_dict
 
 
-class Wav2Vec2Seq2SeqModel(FairseqEncoderModel):
+class LanguageModelDistillationEncoder(FairseqEncoderModel):
     def __init__(self, encoder, decoder):
         super().__init__(encoder, decoder)
 
