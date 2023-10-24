@@ -1945,7 +1945,7 @@ class Clip2Criterion(FairseqCriterion):
                     # Loop over data dimensions and create text annotations.
                     for i in range(len(sim)):
                         for j in range(len(sim[0])):
-                            text = ax.text(j, i, harvest[i, j],
+                            text = ax.text(j, i, sim[i, j],
                                            ha="center", va="center", color="w")
 
                     ax.set_title("Harvest of local farmers (in tons/year)")
