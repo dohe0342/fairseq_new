@@ -1317,43 +1317,6 @@ class TransformerEncoderForDistill(nn.Module):
         self.embedding_dim = args.encoder_embed_dim
         self.required_seq_len_multiple = args.required_seq_len_multiple
 
-        pos_conv_depth = getattr(args, "pos_conv_depth", 1)
-        if pos_conv_depth > 1:
-            num_layers = args.pos_conv_depth
-            k = max(3, args.conv_pos // num_layers)
-
-            def make_conv_block(e, k, g, l):
-                return nn.Sequential(
-                    *[
-                        nn.Sequential(
-                            nn.Conv1d(
-                                e,
-                                e,
-                                kernel_size=k,
-                                padding=k // 2,
-                                groups=g,
-                            ),
-                            SamePad(k),
-                            TransposeLast(),
-                            LayerNorm(e, elementwise_affine=False),
-                            TransposeLast(),
-                            nn.GELU(),
-                        )
-                        for _ in range(l)
-                    ]
-                )
-
-            self.pos_conv = make_conv_block(
-                self.embedding_dim, k, args.conv_pos_groups, num_layers
-            )
-
-        else:
-            self.pos_conv = make_conv_pos(
-                self.embedding_dim,
-                args.conv_pos,
-                args.conv_pos_groups,
-            )
-
         self.layers = nn.ModuleList(
             [self.build_encoder_layer(args, layer_idx=ii) for ii in range(args.encoder_layers)]
         )
