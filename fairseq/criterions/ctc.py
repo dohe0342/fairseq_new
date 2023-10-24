@@ -1943,8 +1943,8 @@ class Clip2Criterion(FairseqCriterion):
                              rotation_mode="anchor")
 
                     # Loop over data dimensions and create text annotations.
-                    for i in range(len(sim[0])):
-                        for j in range(len(sim)):
+                    for i in range(len(sim)):
+                        for j in range(len(sim[0])):
                             text = ax.text(j, i, harvest[i, j],
                                            ha="center", va="center", color="w")
 
