@@ -1909,7 +1909,9 @@ class Clip2Criterion(FairseqCriterion):
             print('3', am_output.size())
             
             am_output = self.lm_linear2(am_output)
+            print('4', am_output.size())
             am_output = self.ln(am_output)
+            print('5', am_output.size())
             
             if 1:
                 #lm_output = F.normalize(lm_output, dim=2)
