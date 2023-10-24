@@ -404,7 +404,7 @@ class LanguageModelDistillationDecoder(FairseqEncoderModel):
 
     @classmethod
     def build_encoder(cls, cfg: Wav2Vec2Seq2SeqConfig, tgt_dict):
-        return TransformerDecoderForDistill(cfg, tgt_dict)
+        return TransformerEncoderForDistill(cfg, tgt_dict)
 
     def forward(self, input, **kwargs):
         decoder_out = self.decoder(input, **kwargs)
