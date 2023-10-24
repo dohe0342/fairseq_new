@@ -1831,7 +1831,6 @@ class Clip2Criterion(FairseqCriterion):
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             self.lm_linear2 = Linear(lm_cfg.decoder_embed_dim, 768)
-            self.ln = torch.nn.LayerNorm(self.lm.embed_dim)
             #temp = torch.zeros(10, 90, 768)
             #temp2 = self.lm_decoder(temp)
             #print(temp.size(), temp2[0].size())
