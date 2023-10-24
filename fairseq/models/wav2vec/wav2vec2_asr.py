@@ -391,7 +391,7 @@ class LanguageModelDistillationEncoder(FairseqEncoderModel):
         src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
         encoder = cls.build_encoder(cfg)
 
-        return Wav2Vec2Seq2SeqModel(encoder, decoder)
+        return LanguageModelDistillationDecoder(encoder, decoder)
 
     @classmethod
     def build_encoder(cls, cfg: Wav2Vec2AsrConfig):
