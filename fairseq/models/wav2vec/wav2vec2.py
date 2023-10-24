@@ -1231,7 +1231,7 @@ class TransformerEncoder(nn.Module):
         return state_dict
 
 
-class TransformerEncoderForDistill(FairseqEncoderModel):
+class TransformerEncoderForDistill(FairseqEncoder):
     def build_encoder_layer(self, args: Wav2Vec2Config, **kwargs):
         if args.layer_type == "transformer":
             layer = TransformerSentenceEncoderLayer(
