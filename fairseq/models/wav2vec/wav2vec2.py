@@ -1327,7 +1327,7 @@ class TransformerEncoderForDistill(nn.Module):
         input_embed_dim = 768
 
         self.project_in_dim = (
-            Linear(input_embed_dim, embed_dim, bias=False)
+            Linear(input_embed_dim, self.embedding_dim, bias=False)
             if self.embedding_dim != input_embed_dim
             else None
         )
