@@ -1938,10 +1938,7 @@ class Clip2Criterion(FairseqCriterion):
             
             #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-300))
-            #print('22', lm_am_sim[0][0]) 
-            #print('7', lm_am_sim.size())
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
-            #print('8', lm_am_sim.size())
 
         ##############################
 
@@ -1999,7 +1996,6 @@ class Clip2Criterion(FairseqCriterion):
             alignment_flat = torch.cat([alignment_flat, temp_target])
             alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
         
-        print('9', alignment_flat)
         #############for alignment target ###############################
 
         with torch.backends.cudnn.flags(enabled=False):
