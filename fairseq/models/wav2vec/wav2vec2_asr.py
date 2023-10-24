@@ -963,8 +963,6 @@ class TransformerDecoder(FairseqIncrementalDecoder):
 
 class TransformerEncoderForDistill(FairseqEncoder):
     def __init__(self, cfg: Wav2Vec2AsrConfig, output_size=None):
-        self.apply_mask = cfg.apply_mask
-
         arg_overrides = {
             "dropout": cfg.dropout,
             "activation_dropout": cfg.activation_dropout,
