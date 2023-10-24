@@ -1929,27 +1929,7 @@ class Clip2Criterion(FairseqCriterion):
             if model.w2v_encoder.num_updates % 100 == 0:
                 lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
-                    #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
-                    sim = lm_am_sim_cp[b].cpu().numpy()
-                    fig, ax = plt.subplots()
-                    im = ax.imshow(sim)
-
-                    # Show all ticks and label them with the respective list entries
-                    ax.set_xticks(np.arange(len(sim[0])))
-                    ax.set_yticks(np.arange(len(sim)))
-
-                    # Rotate the tick labels and set their alignment.
-                    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-                             rotation_mode="anchor")
-
-                    # Loop over data dimensions and create text annotations.
-                    for i in range(len(sim)):
-                        for j in range(len(sim[0])):
-                            text = ax.text(j, i, sim[i, j],
-                                           ha="center", va="center", color="w")
-
-                    fig.tight_layout()
-                    
+                    plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
                     if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}'):
                         try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
                         except: pass
