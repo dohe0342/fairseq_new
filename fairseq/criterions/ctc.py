@@ -1943,7 +1943,9 @@ class Clip2Criterion(FairseqCriterion):
                     plt.close()
             
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
+            print('7', lm_am_sim.size())
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
+            print('8', lm_am_sim.size())
 
         ##############################
 
