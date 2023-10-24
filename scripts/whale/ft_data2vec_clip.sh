@@ -10,7 +10,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[1] \
-	criterion._name=clip
+	criterion._name=clip2
 
 : <<'END'
 fairseq-hydra-train \
