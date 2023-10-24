@@ -2222,6 +2222,7 @@ class Clip3Criterion(FairseqCriterion):
             lm_cfg.encoder_embed_dim = 512
             lm_cfg.encoder_ffn_embed_dim = 2048
             lm_cfg.encoder_attention_heads = 8
+            lm_cfg.encoder_layers = 6
 
             self.lm_decoder = LanguageModelDistillationEncoder.build_model(lm_cfg, task)
             self.lm_linear2 = Linear(lm_cfg.encoder_embed_dim, 768)
