@@ -1527,7 +1527,7 @@ class ClipCriterion(FairseqCriterion):
             #am_output = F.gelu(am_output)
             am_output = self.lm_linear(am_output)
             #am_output = self.ins_norm(am_output)
-            am_output = F.normalize(am_output, dim=2)
+            #am_output = F.normalize(am_output, dim=2)
             
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
             if np.random.rand() < 0.1 and 0:
