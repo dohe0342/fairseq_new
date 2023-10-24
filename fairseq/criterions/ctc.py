@@ -89,7 +89,7 @@ class ClipCriterionConfig(CtcCriterionConfig):
         metadata={"help": "which language model to use as distillation"},
     )
     decoder: str = field(
-        default='linear',
+        default='transf',
         metadata={"help": "which structures to use as lm decoder"},
     )
     decoder_layer_num: Optional[int] = field(
@@ -1905,12 +1905,12 @@ class Clip2Criterion(FairseqCriterion):
             am_output = self.lm_decoder(am_output)
             if type(am_output) == tuple: am_output = am_output[0]
             
-            #am_output = self.lm_linear2(am_output)
-            #am_output = self.ln(am_output)
+            am_output = self.lm_linear2(am_output)
+            am_output = self.ln(am_output)
             
             if 1:
-                #lm_output = F.normalize(lm_output, dim=2)
-                #am_output = F.normalize(am_output, dim=2)
+                lm_output = F.normalize(lm_output, dim=2)
+                am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 
