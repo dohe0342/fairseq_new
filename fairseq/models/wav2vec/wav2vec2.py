@@ -1351,10 +1351,13 @@ class TransformerEncoderForDistill(nn.Module):
         corpus_key=None,
         prefix=None,
     ):
+        
+        if self.project_in_dim is not None:
+            x = self.project_in_dim(x)
 
         if not self.layer_norm_first:
             x = self.layer_norm(x)
-
+        
         x = F.dropout(x, p=self.dropout, training=self.training)
 
         # B x T x C -> T x B x C
