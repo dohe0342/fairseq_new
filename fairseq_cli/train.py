@@ -93,9 +93,9 @@ def main(cfg: FairseqConfig) -> None:
     #ckp = torch.load('/home/work/workspace/models/data2vec_model/audio_base_ls_960h.pt')
     #ckp = torch.load('/home/work/workspace/fairseq/scripts/whale/outputs/w2v2_200h_clean+speech_mixed-valid_prompt_prompt-freeze80000_orthogonal/checkpoint_best.pt')
     #ckp = torch.load('/home/work/workspace/models/wav2vec_model/wav2vec_small_960h.pt')
-    #ckp = torch.load('/workspace/models/wav2vec_small_960h.pt')
+    ckp = torch.load('/workspace/models/wav2vec_small_960h.pt')
     if cfg.distributed_training.ddp_backend == "fully_sharded":
-        if 0:
+        if 1:
             for n, p in model.named_parameters():
                 p.data = ckp['model'][n]
                 logger.info(f"{n} replaced")
@@ -103,7 +103,7 @@ def main(cfg: FairseqConfig) -> None:
             model = fsdp_wrap(task.build_model(cfg.model))
     else:
         model = task.build_model(cfg.model)
-        if 0:
+        if 1:
             for n, p in model.named_parameters():
                 try: 
                     p.data = ckp['model'][n]
