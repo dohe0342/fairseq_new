@@ -407,7 +407,7 @@ class LanguageModelDistillationDecoder(FairseqEncoderModel):
         return TransformerEncoderForDistill(cfg, tgt_dict)
 
     def forward(self, input, **kwargs):
-        decoder_out = self.decoder(input, **kwargs)
+        encoder_out = self.encoder(input, **kwargs)
         return decoder_out
 
     def upgrade_state_dict_named(self, state_dict, name):
