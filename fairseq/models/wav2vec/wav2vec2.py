@@ -1324,7 +1324,13 @@ class TransformerEncoderForDistill(nn.Module):
         self.layer_norm = LayerNorm(self.embedding_dim)
         self.layerdrop = args.encoder_layerdrop
 
-        self.apply(init_bert_params)
+        input_embed_dim = 768
+
+        self.project_in_dim = (
+            Linear(input_embed_dim, embed_dim, bias=False)
+            if self.embedding_dim != input_embed_dim
+            else None
+        )
 
     def forward(self, x, padding_mask=None, layer=None, corpus_key=None, prefix=None,):
         x, layer_results = self.extract_features(
