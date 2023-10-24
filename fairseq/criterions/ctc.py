@@ -2225,7 +2225,8 @@ class Clip3Criterion(FairseqCriterion):
 
             self.lm_decoder = LanguageModelDistillationEncoder.build_model(lm_cfg, task)
             self.lm_linear2 = Linear(lm_cfg.encoder_embed_dim, 768)
-
+            
+            logger.info(lm_cfg)
             logger.info(self.lm_decoder)
         
         if cfg.decoder == 'transf_dec':
