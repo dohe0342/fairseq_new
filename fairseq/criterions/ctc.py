@@ -1941,9 +1941,9 @@ class Clip2Criterion(FairseqCriterion):
                         except: pass
                     plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
-            print(lm_am_sim[0][0]) 
+            print('11', lm_am_sim[0][0]) 
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            print(lm_am_sim[0][0]) 
+            print('22', lm_am_sim[0][0]) 
             print('7', lm_am_sim.size())
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
             print('8', lm_am_sim.size())
