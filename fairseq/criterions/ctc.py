@@ -1526,10 +1526,10 @@ class ClipCriterion(FairseqCriterion):
             am_output = self.lm_linear(am_output)
             
             lm_output = F.normalize(lm_output, dim=2)
-            am_output = F.normalize(am_output, dim=2)
+            #am_output = F.normalize(am_output, dim=2)
             
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-            lm_am_sim = lm_am_sim * lm_am_sim
+            #lm_am_sim = lm_am_sim * lm_am_sim
                         
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
