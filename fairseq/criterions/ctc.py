@@ -1520,12 +1520,14 @@ class ClipCriterion(FairseqCriterion):
                 lm_output = lm_output['last_hidden_state']
                 if 0:
                     lm_output = lm_output[:,1:,:]
-                #lm_output = F.normalize(lm_output, dim=2)
 
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             #am_output = F.gelu(am_output)
             am_output = self.lm_linear(am_output)
-
+            
+            lm_output = F.normalize(lm_output, dim=2)
+            am_output = F.normalize(am_output, dim=2)
+            
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
             if np.random.rand() < 0.1 and 0:
                 softmax = F.softmax(lm_am_sim / 3, dim=-1)
@@ -2212,7 +2214,6 @@ class Clip3Criterion(FairseqCriterion):
 
         space_token = self.tokenizer(' ', return_tensors='pt')
         self.space_token = self.lm(**space_token)['last_hidden_state']
-        print(self.space_token.size())
         
         self.task = task
         self.tgt_dict = task.target_dictionary
