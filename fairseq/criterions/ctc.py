@@ -2002,6 +2002,8 @@ class Clip2Criterion(FairseqCriterion):
             temp_target = torch.linspace(1, i, steps=i).to(device)
             alignment_flat = torch.cat([alignment_flat, temp_target])
             alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
+        
+        print('9', alignment_flat)
         #############for alignment target ###############################
 
         with torch.backends.cudnn.flags(enabled=False):
