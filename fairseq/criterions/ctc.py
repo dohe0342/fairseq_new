@@ -1529,6 +1529,7 @@ class ClipCriterion(FairseqCriterion):
             am_output = F.normalize(am_output, dim=2)
             
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
+            lm_am_sim = lm_am_sim * lm_am_sim
             if np.random.rand() < 0.1 and 0:
                 softmax = F.softmax(lm_am_sim / 3, dim=-1)
                 print(softmax.size(), softmax[0][0].size(), softmax[0][0])
