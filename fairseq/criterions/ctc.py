@@ -1926,6 +1926,7 @@ class Clip2Criterion(FairseqCriterion):
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             #lm_am_sim = F.softmax(lm_am_sim, dim=-1)
             if np.random.rand() < 0.05:
+                lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
                     plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
                     os.makedir(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
