@@ -415,7 +415,6 @@ class LanguageModelDistillationDecoder(FairseqEncoderModel):
         return state_dict
 
 
-
 class LanguageModelDistillationDecoder(FairseqLanguageModel):
     def __init__(self, decoder):
         super().__init__(decoder)
