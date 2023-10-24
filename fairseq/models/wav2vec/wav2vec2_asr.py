@@ -390,16 +390,7 @@ class LanguageModelDistillationEncoder(FairseqEncoderModel):
 
         src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
 
-        def build_embedding(dictionary, embed_dim):
-            num_embeddings = len(dictionary)
-            padding_idx = dictionary.pad()
-            emb = Embedding(num_embeddings, embed_dim, padding_idx)
-            return emb
-
-        decoder_embed_tokens = build_embedding(tgt_dict, cfg.decoder_embed_dim)
-
         encoder = cls.build_encoder(cfg)
-        decoder = cls.build_decoder(cfg, tgt_dict, decoder_embed_tokens)
 
         return Wav2Vec2Seq2SeqModel(encoder, decoder)
 
