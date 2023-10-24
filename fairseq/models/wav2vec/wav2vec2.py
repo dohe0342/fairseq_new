@@ -1346,34 +1346,9 @@ class TransformerEncoderForDistill(nn.Module):
         prefix=None,
     ):
 
-        if padding_mask is not None:
-            x = index_put(x, padding_mask, 0)
-
-        if prefix is not None and padding_mask is not None:
-            prefix_padding_mask = torch.zeros(x.size()[0], prefix[0][0].size()[0]).type(torch.BoolTensor).to(x.device)
-            padding_mask = torch.cat([prefix_padding_mask, padding_mask], dim=1)
-
-        x_conv = self.pos_conv(x.transpose(1, 2))
-        x_conv = x_conv.transpose(1, 2)
-        x = x + x_conv
-
         if not self.layer_norm_first:
             x = self.layer_norm(x)
 
-        # pad to the sequence length dimension
-        x, pad_length = pad_to_multiple(
-            x, self.required_seq_len_multiple, dim=-2, value=0
-        )
-        if pad_length > 0 and padding_mask is None:
-            if prefix is None:
-                padding_mask = x.new_zeros((x.size(0), x.size(1)), dtype=torch.bool)
-            else:
-                padding_mask = x.new_zeros((x.size(0), x.size(1)+prefix[0][0].size(0)), dtype=torch.bool)
-            padding_mask[:, -pad_length:] = True
-        else:
-            padding_mask, _ = pad_to_multiple(
-                padding_mask, self.required_seq_len_multiple, dim=-1, value=True
-            )
         x = F.dropout(x, p=self.dropout, training=self.training)
 
         # B x T x C -> T x B x C
