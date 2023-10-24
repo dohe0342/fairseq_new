@@ -1930,7 +1930,6 @@ class Clip2Criterion(FairseqCriterion):
                     plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
                     plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/alingment{b}.png')
                     plt.close()
-                exit()
             
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
