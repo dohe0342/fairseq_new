@@ -1,7 +1,6 @@
 fairseq-hydra-train \
 	--config-dir /workspace/fairseq_new/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
-	common.wandb_project=lm2am_distill \
 	common.log_file=/workspace/fairseq_new/scripts/whale/outputs/$1.log \
 	task.data=/DB/manifests \
 	model.w2v_path=/workspace/models/wav2vec_small.pt \
