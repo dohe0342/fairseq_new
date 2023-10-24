@@ -1901,24 +1901,18 @@ class Clip2Criterion(FairseqCriterion):
                 lm_output = self.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
             
-            print('1', lm_output.size())
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
-            print('2', am_output.size())
             am_output = self.lm_decoder(am_output)
             if type(am_output) == tuple: am_output = am_output[0]
-            print('3', am_output.size())
             
             am_output = self.lm_linear2(am_output)
-            print('4', am_output.size())
             am_output = self.ln(am_output)
-            print('5', am_output.size())
             
             if 1:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-                print('6', lm_am_sim.size())
                 
             if 0:
                 #lm_output = F.normalize(lm_output, dim=2)
@@ -1941,13 +1935,13 @@ class Clip2Criterion(FairseqCriterion):
                         except: pass
                     plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
-            print('11', lm_am_sim[0][0]) 
+            
             #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-300))
-            print('22', lm_am_sim[0][0]) 
-            print('7', lm_am_sim.size())
+            #print('22', lm_am_sim[0][0]) 
+            #print('7', lm_am_sim.size())
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
-            print('8', lm_am_sim.size())
+            #print('8', lm_am_sim.size())
 
         ##############################
 
