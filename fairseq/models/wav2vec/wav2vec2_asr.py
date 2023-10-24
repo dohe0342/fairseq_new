@@ -381,14 +381,9 @@ class LanguageModelDistillationEncoder(FairseqEncoderModel):
         super().__init__(encoder)
 
     @classmethod
-    def build_model(cls, cfg: Wav2Vec2Seq2SeqConfig, task: FairseqTask):
+    def build_model(cls, cfg: Wav2Vec2Config, task: FairseqTask):
         """Build a new model instance."""
 
-        assert (
-            cfg.autoregressive
-        ), "Please set task.autoregressive=true for seq2seq asr models"
-
-        src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
         encoder = cls.build_encoder(cfg)
 
         return LanguageModelDistillationEncoder(encoder)
