@@ -1929,7 +1929,7 @@ class Clip2Criterion(FairseqCriterion):
                 for b in range(lm_am_sim_cp.size(0)):
                     plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
                     os.makedir(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
-                    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/alingment{b}.png')
+                    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
             
             lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
