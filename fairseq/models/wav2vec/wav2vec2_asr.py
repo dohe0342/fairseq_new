@@ -397,7 +397,8 @@ class LanguageModelDistillationDecoder(FairseqEncoderModel):
             return emb  
 
         #decoder_embed_tokens = build_embedding(tgt_dict, cfg.decoder_embed_dim)
-        decoder = cls.build_decoder(cfg, tgt_dict)
+        #decoder = cls.build_decoder(cfg, tgt_dict)
+        encoder = cls.build_encoder(cfg, tgt_dict)
 
         return LanguageModelDistillationDecoder(decoder)
 
