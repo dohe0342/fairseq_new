@@ -1935,16 +1935,16 @@ class Clip2Criterion(FairseqCriterion):
                     im = ax.imshow(sim)
 
                     # Show all ticks and label them with the respective list entries
-                    ax.set_xticks(np.arange(len(sim)))
-                    ax.set_yticks(np.arange(len(lm_am_sim_cp[b][0])))
+                    ax.set_xticks(np.arange(len(sim[0])))
+                    ax.set_yticks(np.arange(len(sim)))
 
                     # Rotate the tick labels and set their alignment.
                     plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
                              rotation_mode="anchor")
 
                     # Loop over data dimensions and create text annotations.
-                    for i in range(len(vegetables)):
-                        for j in range(len(farmers)):
+                    for i in range(len(sim[0])):
+                        for j in range(len(sim)):
                             text = ax.text(j, i, harvest[i, j],
                                            ha="center", va="center", color="w")
 
