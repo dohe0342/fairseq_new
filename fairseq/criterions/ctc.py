@@ -2193,8 +2193,8 @@ class Clip2Criterion(FairseqCriterion):
         return True
 
 
-@register_criterion("clip3", dataclass=ClipCriterionConfig)
-class Clip3Criterion(FairseqCriterion):
+@register_criterion("clip2", dataclass=ClipCriterionConfig)
+class Clip2Criterion(FairseqCriterion):
     def __init__(
         self, cfg: ClipCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
     ):
@@ -2207,6 +2207,7 @@ class Clip3Criterion(FairseqCriterion):
 
         space_token = self.tokenizer(' ', return_tensors='pt')
         self.space_token = self.lm(**space_token)['last_hidden_state']
+        print(self.space_token.size())
         
         self.task = task
         self.tgt_dict = task.target_dictionary
@@ -2218,8 +2219,7 @@ class Clip3Criterion(FairseqCriterion):
         if cfg.decoder == 'transf':
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
-            self.lm_linear2 = Linear(512, 768)
-            self.ln = torch.nn.LayerNorm(self.lm.embed_dim)
+            self.lm_linear2 = Linear(lm_cfg.decoder_embed_dim, 768)
             #temp = torch.zeros(10, 90, 768)
             #temp2 = self.lm_decoder(temp)
             #print(temp.size(), temp2[0].size())
@@ -2298,16 +2298,16 @@ class Clip3Criterion(FairseqCriterion):
             am_output = self.lm_decoder(am_output)
             if type(am_output) == tuple: am_output = am_output[0]
             
-            #am_output = self.lm_linear2(am_output)
+            am_output = self.lm_linear2(am_output)
             #am_output = self.ln(am_output)
             
-            if 1:
+            if 0:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 
-            if 0:
+            if 1:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 #am_output = self.ins_norm(am_output)
@@ -2335,7 +2335,7 @@ class Clip3Criterion(FairseqCriterion):
                     plt.close()
             
             #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-50))
+            lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
             lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
 
         ##############################
