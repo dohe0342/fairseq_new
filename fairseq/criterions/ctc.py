@@ -2279,6 +2279,8 @@ class Clip3Criterion(FairseqCriterion):
 
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
+        padding_mask = net_output["padding_mask"]
+
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
