@@ -1924,7 +1924,7 @@ class Clip2Criterion(FairseqCriterion):
 
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             for b in range(lm_am_sim.size(0)):
-                plt.imshow(lm_am_sim[b].detach().cpu().numpy())
+                plt.imshow(lm_am_sim[b].T.detach().cpu().numpy())
                 plt.savefig(f'alingment{b}.png')
                 plt.close()
             
