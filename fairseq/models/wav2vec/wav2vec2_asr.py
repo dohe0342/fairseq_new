@@ -301,7 +301,7 @@ class Wav2Vec2Seq2SeqConfig(Wav2Vec2AsrConfig):
         default=False, metadata={"help": "apply layernorm before each decoder block"}
     )
     no_token_positional_embeddings: bool = field(
-        default=False,
+        default=True,
         metadata={
             "help": "if set, disables positional embeddings (outside self attention)"
         },
