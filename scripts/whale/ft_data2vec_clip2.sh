@@ -8,7 +8,7 @@ fairseq-hydra-train \
 	model.freeze_finetune_updates=20000 \
 	checkpoint.save_dir=/workspace/fairseq_new/scripts/whale/outputs/$1 \
 	dataset.max_tokens=3200000 \
-	optimization.update_freq=[2] \
+	optimization.update_freq=[1] \
 	criterion._name=clip2
 
 #common.wandb_project=lm2am_distill \
