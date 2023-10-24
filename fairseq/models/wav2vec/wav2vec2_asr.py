@@ -395,7 +395,7 @@ class LanguageModelDistillationEncoder(FairseqEncoderModel):
 
     @classmethod
     def build_encoder(cls, cfg: Wav2Vec2AsrConfig):
-        return Wav2VecEncoder(cfg)
+        return FairseqEncoder(cfg)
 
     def forward(self, **kwargs):
         encoder_out = self.encoder(**kwargs)
