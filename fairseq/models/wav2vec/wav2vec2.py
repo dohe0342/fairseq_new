@@ -1939,3 +1939,11 @@ class TransformerSentenceEncoderWithDynamicAdapterLayer(TransformerSentenceEncod
         y = self.adapter_layer(x, 0)
         x = x + y
         return x, (attn, layer_result)
+
+
+def Linear(in_features, out_features, bias=True):
+    m = nn.Linear(in_features, out_features, bias)
+    nn.init.xavier_uniform_(m.weight)
+    if bias:
+        nn.init.constant_(m.bias, 0.0)
+    return m
