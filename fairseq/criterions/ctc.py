@@ -1929,7 +1929,8 @@ class Clip2Criterion(FairseqCriterion):
             if model.w2v_encoder.num_updates % 100 == 0:
                 lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
-                    plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
+                    #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
+                    plt.matshow(lm_am_sim_cp[b].T.cpu().numpy())
                     if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}'):
                         try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
                         except: pass
