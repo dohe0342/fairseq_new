@@ -1,7 +1,6 @@
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
-	common.wandb_project=lm2am_distill \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=8 \
 	task.data=/dev/shm/manifests \
@@ -14,6 +13,7 @@ fairseq-hydra-train \
 	optimization.lr=[0.00001] \
 	criterion._name=clip2
 
+#1common.wandb_project=lm2am_distill \
 : <<'END'
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
