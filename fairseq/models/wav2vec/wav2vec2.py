@@ -1426,7 +1426,6 @@ class TransformerEncoderForDistill(nn.Module):
         return state_dict
 
 
-
 class ConformerEncoder(TransformerEncoder):
     def build_encoder_layer(self, args):
         layer = ConformerWav2Vec2EncoderLayer(
