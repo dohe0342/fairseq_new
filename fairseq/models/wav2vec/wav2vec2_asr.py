@@ -408,7 +408,7 @@ class LanguageModelDistillationDecoder(FairseqEncoderModel):
 
     def forward(self, input, **kwargs):
         encoder_out = self.encoder(input, **kwargs)
-        return decoder_out
+        return encoder_out
 
     def upgrade_state_dict_named(self, state_dict, name):
         super().upgrade_state_dict_named(state_dict, name)
