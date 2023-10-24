@@ -389,7 +389,6 @@ class LanguageModelDistillationEncoder(FairseqEncoderModel):
         ), "Please set task.autoregressive=true for seq2seq asr models"
 
         src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
-
         encoder = cls.build_encoder(cfg)
 
         return Wav2Vec2Seq2SeqModel(encoder, decoder)
