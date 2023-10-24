@@ -397,14 +397,9 @@ class LanguageModelDistillationEncoder(FairseqEncoderModel):
     def build_encoder(cls, cfg: Wav2Vec2AsrConfig):
         return Wav2VecEncoder(cfg)
 
-    @classmethod
-    def build_decoder(cls, cfg: Wav2Vec2Seq2SeqConfig, tgt_dict, embed_tokens):
-        return TransformerDecoder(cfg, tgt_dict, embed_tokens)
-
     def forward(self, **kwargs):
         encoder_out = self.encoder(**kwargs)
-        decoder_out = self.decoder(encoder_out=encoder_out, **kwargs)
-        return decoder_out
+        return encoder_out
 
     def upgrade_state_dict_named(self, state_dict, name):
         super().upgrade_state_dict_named(state_dict, name)
