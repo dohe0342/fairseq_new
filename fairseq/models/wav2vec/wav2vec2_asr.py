@@ -712,6 +712,7 @@ class Wav2VecEncoder(FairseqEncoder):
             "encoder_feat": x,  # T x B x C,
             "padding_mask": padding_mask,  # B x T,
             "layer_results": res["layer_results"],
+            "features": res["features"],
         }
 
     def forward_torchscript(self, net_input):
