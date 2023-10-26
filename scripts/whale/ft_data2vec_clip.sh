@@ -2,7 +2,7 @@ fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
-	distributed_training.distributed_world_size=8 \
+	distributed_training.distributed_world_size=1 \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	model.freeze_finetune_updates=20000 \
