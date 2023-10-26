@@ -319,6 +319,7 @@ class Data2VecAudioModel(BaseFairseqModel):
                 features = self.feature_extractor(features)
 
         features = features.transpose(1, 2)
+        origin_features = features
 
         features = self.layer_norm(features)
 
