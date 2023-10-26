@@ -2477,6 +2477,8 @@ class Clip3Criterion(FairseqCriterion):
             lm_lengths = input_lengths.clone()
             for i in range(len(self.lm_decoder)):
                 lm_lengths = ((lm_lengths - 5)/2).to(torch.int)
+        else:
+            lm_lengths = input_lengths
         #############for alignment target ###############################
         #alignment_pad_mask = lm_input["attention_mask"] > 0
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
