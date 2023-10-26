@@ -2218,6 +2218,7 @@ class Clip3Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if cfg.decoder == 'conv':
+            k = max(3, 128 // 5)
             def make_conv_block(e, k, g, l):
                 return nn.Sequential(
                     *[   
