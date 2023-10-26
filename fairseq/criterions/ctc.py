@@ -2219,7 +2219,7 @@ class Clip3Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if cfg.decoder == 'conv':
-            conv_layers = [(768, 10, 3) * 5]
+            conv_layers = [(768, 10, 3)] * 5
             def block(
                 n_in,
                 n_out,
