@@ -2225,11 +2225,11 @@ class Clip3Criterion(FairseqCriterion):
         self.task = task
         self.tgt_dict = task.target_dictionary
 
-        if cfg.decoder == 'linear':
+        if self.decoder_type == 'linear':
             self.lm_decoder = Linear(768, self.lm.embed_dim)
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
-        if cfg.decoder == 'conv':
+        if self.decoder_type == 'conv':
             conv_layers = [(768, 10, 3)] * 5
             mode = "layer_norm"
             dropout = 0.0
@@ -2291,7 +2291,7 @@ class Clip3Criterion(FairseqCriterion):
                     )
                 )
                         
-        if cfg.decoder == 'transf_enc':
+        if self.decoder_type == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
             lm_cfg.encoder_embed_dim = 512
             lm_cfg.encoder_ffn_embed_dim = 2048
@@ -2301,7 +2301,7 @@ class Clip3Criterion(FairseqCriterion):
             self.lm_decoder = LanguageModelDistillationEncoder.build_model(lm_cfg, task)
             self.lm_linear2 = Linear(lm_cfg.encoder_embed_dim, 768)
         
-        if cfg.decoder == 'transf_dec':
+        if self.decoder_type == 'transf_dec':
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
             self.lm_linear2 = Linear(lm_cfg.decoder_embed_dim, 768)
