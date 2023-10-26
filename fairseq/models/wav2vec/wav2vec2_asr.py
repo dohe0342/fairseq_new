@@ -264,7 +264,7 @@ class Wav2VecCtc(BaseFairseqModel):
 
         return logits
 
-    def get_normalized_probs(self, net_output, log_probs):
+    def get_normalized_probs(self, net_output, log_probs, temp=1.0):
         """Get normalized probabilities (or log probs) from a net's output."""
 
         logits = self.get_logits(net_output)
