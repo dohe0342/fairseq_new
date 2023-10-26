@@ -701,6 +701,9 @@ class Wav2VecEncoder(FairseqEncoder):
         if self.proj:
             x_ = self.proj(x)
 
+        print(x[0][0])
+        exit()
+
         if self.hyperbolic:
             T, B, C = x.size()
             x = x.view(-1, C)
