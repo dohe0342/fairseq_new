@@ -2276,6 +2276,7 @@ class Clip3Criterion(FairseqCriterion):
                     )
                 )
             logger.info(self.conv_layers)
+            exit()
                         
         if cfg.decoder == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
