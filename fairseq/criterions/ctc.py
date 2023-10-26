@@ -28,7 +28,18 @@ from fairseq.tasks import FairseqTask
 from fairseq.logging.meters import safe_round
 from fairseq.models.wav2vec.wav2vec2_asr import Linear, Wav2Vec2Seq2SeqConfig, LanguageModelDistillationDecoder, LanguageModelDistillationEncoder
 from fairseq.models.wav2vec.wav2vec2 import Wav2Vec2Config
-from fairseq.modules import GradMultiply
+from fairseq.modules import (
+    Fp32GroupNorm,
+    Fp32LayerNorm,
+    GradMultiply,
+    GumbelVectorQuantizer,
+    LayerNorm,
+    MultiheadAttention,
+    RelPositionalEncoding,
+    SamePad,
+    TransposeLast,
+)
+
 
 from transformers import GPT2Tokenizer, GPT2Model, BertTokenizer, BertModel
 from fairseq.data.data_utils import post_process
