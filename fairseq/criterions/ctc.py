@@ -2387,7 +2387,6 @@ class Clip3Criterion(FairseqCriterion):
 
             am_output = am_output.transpose(1, 2)
             print('1', am_output.size())
-            print('2', input_lengths)
             
             if type(am_output) == tuple: am_output = am_output[0]
             
@@ -2472,6 +2471,7 @@ class Clip3Criterion(FairseqCriterion):
         else:
             target_lengths = pad_mask.sum(-1)
         
+        print('2', input_lengths)
         #############for alignment target ###############################
         #alignment_pad_mask = lm_input["attention_mask"] > 0
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
