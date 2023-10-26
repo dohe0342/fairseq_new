@@ -697,12 +697,12 @@ class Wav2VecEncoder(FairseqEncoder):
 
         x = self.final_dropout(x)
         
-        print(x[0][0])
+        #print(x[0][0])
         if self.proj:
             x_ = self.proj(x)
 
-        print(x[0][0])
-        exit()
+        #print(x[0][0])
+        #exit()
 
         if self.hyperbolic:
             T, B, C = x.size()
