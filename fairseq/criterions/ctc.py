@@ -2473,7 +2473,7 @@ class Clip3Criterion(FairseqCriterion):
         else:
             target_lengths = pad_mask.sum(-1)
         
-        if self.dcoder_type == 'conv':
+        if self.decoder_type == 'conv':
             lm_lengths = input_lengths.clone()
             for i in range(len(self.lm_decoder)):
                 lm_lengths = ((lm_lengths - 5)/2).to(torch.int)
