@@ -2380,15 +2380,12 @@ class Clip3Criterion(FairseqCriterion):
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             if self.decoder_type == 'conv':
                 am_output = am_output.transpose(1, 2).contiguous()
-                print('0', am_output.size())
                 for i, conv in enumerate(self.lm_decoder):
                     am_output = conv(am_output)
-                    print(i, am_output.size())
             elif self.decoder_type == 'transf_enc':
                 am_output = self.lm_decoder(am_output, padding_mask)
 
             am_output = am_output.transpose(1, 2)
-            print('1', am_output.size())
             
             if type(am_output) == tuple: am_output = am_output[0]
             
