@@ -2508,7 +2508,7 @@ class Clip3Criterion(FairseqCriterion):
                 alignment_flat,
                 lm_lengths,
                 alignment_lengths,
-                blank=0,
+                blank=self.blank_idx,
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
