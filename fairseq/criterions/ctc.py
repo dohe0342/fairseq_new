@@ -2244,7 +2244,7 @@ class Clip3Criterion(FairseqCriterion):
                 conv_bias=False,
             ):
                 def make_conv():
-                    conv = nn.Conv1d(n_in, n_out, k, stride=stride, bias=conv_bias)
+                    conv = nn.Conv1d(n_in, n_out, k, stride=stride, bias=conv_bias, groups=groups)
                     nn.init.kaiming_normal_(conv.weight)
                     return conv
 
