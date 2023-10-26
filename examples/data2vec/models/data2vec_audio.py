@@ -398,6 +398,7 @@ class Data2VecAudioModel(BaseFairseqModel):
                 "padding_mask": padding_mask,
                 "layer_results": layer_results,
                 "features" : origin_features,
+                "mask_indices": mask_indices,
             }
 
         result = {
