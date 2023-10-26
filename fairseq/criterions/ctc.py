@@ -2239,7 +2239,7 @@ class Clip3Criterion(FairseqCriterion):
                 n_out,
                 k,
                 stride,
-                groups=768,
+                groups=1,
                 is_layer_norm=False,
                 is_group_norm=False,
                 conv_bias=False,
