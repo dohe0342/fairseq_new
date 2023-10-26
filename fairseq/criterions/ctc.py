@@ -2218,6 +2218,7 @@ class Clip3Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if cfg.decoder == 'conv':
+            conv_layers = [(768, 10, 3) * 5]
             def block(
                 n_in,
                 n_out,
@@ -2273,7 +2274,6 @@ class Clip3Criterion(FairseqCriterion):
                         conv_bias=conv_bias,
                     )
                 )
-                in_d = dim
                         
         if cfg.decoder == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
