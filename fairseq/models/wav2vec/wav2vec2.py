@@ -1083,7 +1083,7 @@ class TransformerEncoder(nn.Module):
                 )
 
             self.pos_conv = make_conv_block(
-                self.embedding_dim, k, args.conv_pos_groups, num_layers
+                768, k, args.conv_pos_groups, num_layers
             )
 
         else:
