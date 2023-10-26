@@ -2256,6 +2256,25 @@ class Clip3Criterion(FairseqCriterion):
                     )
                 else:
                     return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
+                    in_d = 1
+            
+            self.conv_layers = nn.ModuleList()
+            for i, cl in enumerate(conv_layers):
+                assert len(cl) == 3, "invalid conv definition: " + str(cl)
+                (dim, k, stride) = cl
+
+                self.conv_layers.append(
+                    block(
+                        in_d,
+                        dim,
+                        k,
+                        stride,
+                        is_layer_norm=mode == "layer_norm",
+                        is_group_norm=mode == "default" and i == 0,
+                        conv_bias=conv_bias,
+                    )
+                )
+                in_d = dim
                         
         if cfg.decoder == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
