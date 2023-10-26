@@ -674,8 +674,8 @@ class Wav2VecEncoder(FairseqEncoder):
             "mask": self.apply_mask and self.training,
             "prompt": kwargs['prompt'] if 'prompt' in kwargs.keys() else None,
             "prefix": kwargs['prefix'] if 'prefix' in kwargs.keys() else None,
-            #"filename": kwargs['filename'] if 'filename' in kwargs.keys() else None,
-            #"layer": 3,
+            "filename": kwargs['filename'] if 'filename' in kwargs.keys() else None,
+            "layer": 3,
         }
 
         if "corpus_key" in kwargs:
