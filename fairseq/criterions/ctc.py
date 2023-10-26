@@ -2271,8 +2271,8 @@ class Clip3Criterion(FairseqCriterion):
                         dim,
                         k,
                         stride,
-                        is_layer_norm= (mode == "layer_norm"),
-                        is_group_norm= (mode == "default") and i == 0,
+                        is_layer_norm=(mode == "layer_norm"),
+                        is_group_norm=(mode == "default") and i == 0,
                         conv_bias=False,
                     )
                 )
