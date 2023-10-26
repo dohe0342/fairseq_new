@@ -272,7 +272,7 @@ class Wav2VecCtc(BaseFairseqModel):
         if log_probs:
             return utils.log_softmax(logits.float() / temp, dim=-1)
         else:
-            return utils.softmax(logits.float(), dim=-1)
+            return utils.softmax(logits.float() / temp, dim=-1)
 
     def forward(self, **kwargs):
         x = self.w2v_encoder(**kwargs)
