@@ -2273,7 +2273,7 @@ class Clip3Criterion(FairseqCriterion):
                         stride,
                         is_layer_norm=mode == "layer_norm",
                         is_group_norm=mode == "default" and i == 0,
-                        conv_bias=conv_bias,
+                        conv_bias=False,
                     )
                 )
             logger.info(self.conv_layers)
