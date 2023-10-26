@@ -2212,6 +2212,7 @@ class Clip3Criterion(FairseqCriterion):
     ):
         super().__init__(task)
         
+        self.decoder_type = cfg.decoder
         ########### for gpt2
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -2378,6 +2379,7 @@ class Clip3Criterion(FairseqCriterion):
             
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             print('1', am_output.size())
+            if self.
             #am_output = self.lm_decoder(am_output, padding_mask)
             am_output = self.lm_decoder(am_output)
             print('2', am_output.size())
