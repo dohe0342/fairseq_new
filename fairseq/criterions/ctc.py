@@ -2230,7 +2230,7 @@ class Clip3Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if self.decoder_type == 'conv':
-            conv_layers = [(768, 10, 3)] * 5
+            conv_layers = [(768, 5, 2)] * 5
             mode = "layer_norm"
             dropout = 0.0
 
