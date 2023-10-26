@@ -2288,7 +2288,7 @@ class Clip3Criterion(FairseqCriterion):
                         conv_bias=False,
                     )
                 )
-            logger.info(self.conv_layers)
+            logging.info(self.conv_layers)
             exit()
                         
         if cfg.decoder == 'transf_enc':
