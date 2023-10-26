@@ -2509,7 +2509,7 @@ class Clip3Criterion(FairseqCriterion):
             distill_loss = F.ctc_loss(
                 lm_am_sim,
                 alignment_flat,
-                input_lengths,
+                lm_lengths,
                 alignment_lengths,
                 blank=0,
                 reduction="sum",
