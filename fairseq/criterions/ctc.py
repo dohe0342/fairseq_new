@@ -100,7 +100,7 @@ class ClipCriterionConfig(CtcCriterionConfig):
         },
     )
     lm_decay: float = field(
-        default=0.5,
+        default=0.1,
         metadata={"help": ""},
     )
 
@@ -2217,6 +2217,64 @@ class Clip3Criterion(FairseqCriterion):
             self.lm_decoder = Linear(768, self.lm.embed_dim)
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
+        if cfg.decoder == 'conv':
+            conv_layers = [(768, 10, 3) * 5]
+            def block(
+                n_in,
+                n_out,
+                k,
+                stride,
+                is_layer_norm=False,
+                is_group_norm=False,
+                conv_bias=False,
+            ):
+                def make_conv():
+                    conv = nn.Conv1d(n_in, n_out, k, stride=stride, bias=conv_bias)
+                    nn.init.kaiming_normal_(conv.weight)
+                    return conv
+
+                assert (
+                    is_layer_norm and is_group_norm
+                ) == False, "layer norm and group norm are exclusive"
+
+                if is_layer_norm:
+                    return nn.Sequential(
+                        make_conv(),
+                        nn.Dropout(p=dropout),
+                        nn.Sequential(
+                            TransposeLast(),
+                            Fp32LayerNorm(dim, elementwise_affine=True),
+                            TransposeLast(),
+                        ),
+                        nn.GELU(),
+                    )
+                elif is_group_norm:
+                    return nn.Sequential(
+                        make_conv(),
+                        nn.Dropout(p=dropout),
+                        Fp32GroupNorm(dim, dim, affine=True),
+                        nn.GELU(),
+                    )
+                else:
+                    return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
+            
+            self.conv_layers = nn.ModuleList()
+            for i, cl in enumerate(conv_layers):
+                assert len(cl) == 3, "invalid conv definition: " + str(cl)
+                (dim, k, stride) = cl
+
+                self.conv_layers.append(
+                    block(
+                        dim,
+                        dim,
+                        k,
+                        stride,
+                        is_layer_norm=mode == "layer_norm",
+                        is_group_norm=mode == "default" and i == 0,
+                        conv_bias=conv_bias,
+                    )
+                )
+                        
         if cfg.decoder == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
             lm_cfg.encoder_embed_dim = 512
@@ -2310,13 +2368,13 @@ class Clip3Criterion(FairseqCriterion):
             am_output = self.lm_linear2(am_output)
             #am_output = self.ln(am_output)
             
-            if 0:
+            if 1:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 
-            if 1:
+            if 0:
                 #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 #am_output = self.ins_norm(am_output)

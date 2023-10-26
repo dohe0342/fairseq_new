@@ -264,15 +264,15 @@ class Wav2VecCtc(BaseFairseqModel):
 
         return logits
 
-    def get_normalized_probs(self, net_output, log_probs):
+    def get_normalized_probs(self, net_output, log_probs, temp=1.0):
         """Get normalized probabilities (or log probs) from a net's output."""
 
         logits = self.get_logits(net_output)
 
         if log_probs:
-            return utils.log_softmax(logits.float(), dim=-1)
+            return utils.log_softmax(logits.float() / temp, dim=-1)
         else:
-            return utils.softmax(logits.float(), dim=-1)
+            return utils.softmax(logits.float() / temp, dim=-1)
 
     def forward(self, **kwargs):
         x = self.w2v_encoder(**kwargs)
@@ -674,7 +674,7 @@ class Wav2VecEncoder(FairseqEncoder):
             "mask": self.apply_mask and self.training,
             "prompt": kwargs['prompt'] if 'prompt' in kwargs.keys() else None,
             "prefix": kwargs['prefix'] if 'prefix' in kwargs.keys() else None,
-            "filename": kwargs['filename'] if 'filename' in kwargs.keys() else None,
+            #"filename": kwargs['filename'] if 'filename' in kwargs.keys() else None,
             #"layer": 3,
         }
 
@@ -696,9 +696,13 @@ class Wav2VecEncoder(FairseqEncoder):
             x = x.transpose(0, 1)
 
         x = self.final_dropout(x)
-
+        
+        #print(x[0][0])
         if self.proj:
             x_ = self.proj(x)
+
+        #print(x[0][0])
+        #exit()
 
         if self.hyperbolic:
             T, B, C = x.size()
@@ -712,6 +716,7 @@ class Wav2VecEncoder(FairseqEncoder):
             "encoder_feat": x,  # T x B x C,
             "padding_mask": padding_mask,  # B x T,
             "layer_results": res["layer_results"],
+            "features": res["features"],
         }
 
     def forward_torchscript(self, net_input):
