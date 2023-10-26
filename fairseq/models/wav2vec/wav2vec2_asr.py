@@ -270,7 +270,7 @@ class Wav2VecCtc(BaseFairseqModel):
         logits = self.get_logits(net_output)
 
         if log_probs:
-            return utils.log_softmax(logits.float(), dim=-1)
+            return utils.log_softmax(logits.float() / temp, dim=-1)
         else:
             return utils.softmax(logits.float(), dim=-1)
 
