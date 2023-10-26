@@ -829,8 +829,8 @@ class Wav2Vec2Model(BaseFairseqModel):
             features_only=True,
             layer=layer,
             corpus_key=corpus_key,
-            prompt=kwargs['prompt'],
-            filename=kwargs['filename'],
+            prompt=kwargs['prompt'] if 'prompt' in kwargs else None,
+            filename=kwargs['filename'] if 'filename' in kwargs else None,
         )
         return res
 
