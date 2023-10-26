@@ -2230,7 +2230,7 @@ class Clip3Criterion(FairseqCriterion):
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if self.decoder_type == 'conv':
-            conv_layers = [(768, 5, 2)] * 5
+            conv_layers = [(768, 5, 2)] * 3
             mode = "layer_norm"
             dropout = 0.0
 
@@ -2386,6 +2386,7 @@ class Clip3Criterion(FairseqCriterion):
                     print(i, am_output.size())
             elif self.decoder_type == 'transf_enc':
                 am_output = self.lm_decoder(am_output, padding_mask)
+            
             print('2222', am_output.size())
             if type(am_output) == tuple: am_output = am_output[0]
             
