@@ -2256,7 +2256,6 @@ class Clip3Criterion(FairseqCriterion):
                     )
                 else:
                     return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
-                    in_d = 1
             
             self.conv_layers = nn.ModuleList()
             for i, cl in enumerate(conv_layers):
@@ -2265,7 +2264,7 @@ class Clip3Criterion(FairseqCriterion):
 
                 self.conv_layers.append(
                     block(
-                        in_d,
+                        dim,
                         dim,
                         k,
                         stride,
