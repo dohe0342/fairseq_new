@@ -2221,7 +2221,7 @@ class Clip3Criterion(FairseqCriterion):
         if cfg.decoder == 'conv':
             conv_layers = [(768, 10, 3)] * 5
             mode = "layer_norm"
-            droupout = 0.0
+            dropout = 0.0
 
             def block(
                 n_in,
