@@ -2383,7 +2383,8 @@ class Clip3Criterion(FairseqCriterion):
                 for i, conv in enumerate(self.lm_decoder):
                     am_output = conv(am_output)
                     print(i, am_output.size())
-            #am_output = self.lm_decoder(am_output, padding_mask)
+            elif self.decoder_type == 'transf_enc':
+                am_output = self.lm_decoder(am_output, padding_mask)
             am_output = self.lm_decoder(am_output)
             print('2222', am_output.size())
             if type(am_output) == tuple: am_output = am_output[0]
