@@ -2217,6 +2217,32 @@ class Clip3Criterion(FairseqCriterion):
             self.lm_decoder = Linear(768, self.lm.embed_dim)
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
+        if cfg.decoder == 'conv':
+            def make_conv_block(e, k, g, l):
+                return nn.Sequential(
+                    *[   
+                        nn.Sequential(
+                            nn.Conv1d(
+                                e,   
+                                e,   
+                                kernel_size=k,
+                                padding=k // 2,
+                                groups=g,
+                            ),   
+                            SamePad(k),
+                            TransposeLast(),
+                            LayerNorm(e, elementwise_affine=False),
+                            TransposeLast(),
+                            nn.GELU(),
+                        )    
+                        for _ in range(l)
+                    ]    
+                )    
+
+            self.pos_conv = make_conv_block(
+                768, k, args.conv_pos_groups, num_layers
+            )    
+
         if cfg.decoder == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
             lm_cfg.encoder_embed_dim = 512
