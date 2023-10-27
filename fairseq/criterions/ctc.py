@@ -2212,7 +2212,7 @@ class Clip3Criterion(FairseqCriterion):
     ):
         super().__init__(task)
         
-        d = 1024
+        d = 768
         self.decoder_type = cfg.decoder
         ########### for gpt2
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
