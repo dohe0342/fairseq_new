@@ -7,7 +7,7 @@ fairseq-hydra-train \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_vox_new.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	criterion._name=ctc \
+	criterion._name=ctc 
 #+criterion.decoder=conv 
 
 : <<'END'
