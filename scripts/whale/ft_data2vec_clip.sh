@@ -5,6 +5,7 @@ fairseq-hydra-train \
 	common.wandb_project=lm2am_distill \
 	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
+	optimization.update_freq=[2] \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_vox_new.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
