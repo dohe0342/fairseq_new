@@ -5,8 +5,8 @@ fairseq-hydra-train \
 	common.wandb_project=lm2am_distill \
 	distributed_training.distributed_world_size=4 \
 	task.data=/dev/shm/manifests \
+	task.normalize=false \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_vox_new.pt \
-	model.normalize=false \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=ctc 
 #+criterion.decoder=conv 
