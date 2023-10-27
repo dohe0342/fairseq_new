@@ -2389,7 +2389,8 @@ class Clip3Criterion(FairseqCriterion):
                 am_output = self.lm_decoder(am_output, padding_mask)
 
             am_output = am_output.transpose(1, 2)
-            am_output = self.lm_decoder[-1](am_output)
+            
+            #am_output = self.lm_decoder[-1](am_output)
             
             if type(am_output) == tuple: am_output = am_output[0]
             
