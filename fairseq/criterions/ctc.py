@@ -2413,10 +2413,10 @@ class Clip3Criterion(FairseqCriterion):
                 lm_am_sim = -lm_am_dist
             
             lm_am_sim_cp = lm_am_sim.clone().detach()
-            lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
+            lm_am_sim = F.log_softmax(lm_am_sim/2., dim=-1)
             #lm_am_sim = F.softmax(lm_am_sim, dim=-1)
             if model.w2v_encoder.num_updates % 100 == 0:
-                lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
+                lm_am_sim_cp = F.softmax(lm_am_sim_cp/2., dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
                     #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
                     #for t in lm_am_sim_cp[b]:
