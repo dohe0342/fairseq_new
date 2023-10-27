@@ -2393,7 +2393,7 @@ class Clip3Criterion(FairseqCriterion):
             #am_output = self.ln(am_output)
             
             if 1:
-                lm_output = F.normalize(lm_output, dim=2)
+                #lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
