@@ -2221,17 +2221,16 @@ class Clip3Criterion(FairseqCriterion):
 
         space_token = self.tokenizer(' ', return_tensors='pt')
         self.space_token = self.lm(**space_token)['last_hidden_state']
-        print(self.space_token.size())
         
         self.task = task
         self.tgt_dict = task.target_dictionary
 
         if self.decoder_type == 'linear':
-            self.lm_decoder = Linear(768, self.lm.embed_dim)
+            self.lm_decoder = Linear(d, self.lm.embed_dim)
             self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
 
         if self.decoder_type == 'conv':
-            conv_layers = [(768, 5, 2)] * 3
+            conv_layers = [(d, 5, 2)] * 3
             mode = "layer_norm"
             dropout = 0.0
 
