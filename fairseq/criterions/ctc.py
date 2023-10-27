@@ -2299,12 +2299,12 @@ class Clip3Criterion(FairseqCriterion):
             lm_cfg.encoder_layers = 6
 
             self.lm_decoder = LanguageModelDistillationEncoder.build_model(lm_cfg, task)
-            self.lm_linear2 = Linear(lm_cfg.encoder_embed_dim, 768)
+            self.lm_linear2 = Linear(lm_cfg.encoder_embed_dim, d)
         
         if self.decoder_type == 'transf_dec':
             lm_cfg = Wav2Vec2Seq2SeqConfig()
             self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
-            self.lm_linear2 = Linear(lm_cfg.decoder_embed_dim, 768)
+            self.lm_linear2 = Linear(lm_cfg.decoder_embed_dim, d)
 
         self.lm_decay = cfg.lm_decay
         ##############################################################
