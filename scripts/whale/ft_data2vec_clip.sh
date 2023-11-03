@@ -11,7 +11,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip3 \
 	+criterion.decoder=conv \
-	+criterion.lm=gpt2-medium
+	+criterion.lm=gpt2-large
 
 : <<'END'
 fairseq-hydra-train \
