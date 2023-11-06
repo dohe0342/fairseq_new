@@ -696,7 +696,7 @@ class Wav2Vec2Model(BaseFairseqModel):
             prompt = prompt.transpose(1, 2) ## B, T, C -> B, C, T
             for prompt_gen in self.prompt_gen:
                 prompt = prompt_gen(prompt)
-            prompt = prompt.transpose(1, 2) ## B, C, T -> B, T, C
+            prompt = prompt.transpose(1, 2) ## B, C, T -> B, T/8, C
 
         if padding_mask is not None and padding_mask.any():
             input_lengths = (1 - padding_mask.long()).sum(-1)
