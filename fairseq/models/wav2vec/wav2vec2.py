@@ -738,15 +738,20 @@ class Wav2Vec2Model(BaseFairseqModel):
             else:
                 prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             '''
+            #features = torch.cat([prompt, features], dim=1)
             if padding_mask is not None:
                 prompt_len = padding_mask.logical_not().sum(-1)
                 for i, _ in enumerate(self.prompt_gen):
                     prompt_len = ((prompt_len-5) / 2).to(torch.int)
+
+            else:
+                features = torch.cat([prompt, features], dim=1)
+
+            
                     
-            features = torch.cat([prompt, features], dim=1)
-            prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
-            try: padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
-            except: padding_mask = None
+            #prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
+            #try: padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
+            #except: padding_mask = None
 
         time_steps_to_drop = features.size(1) % self.crop_seq_to_multiple
         if time_steps_to_drop != 0:
