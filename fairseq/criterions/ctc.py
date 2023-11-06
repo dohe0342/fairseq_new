@@ -1408,9 +1408,6 @@ class Prompt3CtcCriterion(CtcCriterion):
                     conv_bias=False,
                 )
             )
-        if d != self.lm.embed_dim:
-            self.lm_decoder.append(Linear(d, self.lm.embed_dim, bias=False))
-                
     def forward(self, model, sample, reduce=True, **kwargs):
         if model.w2v_encoder.num_updates < 20000:
             self.prompt.requires_grad = False
