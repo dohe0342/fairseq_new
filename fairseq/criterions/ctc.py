@@ -2828,17 +2828,6 @@ class BPECriterion(FairseqCriterion):
             )
             loss = ctc_loss + self.lm_decay*distill_loss
             
-            ctc_loss = F.ctc_loss(
-                lprobs,
-                targets_flat,
-                input_lengths,
-                target_lengths,
-                blank=self.blank_idx,
-                reduction="sum",
-                zero_infinity=self.zero_infinity,
-            )
-
-
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
         )
