@@ -2747,13 +2747,14 @@ class BPECriterion(FairseqCriterion):
         net_output = model(**sample["net_input"])
         padding_mask = net_output["padding_mask"]
         
-        am_output = net_output['encoder_feat']
-        bpe_out = self.decoder(am_output)
-
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
         
+        #########bpe output#########3
+        am_output = net_output['encoder_feat']
+        bpe_out = self.decoder(am_output)
+
         net_output['encoder_out'] = bpe
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
