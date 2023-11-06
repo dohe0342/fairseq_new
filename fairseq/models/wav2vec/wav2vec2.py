@@ -303,6 +303,10 @@ class Wav2Vec2Config(FairseqDataclass):
     adp_trf_idx: str = field(
         default="all",
     )
+    prompt_gen: bool = field(
+            default=False,
+            metadata={"help": "use prompt generator"}
+    )
 
 
 @register_model("wav2vec2", dataclass=Wav2Vec2Config)
