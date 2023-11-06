@@ -2817,6 +2817,7 @@ class BPECriterion(FairseqCriterion):
         
         lm_lengths = input_lengths
         lm_input['input_ids'] += 1
+        bpe_pad_mask = lm_input['input_ids'] != 50257
         bpe_flat = lm_input['input_ids'].masked_select(50257)
         
         with torch.backends.cudnn.flags(enabled=False):
