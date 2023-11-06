@@ -2761,7 +2761,6 @@ class BPECriterion(FairseqCriterion):
         ).contiguous()  # (T, B, C) from the encoder
         #########bpe output#########
 
-
         ############for distillation###########
         device = lprobs.device
         toks_list = sample["target"]
