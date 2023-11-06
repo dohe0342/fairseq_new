@@ -2751,7 +2751,7 @@ class BPECriterion(FairseqCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
         
-        #########bpe output#########3
+        #########bpe output#########
         am_output = net_output['encoder_feat']
         bpe_out = self.decoder(am_output)
 
@@ -2759,6 +2759,7 @@ class BPECriterion(FairseqCriterion):
         bpe_lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
+        #########bpe output#########
 
 
         ############for distillation###########
