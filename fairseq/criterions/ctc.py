@@ -2832,8 +2832,8 @@ class BPECriterion(FairseqCriterion):
             )
 
             bpe_loss = F.ctc_loss(
-                lm_am_sim,
-                alignment_flat,
+                bpe_lprobs,
+                bpe_flat,
                 lm_lengths,
                 alignment_lengths,
                 blank=self.blank_idx,
