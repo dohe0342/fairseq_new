@@ -2806,22 +2806,7 @@ class BPECriterion(FairseqCriterion):
             target_lengths = pad_mask.sum(-1)
         
         lm_lengths = input_lengths
-        #############for alignment target ###############################
-        #alignment_pad_mask = lm_input["attention_mask"] > 0
-        alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
-
-        alignment_flat = torch.linspace(
-                                            1, 
-                                            alignment_lengths[0], 
-                                            steps=alignment_lengths[0]
-                                    ).to(device)
         
-        for i in alignment_lengths[1:]:
-            temp_target = torch.linspace(1, i, steps=i).to(device)
-            alignment_flat = torch.cat([alignment_flat, temp_target])
-            alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
-        #############for alignment target ###############################
-
         with torch.backends.cudnn.flags(enabled=False):
             '''
             ctc_loss = F.ctc_loss(
