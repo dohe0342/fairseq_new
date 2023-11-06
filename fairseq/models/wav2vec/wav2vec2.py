@@ -693,8 +693,11 @@ class Wav2Vec2Model(BaseFairseqModel):
 
         if self.prompt_gen is not None:
             prompt = features.clone()
+            prompt = prompt.transpose(1, 2)
             for prompt_gen in self.prompt_gen:
                 prompt = prompt_gen(prompt)
+            prompt = prompt.transpose(1, 2)
+
         if padding_mask is not None and padding_mask.any():
             input_lengths = (1 - padding_mask.long()).sum(-1)
             # apply conv formula to get real output_lengths
@@ -730,7 +733,7 @@ class Wav2Vec2Model(BaseFairseqModel):
                         except: noise_prompt = prompt[1].unsqueeze(0)
 
                 prompt = noise_prompt
-
+            
             else:
                 prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             
