@@ -2816,6 +2816,7 @@ class BPECriterion(FairseqCriterion):
             target_lengths = pad_mask.sum(-1)
         
         lm_lengths = input_lengths
+        alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
         lm_input['input_ids'] += 1
         bpe_pad_mask = lm_input['input_ids'] != 50257
         bpe_flat = lm_input['input_ids'].masked_select(bpe_pad_mask)
