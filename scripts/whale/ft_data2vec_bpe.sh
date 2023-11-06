@@ -11,7 +11,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=bpe \
 	+criterion.lm_decay=0.1
-p #common.wandb_project=lm2am_distill \
+#common.wandb_project=lm2am_distill \
 
 : <<'END'
 fairseq-hydra-train \
