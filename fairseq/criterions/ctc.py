@@ -2684,7 +2684,7 @@ class Clip3Criterion(FairseqCriterion):
         return True
 
 
-@register_criterion("bpe", dataclass=CTCCriterionConfig)
+@register_criterion("bpe", dataclass=CtcCriterionConfig)
 class BPECriterion(FairseqCriterion):
     def __init__(
         self, cfg: ClipCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
