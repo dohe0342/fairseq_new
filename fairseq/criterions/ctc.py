@@ -2764,66 +2764,6 @@ class BPECriterion(FairseqCriterion):
             tgt_list.append(tgt_words)
         
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
-        with torch.cuda.amp.autocast(enabled=True):
-            with torch.no_grad():
-                lm_output = self.lm(**lm_input)
-                lm_output = lm_output['last_hidden_state']
-            
-            am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
-            if self.decoder_type == 'conv':
-                am_output = am_output.transpose(1, 2).contiguous()
-                for i, conv in enumerate(self.lm_decoder):
-                    am_output = conv(am_output)
-        
-            elif self.decoder_type == 'transf_enc':
-                am_output = self.lm_decoder(am_output, padding_mask)
-
-            am_output = am_output.transpose(1, 2)
-            
-            #am_output = self.lm_decoder[-1](am_output)
-            
-            if type(am_output) == tuple: am_output = am_output[0]
-            
-            #am_output = self.lm_linear2(am_output)
-            #am_output = self.ln(am_output)
-            
-            if 1:
-                #lm_output = F.normalize(lm_output, dim=2)
-                #am_output = F.normalize(am_output, dim=2)
-                
-                lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-                
-            if 0:
-                #lm_output = F.normalize(lm_output, dim=2)
-                #am_output = F.normalize(am_output, dim=2)
-                #am_output = self.ins_norm(am_output)
-
-                lm_am_dist = am_output.unsqueeze(2) - lm_output.unsqueeze(1)
-                lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
-                lm_am_sim = -lm_am_dist
-            
-            lm_am_sim_cp = lm_am_sim.clone().detach()
-            lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
-            #lm_am_sim = F.softmax(lm_am_sim, dim=-1)
-            if model.w2v_encoder.num_updates % 100 == 0:
-                lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
-                for b in range(lm_am_sim_cp.size(0)):
-                    #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
-                    #for t in lm_am_sim_cp[b]:
-                    #    print(t)
-                    #exit()
-                    plt.matshow(lm_am_sim_cp[b].T.cpu().numpy())
-                    plt.colorbar()
-                    if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}'):
-                        try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
-                        except: pass
-                    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
-                    plt.close()
-            
-            #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
-
         ##############################
 
         # CTC loss is calculated over duplicated inputs
