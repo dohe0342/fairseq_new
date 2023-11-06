@@ -10,7 +10,8 @@ fairseq-hydra-train \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
 	criterion._name=clip3 \
-	+criterion.decoder=conv 
+	+criterion.decoder=conv \
+	+criterion.lm_decay=0.1
 
 
 #common.wandb_project=lm2am_distill \
