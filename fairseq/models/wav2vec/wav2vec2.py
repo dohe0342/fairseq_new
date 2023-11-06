@@ -721,6 +721,7 @@ class Wav2Vec2Model(BaseFairseqModel):
 
         ## for prompt tuning
         if prompt is not None:
+            '''
             noise_prompt = None
             if filename is not None:
                 for fname in filename:
@@ -736,7 +737,7 @@ class Wav2Vec2Model(BaseFairseqModel):
             
             else:
                 prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
-            
+            '''
             # scale gradients (this only affects backward, not forward)
             features = torch.cat([prompt, features], dim=1)
             prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
