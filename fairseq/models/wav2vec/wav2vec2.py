@@ -742,7 +742,6 @@ class Wav2Vec2Model(BaseFairseqModel):
                 prompt_len = padding_mask.logical_not().sum(-1)
                 for i, _ in enumerate(self.prompt_gen):
                     prompt_len = ((prompt_len-5) / 3).to(torch.int)
-                
                     
             features = torch.cat([prompt, features], dim=1)
             prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
