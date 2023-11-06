@@ -2696,6 +2696,7 @@ class BPECriterion(FairseqCriterion):
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.decoder = Linear(d, 50258, bias=False)
+        self.lm_decay = cfg.lm_decay
 
         self.task = task
         self.tgt_dict = task.target_dictionary
