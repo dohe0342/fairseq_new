@@ -2806,6 +2806,8 @@ class BPECriterion(FairseqCriterion):
             target_lengths = pad_mask.sum(-1)
         
         lm_lengths = input_lengths
+
+        bpe_flat = lm_input['input_ids'].masked_select(50256)
         
         with torch.backends.cudnn.flags(enabled=False):
             ctc_loss = F.ctc_loss(
