@@ -1392,7 +1392,7 @@ class Prompt3CtcCriterion(CtcCriterion):
             else:
                 return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
         
-        self.lm_decoder = nn.ModuleList()
+        self.prompt_gen = nn.ModuleList()
         for i, cl in enumerate(conv_layers):
             assert len(cl) == 3, "invalid conv definition: " + str(cl)
             (dim, k, stride) = cl
