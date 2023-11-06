@@ -2808,7 +2808,6 @@ class BPECriterion(FairseqCriterion):
         lm_lengths = input_lengths
         
         with torch.backends.cudnn.flags(enabled=False):
-            '''
             ctc_loss = F.ctc_loss(
                 lprobs,
                 targets_flat,
@@ -2828,7 +2827,7 @@ class BPECriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             loss = ctc_loss + self.lm_decay*distill_loss
-            '''
+            
             ctc_loss = F.ctc_loss(
                 lprobs,
                 targets_flat,
