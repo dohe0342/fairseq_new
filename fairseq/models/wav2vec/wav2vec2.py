@@ -693,10 +693,8 @@ class Wav2Vec2Model(BaseFairseqModel):
 
         if self.prompt_gen is not None:
             prompt = features.clone()
-            for i, prompt_gen in enumerate(self.prompt_gen):
-                if i == 0: prompt = prompt_gen(features)
-                else: 
-
+            for prompt_gen in self.prompt_gen:
+                prompt = prompt_gen(prompt)
         if padding_mask is not None and padding_mask.any():
             input_lengths = (1 - padding_mask.long()).sum(-1)
             # apply conv formula to get real output_lengths
