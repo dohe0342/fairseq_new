@@ -464,22 +464,25 @@ class Wav2Vec2Model(BaseFairseqModel):
             else:
                 return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
         
-        self.prompt_gen = nn.ModuleList()
-        for i, cl in enumerate(conv_layers):
-            assert len(cl) == 3, "invalid conv definition: " + str(cl)
-            (dim, k, stride) = cl
+        if self.cfg.prompt_gen:
+            self.prompt_gen = nn.ModuleList()
+            for i, cl in enumerate(conv_layers):
+                assert len(cl) == 3, "invalid conv definition: " + str(cl)
+                (dim, k, stride) = cl
 
-            self.prompt_gen.append(
-                block(
-                    dim,
-                    dim,
-                    k,
-                    stride,
-                    is_layer_norm=(mode == "layer_norm"),
-                    is_group_norm=(mode == "default") and i == 0,
-                    conv_bias=False,
+                self.prompt_gen.append(
+                    block(
+                        dim,
+                        dim,
+                        k,
+                        stride,
+                        is_layer_norm=(mode == "layer_norm"),
+                        is_group_norm=(mode == "default") and i == 0,
+                        conv_bias=False,
+                    )
                 )
-            )
+        else:
+            self.prompt_gen = None
 
     def upgrade_state_dict_named(self, state_dict, name):
         super().upgrade_state_dict_named(state_dict, name)
