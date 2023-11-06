@@ -2750,7 +2750,9 @@ class BPECriterion(FairseqCriterion):
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
-        
+       
+        am_output = net_output['encoder_feat'].transpose(0, 1)
+
         ############for distillation###########
         device = lprobs.device
         toks_list = sample["target"]
