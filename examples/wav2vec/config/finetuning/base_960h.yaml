@@ -19,7 +19,7 @@ dataset:
   num_workers: 6
   max_tokens: 3200000
   skip_invalid_size_inputs_valid_test: true
-  train-subset: train-960
+  train_subset: train-960
   valid_subset: dev-other
 
 distributed_training:
