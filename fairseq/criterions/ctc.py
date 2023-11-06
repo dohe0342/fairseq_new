@@ -2835,7 +2835,7 @@ class BPECriterion(FairseqCriterion):
                 bpe_lprobs,
                 bpe_flat,
                 lm_lengths,
-                target_lengths,
+                alignment_lengths,
                 blank=self.blank_idx,
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
