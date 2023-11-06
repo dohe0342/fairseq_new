@@ -2934,7 +2934,7 @@ class BPECriterion(FairseqCriterion):
             "ctc_loss", ctc_loss_sum / sample_size / math.log(2), sample_size, round=3
         )
         metrics.log_scalar(
-            "bpe_loss", distill_loss_sum / sample_size / math.log(2), sample_size, round=3
+            "bpe_loss", bpe_loss_sum / sample_size / math.log(2), sample_size, round=3
         )
 
         metrics.log_scalar("ntokens", ntokens)
