@@ -2836,7 +2836,7 @@ class BPECriterion(FairseqCriterion):
         logging_output = {
             "loss": utils.item(loss.data),  # * sample['ntokens'],
             "ctc_loss": utils.item(ctc_loss.data),  # * sample['ntokens'],
-            "distill_loss": utils.item(distill_loss.data),
+            "bpe_loss": utils.item(bpe_loss.data),
             "ntokens": ntokens,
             "nsentences": sample["id"].numel(),
             "sample_size": sample_size,
