@@ -2817,7 +2817,7 @@ class BPECriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
-            distill_loss = F.ctc_loss(
+            bep_loss = F.ctc_loss(
                 lm_am_sim,
                 alignment_flat,
                 lm_lengths,
