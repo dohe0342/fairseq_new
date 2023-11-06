@@ -2684,7 +2684,7 @@ class Clip3Criterion(FairseqCriterion):
         return True
 
 
-@register_criterion("bpe", dataclass=CtcCriterionConfig)
+@register_criterion("bpe", dataclass=ClipCriterionConfig)
 class BPECriterion(FairseqCriterion):
     def __init__(
         self, cfg: ClipCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
@@ -2695,6 +2695,7 @@ class BPECriterion(FairseqCriterion):
         ########### for gpt2
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.decoder = Linear(768, int(self.tokenizer.eos_token))
 
         self.task = task
         self.tgt_dict = task.target_dictionary
