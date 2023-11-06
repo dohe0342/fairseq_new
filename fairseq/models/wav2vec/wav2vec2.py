@@ -738,7 +738,9 @@ class Wav2Vec2Model(BaseFairseqModel):
             else:
                 prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             '''
-            # scale gradients (this only affects backward, not forward)
+            if padding_mask is not None:
+                prompt_len = padding_mask.logical_not().sum(-1)
+                    
             features = torch.cat([prompt, features], dim=1)
             prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
             try: padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
