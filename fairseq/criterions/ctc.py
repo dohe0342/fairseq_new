@@ -2828,6 +2828,7 @@ class BPECriterion(FairseqCriterion):
         #############for alignment target ###############################
 
         with torch.backends.cudnn.flags(enabled=False):
+            '''
             ctc_loss = F.ctc_loss(
                 lprobs,
                 targets_flat,
@@ -2837,7 +2838,6 @@ class BPECriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
-            
             distill_loss = F.ctc_loss(
                 lm_am_sim,
                 alignment_flat,
@@ -2847,8 +2847,18 @@ class BPECriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
-
             loss = ctc_loss + self.lm_decay*distill_loss
+            '''
+            ctc_loss = F.ctc_loss(
+                lprobs,
+                targets_flat,
+                input_lengths,
+                target_lengths,
+                blank=self.blank_idx,
+                reduction="sum",
+                zero_infinity=self.zero_infinity,
+            )
+
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
