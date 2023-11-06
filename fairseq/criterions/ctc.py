@@ -2746,12 +2746,13 @@ class BPECriterion(FairseqCriterion):
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
         padding_mask = net_output["padding_mask"]
-
+        
+        am_output = net_output['encoder_feat']
+        bpe_lprobs = self.decoder(am_output)
         lprobs = model.get_normalized_probs(
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
        
-        am_output = net_output['encoder_feat'].transpose(0, 1)
 
         ############for distillation###########
         device = lprobs.device
