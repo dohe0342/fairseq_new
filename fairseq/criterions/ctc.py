@@ -2695,7 +2695,7 @@ class BPECriterion(FairseqCriterion):
         ########### for gpt2
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.decoder = Linear(768, int(self.tokenizer.eos_token))
+        self.decoder = Linear(d, 50256, bias=False)
 
         self.task = task
         self.tgt_dict = task.target_dictionary
@@ -2817,6 +2817,7 @@ class BPECriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
+
             bpe_loss = F.ctc_loss(
                 lm_am_sim,
                 alignment_flat,
