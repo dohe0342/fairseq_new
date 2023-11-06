@@ -1397,7 +1397,7 @@ class Prompt3CtcCriterion(CtcCriterion):
             assert len(cl) == 3, "invalid conv definition: " + str(cl)
             (dim, k, stride) = cl
 
-            self.lm_decoder.append(
+            self.prompt_gen.append(
                 block(
                     dim,
                     dim,
