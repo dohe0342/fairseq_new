@@ -2917,7 +2917,7 @@ class BPECriterion(FairseqCriterion):
 
         loss_sum = utils.item(sum(log.get("loss", 0) for log in logging_outputs))
         ctc_loss_sum = utils.item(sum(log.get("ctc_loss", 0) for log in logging_outputs))
-        bpe_loss_sum = utils.item(sum(log.get("distill_loss", 0) for log in logging_outputs))
+        bpe_loss_sum = utils.item(sum(log.get("bpe_loss", 0) for log in logging_outputs))
 
         ntokens = utils.item(sum(log.get("ntokens", 0) for log in logging_outputs))
         nsentences = utils.item(
