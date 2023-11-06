@@ -1329,11 +1329,7 @@ class Prompt3CtcCriterion(CtcCriterion):
     ):
         super().__init__(cfg, task, rdrop_alpha)
         
-        '''
-        ckpt = torch.load('/home/work/workspace/fairseq/scripts/whale/outputs/w2v2_200h_clean+speech_mixed-valid_prompt_prompt-freeze80000_orthogonal/checkpoint_best.pt')
-        self.prompt = ckpt['criterion']['prompt']
-        self.prompt = torch.nn.Parameter(self.prompt)
-        '''
+        d = 512
         conv_layers = [(d, 5, 2)] * 3
         mode = "layer_norm"
         dropout = 0.0
