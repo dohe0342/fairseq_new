@@ -418,6 +418,51 @@ class Wav2Vec2Model(BaseFairseqModel):
             )
 
         self.final_proj = nn.Linear(cfg.encoder_embed_dim, final_dim)
+        
+        d = self.embed
+        conv_layers = [(d, 5, 2)] * 3
+        mode = "layer_norm"
+        dropout = 0.0
+
+        def block(
+            n_in,
+            n_out,
+            k,   
+            stride,
+            groups=1,
+            is_layer_norm=False,
+            is_group_norm=False,
+            conv_bias=False,
+        ):   
+            def make_conv():
+                conv = nn.Conv1d(n_in, n_out, k, stride=stride, bias=conv_bias, groups=groups)
+                nn.init.kaiming_normal_(conv.weight)
+                return conv 
+
+            assert (
+                is_layer_norm and is_group_norm
+            ) == False, "layer norm and group norm are exclusive"
+
+            if is_layer_norm:
+                return nn.Sequential(
+                    make_conv(),
+                    nn.Dropout(p=dropout),
+                    nn.Sequential(
+                        TransposeLast(),
+                        Fp32LayerNorm(dim, elementwise_affine=True),
+                        TransposeLast(),
+                    ),   
+                    nn.GELU(),
+                )    
+            elif is_group_norm:
+                return nn.Sequential(
+                    make_conv(),
+                    nn.Dropout(p=dropout),
+                    Fp32GroupNorm(dim, dim, affine=True),
+                    nn.GELU(),
+                )    
+            else:
+                return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
 
     def upgrade_state_dict_named(self, state_dict, name):
         super().upgrade_state_dict_named(state_dict, name)
