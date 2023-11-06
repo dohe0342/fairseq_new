@@ -1322,6 +1322,252 @@ class Prompt2CtcCriterion(CtcCriterion):
         return loss, sample_size, logging_output
 
 
+@register_criterion("prompt3", dataclass=CtcCriterionConfig)
+class Prompt3CtcCriterion(CtcCriterion):
+    def __init__(
+        self, cfg: CtcCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
+    ):
+        super().__init__(cfg, task, rdrop_alpha)
+        
+        if 0:
+            statistic = open(f'/home/work/workspace/icefall/egs/librispeech/ASR/conv_feat/1284/1284_statistic.txt', 'r').readlines()
+            new_emb = torch.empty(512, 50)
+            for i in range(512):
+                mean, std = statistic[i].strip().split(' ')
+                #print(new_emb[i].size())
+                #print(float(mean), float(std))
+                new_emb[i] = torch.normal(float(mean), float(std), size=(1,50)).squeeze()
+            new_emb = new_emb.transpose(1,0)
+        #self.prompt = torch.nn.Parameter(new_emb).half()
+        #self.prompt = torch.nn.Parameter(new_emb)
+        
+        self.prompt = torch.nn.Parameter(torch.randn(2, 120, 512)/10.)
+        #torch.nn.init.orthogonal_(self.prompt)
+        '''
+        ckpt = torch.load('/home/work/workspace/fairseq/scripts/whale/outputs/w2v2_200h_clean+speech_mixed-valid_prompt_prompt-freeze80000_orthogonal/checkpoint_best.pt')
+        self.prompt = ckpt['criterion']['prompt']
+        self.prompt = torch.nn.Parameter(self.prompt)
+        if self.decoder_type == 'conv':
+            conv_layers = [(d, 5, 2)] * 3
+            mode = "layer_norm"
+            dropout = 0.0
+
+            def block(
+                n_in,
+                n_out,
+                k,
+                stride,
+                groups=1,
+                is_layer_norm=False,
+                is_group_norm=False,
+                conv_bias=False,
+            ):
+                def make_conv():
+                    conv = nn.Conv1d(n_in, n_out, k, stride=stride, bias=conv_bias, groups=groups)
+                    nn.init.kaiming_normal_(conv.weight)
+                    return conv
+
+                assert (
+                    is_layer_norm and is_group_norm
+                ) == False, "layer norm and group norm are exclusive"
+
+                if is_layer_norm:
+                    return nn.Sequential(
+                        make_conv(),
+                        nn.Dropout(p=dropout),
+                        nn.Sequential(
+                            TransposeLast(),
+                            Fp32LayerNorm(dim, elementwise_affine=True),
+                            TransposeLast(),
+                        ),
+                        nn.GELU(),
+                    )
+                elif is_group_norm:
+                    return nn.Sequential(
+                        make_conv(),
+                        nn.Dropout(p=dropout),
+                        Fp32GroupNorm(dim, dim, affine=True),
+                        nn.GELU(),
+                    )
+                else:
+                    return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
+            
+            self.lm_decoder = nn.ModuleList()
+            for i, cl in enumerate(conv_layers):
+                assert len(cl) == 3, "invalid conv definition: " + str(cl)
+                (dim, k, stride) = cl
+
+                self.lm_decoder.append(
+                    block(
+                        dim,
+                        dim,
+                        k,
+                        stride,
+                        is_layer_norm=(mode == "layer_norm"),
+                        is_group_norm=(mode == "default") and i == 0,
+                        conv_bias=False,
+                    )
+                )
+            if d != self.lm.embed_dim:
+                self.lm_decoder.append(Linear(d, self.lm.embed_dim, bias=False))
+        '''
+                
+    def hook_fn(self, module, input, output):
+        self.attn_output.append(output)
+
+    def forward(self, model, sample, reduce=True, **kwargs):
+        if model.w2v_encoder.num_updates < 20000:
+            self.prompt.requires_grad = False
+        else:
+            self.prompt.requires_grad = True
+
+        device = sample['net_input']['source'].device
+        self.prompt = self.prompt.to(device)
+        
+        sample['net_input']['prompt'] = self.prompt
+        sample['net_input']['filename'] = sample['filename']
+
+        net_output = model(**sample["net_input"])
+        lprobs = model.get_normalized_probs(
+            net_output, log_probs=True
+        ).contiguous()  # (T, B, C) from the encoder
+
+        #lprobs = lprobs[120:, :, :]
+
+        # CTC loss is calculated over duplicated inputs
+        # sample is already duplicated for R-Drop
+        if self.rdrop_alpha > 0:
+            for k, v in sample.items():
+                if k in ["target", "target_lengths"]:
+                    sample[k] = torch.cat([v, v.clone()], dim=0)
+                elif k == "net_input":
+                    if sample[k]["src_tokens"].size(1) != sample[k]["src_lengths"].size(
+                        0
+                    ):
+                        # for decoder CTC loss
+                        sample[k]["src_lengths"] = torch.cat(
+                            [
+                                sample[k]["src_lengths"],
+                                sample[k]["src_lengths"].clone(),
+                            ],
+                            dim=0,
+                        )
+
+        if "src_lengths" in sample["net_input"]:
+            input_lengths = sample["net_input"]["src_lengths"]
+        else:
+            if net_output["padding_mask"] is not None:
+                #net_output["padding_mask"] = net_output["padding_mask"][:,120:]
+                non_padding_mask = ~net_output["padding_mask"]
+                input_lengths = non_padding_mask.long().sum(-1)
+            else:
+                input_lengths = lprobs.new_full(
+                    (lprobs.size(1),), lprobs.size(0), dtype=torch.long
+                )
+        
+        pad_mask = (sample["target"] != self.pad_idx) & (
+            sample["target"] != self.eos_idx
+        )
+        targets_flat = sample["target"].masked_select(pad_mask)
+        if "target_lengths" in sample:
+            target_lengths = sample["target_lengths"]
+        else:
+            target_lengths = pad_mask.sum(-1)
+
+        with torch.backends.cudnn.flags(enabled=False):
+            loss = F.ctc_loss(
+                lprobs,
+                targets_flat,
+                input_lengths,
+                target_lengths,
+                blank=self.blank_idx,
+                reduction="sum",
+                zero_infinity=self.zero_infinity,
+            )
+
+        ntokens = (
+            sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
+        )
+
+        sample_size = sample["target"].size(0) if self.sentence_avg else ntokens
+        logging_output = {
+            "loss": utils.item(loss.data),  # * sample['ntokens'],
+            "ntokens": ntokens,
+            "nsentences": sample["id"].numel(),
+            "sample_size": sample_size,
+        }
+
+        if not model.training:
+            import editdistance
+
+            with torch.no_grad():
+                lprobs_t = lprobs.transpose(0, 1).float().contiguous().cpu()
+
+                c_err = 0
+                c_len = 0
+                w_errs = 0
+                w_len = 0
+                wv_errs = 0
+                for lp, t, inp_l in zip(
+                    lprobs_t,
+                    sample["target_label"]
+                    if "target_label" in sample
+                    else sample["target"],
+                    input_lengths,
+                ):
+                    lp = lp[:inp_l].unsqueeze(0)
+
+                    decoded = None
+                    if self.w2l_decoder is not None:
+                        decoded = self.w2l_decoder.decode(lp)
+                        if len(decoded) < 1:
+                            decoded = None
+                        else:
+                            decoded = decoded[0]
+                            if len(decoded) < 1:
+                                decoded = None
+                            else:
+                                decoded = decoded[0]
+
+                    p = (t != self.task.target_dictionary.pad()) & (
+                        t != self.task.target_dictionary.eos()
+                    )
+                    targ = t[p]
+                    targ_units = self.task.target_dictionary.string(targ)
+                    targ_units_arr = targ.tolist()
+
+                    toks = lp.argmax(dim=-1).unique_consecutive()
+                    pred_units_arr = toks[toks != self.blank_idx].tolist()
+
+                    c_err += editdistance.eval(pred_units_arr, targ_units_arr)
+                    c_len += len(targ_units_arr)
+
+                    targ_words = post_process(targ_units, self.post_process).split()
+
+                    pred_units = self.task.target_dictionary.string(pred_units_arr)
+                    pred_words_raw = post_process(pred_units, self.post_process).split()
+
+                    if decoded is not None and "words" in decoded:
+                        pred_words = decoded["words"]
+                        w_errs += editdistance.eval(pred_words, targ_words)
+                        wv_errs += editdistance.eval(pred_words_raw, targ_words)
+                    else:
+                        dist = editdistance.eval(pred_words_raw, targ_words)
+                        w_errs += dist
+                        wv_errs += dist
+
+                    w_len += len(targ_words)
+
+                logging_output["wv_errors"] = wv_errs
+                logging_output["w_errors"] = w_errs
+                logging_output["w_total"] = w_len
+                logging_output["c_errors"] = c_err
+                logging_output["c_total"] = c_len
+
+        return loss, sample_size, logging_output
+
+
+
 @register_criterion("prefix", dataclass=CtcCriterionConfig)
 class PrefixCtcCriterion(CtcCriterion):
     def __init__(
