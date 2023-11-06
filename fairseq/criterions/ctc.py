@@ -2696,99 +2696,10 @@ class BPECriterion(FairseqCriterion):
         ########### for gpt2
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.lm = GPT2Model.from_pretrained(cfg.lm)
 
-        space_token = self.tokenizer(' ', return_tensors='pt')
-        self.space_token = self.lm(**space_token)['last_hidden_state']
-        
         self.task = task
         self.tgt_dict = task.target_dictionary
 
-        if self.decoder_type == 'linear':
-            self.lm_decoder = Linear(d, self.lm.embed_dim)
-            self.ins_norm = torch.nn.InstanceNorm1d(self.lm.embed_dim)
-
-        if self.decoder_type == 'conv':
-            conv_layers = [(d, 5, 2)] * 3
-            mode = "layer_norm"
-            dropout = 0.0
-
-            def block(
-                n_in,
-                n_out,
-                k,
-                stride,
-                groups=1,
-                is_layer_norm=False,
-                is_group_norm=False,
-                conv_bias=False,
-            ):
-                def make_conv():
-                    conv = nn.Conv1d(n_in, n_out, k, stride=stride, bias=conv_bias, groups=groups)
-                    nn.init.kaiming_normal_(conv.weight)
-                    return conv
-
-                assert (
-                    is_layer_norm and is_group_norm
-                ) == False, "layer norm and group norm are exclusive"
-
-                if is_layer_norm:
-                    return nn.Sequential(
-                        make_conv(),
-                        nn.Dropout(p=dropout),
-                        nn.Sequential(
-                            TransposeLast(),
-                            Fp32LayerNorm(dim, elementwise_affine=True),
-                            TransposeLast(),
-                        ),
-                        nn.GELU(),
-                    )
-                elif is_group_norm:
-                    return nn.Sequential(
-                        make_conv(),
-                        nn.Dropout(p=dropout),
-                        Fp32GroupNorm(dim, dim, affine=True),
-                        nn.GELU(),
-                    )
-                else:
-                    return nn.Sequential(make_conv(), nn.Dropout(p=dropout), nn.GELU())
-            
-            self.lm_decoder = nn.ModuleList()
-            for i, cl in enumerate(conv_layers):
-                assert len(cl) == 3, "invalid conv definition: " + str(cl)
-                (dim, k, stride) = cl
-
-                self.lm_decoder.append(
-                    block(
-                        dim,
-                        dim,
-                        k,
-                        stride,
-                        is_layer_norm=(mode == "layer_norm"),
-                        is_group_norm=(mode == "default") and i == 0,
-                        conv_bias=False,
-                    )
-                )
-            if d != self.lm.embed_dim:
-                self.lm_decoder.append(Linear(d, self.lm.embed_dim, bias=False))
-                        
-        if self.decoder_type == 'transf_enc':
-            lm_cfg = Wav2Vec2Config()
-            lm_cfg.encoder_embed_dim = 512
-            lm_cfg.encoder_ffn_embed_dim = 2048
-            lm_cfg.encoder_attention_heads = 8
-            lm_cfg.encoder_layers = 6
-
-            self.lm_decoder = LanguageModelDistillationEncoder.build_model(lm_cfg, task)
-            self.lm_linear2 = Linear(lm_cfg.encoder_embed_dim, d)
-        
-        if self.decoder_type == 'transf_dec':
-            lm_cfg = Wav2Vec2Seq2SeqConfig()
-            self.lm_decoder = LanguageModelDistillationDecoder.build_model(lm_cfg, task)
-            self.lm_linear2 = Linear(lm_cfg.decoder_embed_dim, d)
-
-        self.lm_decay = cfg.lm_decay
-        ##############################################################
         self.blank_idx = (
             task.target_dictionary.index(task.blank_symbol)
             if hasattr(task, "blank_symbol")
