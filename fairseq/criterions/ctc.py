@@ -1347,6 +1347,7 @@ class Prompt3CtcCriterion(CtcCriterion):
         ckpt = torch.load('/home/work/workspace/fairseq/scripts/whale/outputs/w2v2_200h_clean+speech_mixed-valid_prompt_prompt-freeze80000_orthogonal/checkpoint_best.pt')
         self.prompt = ckpt['criterion']['prompt']
         self.prompt = torch.nn.Parameter(self.prompt)
+        '''
         if self.decoder_type == 'conv':
             conv_layers = [(d, 5, 2)] * 3
             mode = "layer_norm"
@@ -1410,7 +1411,6 @@ class Prompt3CtcCriterion(CtcCriterion):
                 )
             if d != self.lm.embed_dim:
                 self.lm_decoder.append(Linear(d, self.lm.embed_dim, bias=False))
-        '''
                 
     def hook_fn(self, module, input, output):
         self.attn_output.append(output)
