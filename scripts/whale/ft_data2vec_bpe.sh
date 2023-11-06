@@ -10,7 +10,7 @@ fairseq-hydra-train \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=bpe \
-	+criterion.lm_decay=1.0
+	+criterion.lm_decay=0.1
 
 : <<'END'
 fairseq-hydra-train \
