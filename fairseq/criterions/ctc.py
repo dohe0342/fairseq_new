@@ -1329,20 +1329,6 @@ class Prompt3CtcCriterion(CtcCriterion):
     ):
         super().__init__(cfg, task, rdrop_alpha)
         
-        if 0:
-            statistic = open(f'/home/work/workspace/icefall/egs/librispeech/ASR/conv_feat/1284/1284_statistic.txt', 'r').readlines()
-            new_emb = torch.empty(512, 50)
-            for i in range(512):
-                mean, std = statistic[i].strip().split(' ')
-                #print(new_emb[i].size())
-                #print(float(mean), float(std))
-                new_emb[i] = torch.normal(float(mean), float(std), size=(1,50)).squeeze()
-            new_emb = new_emb.transpose(1,0)
-        #self.prompt = torch.nn.Parameter(new_emb).half()
-        #self.prompt = torch.nn.Parameter(new_emb)
-        
-        self.prompt = torch.nn.Parameter(torch.randn(2, 120, 512)/10.)
-        #torch.nn.init.orthogonal_(self.prompt)
         '''
         ckpt = torch.load('/home/work/workspace/fairseq/scripts/whale/outputs/w2v2_200h_clean+speech_mixed-valid_prompt_prompt-freeze80000_orthogonal/checkpoint_best.pt')
         self.prompt = ckpt['criterion']['prompt']
@@ -1408,6 +1394,7 @@ class Prompt3CtcCriterion(CtcCriterion):
                     conv_bias=False,
                 )
             )
+    
     def forward(self, model, sample, reduce=True, **kwargs):
         if model.w2v_encoder.num_updates < 20000:
             self.prompt.requires_grad = False
