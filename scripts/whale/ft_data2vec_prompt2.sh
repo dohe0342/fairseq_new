@@ -6,6 +6,7 @@ fairseq-hydra-train \
 	--config-name base_100h \
 	common.user_dir=examples/data2vec \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
+	common.wandb_project=prompt \
 	distributed_training.distributed_world_size=4 \
 	optimization.update_freq=[2] \
 	task.data=/dev/shm/manifests \
