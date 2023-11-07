@@ -468,6 +468,7 @@ class Wav2VecEncoder(FairseqEncoder):
             "checkpoint_activations": cfg.checkpoint_activations,
             "offload_activations": cfg.offload_activations,
             "min_params_to_wrap": cfg.min_params_to_wrap,
+            "prompt_gen": getattr(cfg, "prompt_gen", False),
             # d2v multi args
             "encoder_dropout": cfg.dropout,
             "drop_path": getattr(cfg, "drop_path", 0),
