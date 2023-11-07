@@ -7,6 +7,7 @@ fairseq-hydra-train \
 	common.user_dir=examples/data2vec \
 	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
+	distributed_training.distributed_world_size=1 \
 	optimization.update_freq=[2] \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
