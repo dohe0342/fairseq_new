@@ -751,7 +751,7 @@ class Wav2Vec2Model(BaseFairseqModel):
                 prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
                 padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
 
-            else:
+            elif padding_mask is not None and prompt_gen is None::
                 features = torch.cat([prompt, features], dim=1)
 
             #prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
