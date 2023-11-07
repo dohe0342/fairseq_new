@@ -1397,8 +1397,19 @@ class Prompt3CtcCriterion(CtcCriterion):
             net_output, log_probs=True
         ).contiguous()  # (T, B, C) from the encoder
 
-        #lprobs = lprobs[120:, :, :]
+        if (model.w2v_encoder.num_updates // 1000) % 2 == 0:
+            for n, p in model.named_parameters():
+                if 'prompt' in n:
+                    p.requires_grad = False
+                else:
+                    p.requires_grad = True
 
+        else:
+            for n, p in model.named_parameters():
+                if 'prompt' in n or 'w2v_encoder.proj' in n:
+                    p.requires_grad = True
+                else:
+                    p.requires_grad = False
         # CTC loss is calculated over duplicated inputs
         # sample is already duplicated for R-Drop
         if self.rdrop_alpha > 0:
