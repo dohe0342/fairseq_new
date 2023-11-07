@@ -8,13 +8,13 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
 	common.wandb_project=prompt \
 	distributed_training.distributed_world_size=4 \
-	optimization.update_freq=[2] \
+	optimization.update_freq=[1] \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 	dataset.train_subset=train-200-$noise \
 	dataset.valid_subset=dev-other \
-	dataset.max_tokens=3200000 \
+	dataset.max_tokens=6400000 \
 	criterion._name=prompt3 \
 	+model.prompt_gen=true
 
