@@ -15,8 +15,7 @@ fairseq-hydra-train \
 	dataset.train_subset=train-200-$noise \
 	dataset.valid_subset=dev-other \
 	dataset.max_tokens=6400000 \
-	criterion._name=prompt3 \
-	+model.prompt_gen=true
+	criterion._name=prompt2 
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
 : <<'END'
