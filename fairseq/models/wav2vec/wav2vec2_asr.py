@@ -213,6 +213,7 @@ class Wav2Vec2AsrConfig(FairseqDataclass):
 class Wav2Vec2CtcConfig(Wav2Vec2AsrConfig):
     blank_weight: float = 0
     blank_mode: str = "add"
+    prompt_gen: bool = False
 
 
 @register_model("wav2vec_ctc", dataclass=Wav2Vec2CtcConfig)
