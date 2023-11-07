@@ -303,6 +303,7 @@ class Trainer(object):
                     p.requires_grad = True
                 else:
                     p.requires_grad = False
+
         if (
             self.cfg.optimization.debug_param_names
             and self.cfg.common.fp16_no_flatten_grads
