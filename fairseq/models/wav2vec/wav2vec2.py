@@ -788,7 +788,6 @@ class Wav2Vec2Model(BaseFairseqModel):
                 
                 else:
                     prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
-
                 features = torch.cat([prompt, features], dim=1)
                 #try: padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
                 #except: padding_mask = None
