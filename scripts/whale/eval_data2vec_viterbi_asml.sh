@@ -20,7 +20,7 @@ do
 			dataset.gen_subset=$subset \
 			common_eval.path=/home/work/workspace/models/hubert_model/$model 
 	else
-		CUDA_VISIBLE_DEVICES=$2 python /home/work/workspace/fairseq/examples/speech_recognition/new/infer.py \
+		CUDA_VISIBLE_DEVICES=$2 python /workspace/fairseq_new/examples/speech_recognition/new/infer.py \
 			--config-dir /workspace/fairseq_new/examples/speech_recognition/new/conf \
 			--config-name infer \
 			task=audio_finetuning \
