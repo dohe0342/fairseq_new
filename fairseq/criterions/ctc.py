@@ -2475,8 +2475,8 @@ class Clip3Criterion(FairseqCriterion):
         self.tokenizer = BertTokenizer.from_pretrained(cfg.lm)
         self.lm = BertTokenizer.from_pretrained(cfg.lm)
 
-        space_token = self.tokenizer(' ', return_tensors='pt')
-        self.space_token = self.lm(**space_token)['last_hidden_state']
+        #space_token = self.tokenizer(' ', return_tensors='pt')
+        #self.space_token = self.lm(**space_token)['last_hidden_state']
         
         self.task = task
         self.tgt_dict = task.target_dictionary
