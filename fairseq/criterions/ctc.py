@@ -2470,10 +2470,10 @@ class Clip3Criterion(FairseqCriterion):
         '''
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.lm = GPT2Model.from_pretrained(cfg.lm)
+        self.lm = GPT2Model.from_pretrained(cfg.lm).eval()
         '''
         self.tokenizer = BertTokenizer.from_pretrained(cfg.lm)
-        self.lm = BertModel.from_pretrained(cfg.lm)
+        self.lm = BertModel.from_pretrained(cfg.lm).eval()
 
         #space_token = self.tokenizer(' ', return_tensors='pt')
         #self.space_token = self.lm(**space_token)['last_hidden_state']
