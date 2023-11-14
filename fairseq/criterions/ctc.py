@@ -2940,7 +2940,7 @@ class Clip3Criterion(FairseqCriterion):
         return True
 
 
-@register_criterion("clip3", dataclass=ClipCriterionConfig)
+@register_criterion("l2s", dataclass=ClipCriterionConfig)
 class Clip3Criterion(FairseqCriterion):
     def __init__(
         self, cfg: ClipCriterionConfig, task: FairseqTask, rdrop_alpha: int = 0.0
