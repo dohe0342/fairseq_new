@@ -11,7 +11,8 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip3 \
 	+criterion.decoder=conv \
-	+criterion.lm=gpt2
+	+criterion.lm=gpt2 \
+	+criterion.lm_decay=0.2
 
 : <<'END'
 fairseq-hydra-train \
