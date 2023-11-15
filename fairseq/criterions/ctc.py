@@ -2467,6 +2467,7 @@ class Clip3Criterion(FairseqCriterion):
         d = 768
         self.decoder_type = cfg.decoder
         ########### for gpt2
+        self.lm_name = cfg.lm
         if 'gpt' in cfg.lm:
             self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
             self.tokenizer.pad_token = self.tokenizer.eos_token
