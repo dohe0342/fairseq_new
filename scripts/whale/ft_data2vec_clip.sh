@@ -16,8 +16,6 @@ fairseq-hydra-train \
 	#+criterion.lm=bert-base-uncased \
 	#+criterion.lm_decay=0.1 
 
->>>>>>> d509442341da67d27d3b7c74382c93297e0b227f
-
 : <<'END'
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
