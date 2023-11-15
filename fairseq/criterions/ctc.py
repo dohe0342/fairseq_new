@@ -2744,13 +2744,13 @@ class Clip3Criterion(FairseqCriterion):
         
         if 'gpt' in self.lm_name:
             alignment_flat = torch.linspace(
-                                                2, 
+                                                1, 
                                                 alignment_lengths[0], 
                                                 steps=alignment_lengths[0]
                                         ).to(device)
             
             for i in alignment_lengths[1:]:
-                temp_target = torch.linspace(2, i, steps=i).to(device)
+                temp_target = torch.linspace(1, i, steps=i).to(device)
                 alignment_flat = torch.cat([alignment_flat, temp_target])
                 alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
         elif 'bert' in self.lm_name:
