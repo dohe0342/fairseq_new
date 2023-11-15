@@ -11,8 +11,14 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip3 \
 	+criterion.decoder=conv \
+<<<<<<< HEAD
 	+criterion.lm=gpt2 \
 	+criterion.lm_decay=0.05
+=======
+	+criterion.lm=bert-base-uncased \
+	+criterion.lm_decay=0.1 
+
+>>>>>>> d509442341da67d27d3b7c74382c93297e0b227f
 
 : <<'END'
 fairseq-hydra-train \

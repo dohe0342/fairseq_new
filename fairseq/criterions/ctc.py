@@ -1171,7 +1171,7 @@ class Prompt2CtcCriterion(CtcCriterion):
         self.attn_output.append(output)
 
     def forward(self, model, sample, reduce=True, **kwargs):
-        if model.w2v_encoder.num_updates < 20000:
+        if model.w2v_encoder.num_updates < 60000:
             self.prompt.requires_grad = False
         else:
             self.prompt.requires_grad = True
@@ -2467,12 +2467,16 @@ class Clip3Criterion(FairseqCriterion):
         d = 768
         self.decoder_type = cfg.decoder
         ########### for gpt2
+        '''
         self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.lm = GPT2Model.from_pretrained(cfg.lm)
+        self.lm = GPT2Model.from_pretrained(cfg.lm).eval()
+        '''
+        self.tokenizer = BertTokenizer.from_pretrained(cfg.lm)
+        self.lm = BertModel.from_pretrained(cfg.lm).eval()
 
-        space_token = self.tokenizer(' ', return_tensors='pt')
-        self.space_token = self.lm(**space_token)['last_hidden_state']
+        #space_token = self.tokenizer(' ', return_tensors='pt')
+        #self.space_token = self.lm(**space_token)['last_hidden_state']
         
         self.task = task
         self.tgt_dict = task.target_dictionary
@@ -2542,8 +2546,8 @@ class Clip3Criterion(FairseqCriterion):
                         conv_bias=False,
                     )
                 )
-            if d != self.lm.embed_dim:
-                self.lm_decoder.append(Linear(d, self.lm.embed_dim, bias=False))
+            #if d != self.lm.embed_dim:
+            #    self.lm_decoder.append(Linear(d, self.lm.embed_dim, bias=False))
                         
         if self.decoder_type == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
@@ -2738,13 +2742,13 @@ class Clip3Criterion(FairseqCriterion):
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
 
         alignment_flat = torch.linspace(
-                                            1, 
+                                            2, 
                                             alignment_lengths[0], 
                                             steps=alignment_lengths[0]
                                     ).to(device)
         
         for i in alignment_lengths[1:]:
-            temp_target = torch.linspace(1, i, steps=i).to(device)
+            temp_target = torch.linspace(2, i, steps=i).to(device)
             alignment_flat = torch.cat([alignment_flat, temp_target])
             alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
         #############for alignment target ###############################
