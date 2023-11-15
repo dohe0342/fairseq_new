@@ -12,7 +12,7 @@ fairseq-hydra-train \
 	criterion._name=clip3 \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
-	+criterion.lm_decay=0.2
+	+criterion.lm_decay=0.05
 
 : <<'END'
 fairseq-hydra-train \
