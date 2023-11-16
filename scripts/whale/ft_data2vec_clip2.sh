@@ -11,8 +11,8 @@ fairseq-hydra-train \
 	optimization.update_freq=[2] \
 	criterion._name=clip3 \
 	+criterion.decoder=conv \
-	+criterion.lm=bert-base-uncased \
-	+criterion.lm_decay=0.1
+	+criterion.lm=gpt2 \
+	+criterion.lm_decay=0.2
 
 
 #common.wandb_project=lm2am_distill \
