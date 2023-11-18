@@ -1,18 +1,19 @@
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_960h \
+	--config-name base_100h \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	common.wandb_project=lm2am_distill \
 	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
+	optimization.lr=[0.00002] \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip3 \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
-	+criterion.lm_decay=0.05
+	+criterion.lm_decay=0.1
 	#+criterion.lm=bert-base-uncased \
 	#+criterion.lm_decay=0.1 
 

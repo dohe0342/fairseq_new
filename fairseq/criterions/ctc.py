@@ -2655,10 +2655,12 @@ class Clip3Criterion(FairseqCriterion):
             #am_output = self.ln(am_output)
             
             if 1:
-                #lm_output = F.normalize(lm_output, dim=2)
-                #am_output = F.normalize(am_output, dim=2)
+                temp_decay = 5 - 4*(model.w2v_encoder.num_updates / 40000.)
+                lm_output = F.normalize(lm_output, dim=2)
+                am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
+                lm_am_sim *= (temp_decay * lm_output.size(1))
                 
             if 0:
                 #lm_output = F.normalize(lm_output, dim=2)
@@ -2675,10 +2677,6 @@ class Clip3Criterion(FairseqCriterion):
             if model.w2v_encoder.num_updates % 100 == 0:
                 lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
-                    #plt.imshow(lm_am_sim_cp[b].T.cpu().numpy())
-                    #for t in lm_am_sim_cp[b]:
-                    #    print(t)
-                    #exit()
                     plt.matshow(lm_am_sim_cp[b].T.cpu().numpy())
                     plt.colorbar()
                     if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}'):
