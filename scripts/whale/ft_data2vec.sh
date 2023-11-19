@@ -8,8 +8,8 @@ fairseq-hydra-train \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
-	dataset.train_subset=train-100 \
-	dataset.valid_subset=dev-other \
+	dataset.train_subset=ted2_train \
+	dataset.valid_subset=ted2_dev \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
 	criterion._name=ctc
