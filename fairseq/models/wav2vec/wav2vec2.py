@@ -739,7 +739,7 @@ class Wav2Vec2Model(BaseFairseqModel):
                 prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
             '''
             #features = torch.cat([prompt, features], dim=1)
-            if padding_mask is not None and self.prompt_gen is not None:
+            if self.prompt_gen is not None:
                 prompt_len = padding_mask.logical_not().sum(-1)
                 #print(prompt_len)
                 for i, _ in enumerate(self.prompt_gen):
@@ -751,12 +751,12 @@ class Wav2Vec2Model(BaseFairseqModel):
                 prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
                 padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
 
-            elif padding_mask is not None and self.prompt_gen is None:
+            elif self.prompt_gen is None:
                 noise_prompt = None
                 if filename is not None:
                     for fname in filename:
-                        #if '_animal' in fname or '_speech' in fname or '_car' in fname or '_thunder' in fname:
-                        if 0:
+                        if '_animal' in fname or '_speech' in fname or '_car' in fname or '_thunder' in fname:
+                        #if 0:
                             try: noise_prompt = torch.cat([noise_prompt, prompt[0].unsqueeze(0)], dim=0)
                             except: noise_prompt = prompt[0].unsqueeze(0)
                         else:
