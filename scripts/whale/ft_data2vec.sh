@@ -14,7 +14,7 @@ fairseq-hydra-train \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
 	criterion._name=ctc \
-	+task.min_sample_size=16000 \
+	+task.min_sample_size=16000
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
 : <<'END'
