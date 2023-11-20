@@ -741,16 +741,10 @@ class Wav2Vec2Model(BaseFairseqModel):
             #features = torch.cat([prompt, features], dim=1)
             if self.prompt_gen is not None:
                 prompt_len = padding_mask.logical_not().sum(-1)
-                #print(prompt_len)
                 for i, _ in enumerate(self.prompt_gen):
                     prompt_len = ((prompt_len-5) / 2).to(torch.int)
-                #print(prompt_len)
-                #for length in prompt_len:
                 features = torch.cat([prompt, features], dim=1)
                 
-                prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
-                padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
-
             elif self.prompt_gen is None:
                 noise_prompt = None
                 if filename is not None:
@@ -769,29 +763,11 @@ class Wav2Vec2Model(BaseFairseqModel):
                     prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
 
                 features = torch.cat([prompt, features], dim=1)
-
+            
+            if padding_mask is not None:
                 prompt_padding_mask = torch.zeros(prompt.size()[0], prompt.size()[1]).type(torch.BoolTensor).to(features.device)
                 padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
-            else:
-                noise_prompt = None
-                if filename is not None:
-                    for fname in filename:
-                        #if '_animal' in fname or '_speech' in fname or '_car' in fname or '_thunder' in fname:
-                        if 0:
-                            try: noise_prompt = torch.cat([noise_prompt, prompt[0].unsqueeze(0)], dim=0)
-                            except: noise_prompt = prompt[0].unsqueeze(0)
-                        else:
-                            try: noise_prompt = torch.cat([noise_prompt, prompt[1].unsqueeze(0)], dim=0)
-                            except: noise_prompt = prompt[1].unsqueeze(0)
-
-                    prompt = noise_prompt
-                
-                else:
-                    prompt = prompt.expand((features.size()[0], prompt.size()[0], prompt.size()[1]))
-                features = torch.cat([prompt, features], dim=1)
-                #try: padding_mask = torch.cat([prompt_padding_mask, padding_mask], dim=1)
-                #except: padding_mask = None
-
+            
         time_steps_to_drop = features.size(1) % self.crop_seq_to_multiple
         if time_steps_to_drop != 0:
             features = features[:, :-time_steps_to_drop]
