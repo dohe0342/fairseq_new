@@ -14,7 +14,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 	dataset.train_subset=ted2_train \
 	dataset.valid_subset=ted2_dev \
-	dataset.max_tokens=6400000 \
+	dataset.max_tokens=3200000 \
 	criterion._name=prompt2 
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
