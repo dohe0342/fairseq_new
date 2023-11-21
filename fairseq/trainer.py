@@ -297,7 +297,7 @@ class Trainer(object):
                     p.requires_grad = True
                 else:
                     p.requires_grad = False
-        if 0:
+        if 1:
             for n, p in self.model.named_parameters():
                 if 'prompt_gen' in n or 'w2v_encoder.proj' in n:
                     p.requires_grad = True
