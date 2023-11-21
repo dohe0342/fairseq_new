@@ -16,7 +16,8 @@ fairseq-hydra-train \
 	dataset.valid_subset=ted2_dev \
 	dataset.max_tokens=3200000 \
 	criterion._name=prompt3 \
-    +model.prompt_gen=true 	
+    +model.prompt_gen=true \
+	+task.min_sample_size=16000	
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
 : <<'END'
