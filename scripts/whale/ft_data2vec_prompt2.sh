@@ -9,6 +9,7 @@ fairseq-hydra-train \
 	common.wandb_project=prompt \
 	distributed_training.distributed_world_size=4 \
 	optimization.update_freq=[2] \
+	optimization.lr=[0.0001] \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
