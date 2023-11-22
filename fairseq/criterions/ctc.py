@@ -3078,16 +3078,8 @@ class L2SCriterion(FairseqCriterion):
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 lm_am_sim *= (temp_decay * lm_output.size(1))
-                
-            if 0:
-                #lm_output = F.normalize(lm_output, dim=2)
-                #am_output = F.normalize(am_output, dim=2)
-                #am_output = self.ins_norm(am_output)
-
-                lm_am_dist = am_output.unsqueeze(2) - lm_output.unsqueeze(1)
-                lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
-                lm_am_sim = -lm_am_dist
             
+            '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             #lm_am_sim = F.softmax(lm_am_sim, dim=-1)
@@ -3101,11 +3093,7 @@ class L2SCriterion(FairseqCriterion):
                         except: pass
                     plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
-            
-            #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
-
+            '''
         ##############################
 
         # CTC loss is calculated over duplicated inputs
@@ -3147,42 +3135,6 @@ class L2SCriterion(FairseqCriterion):
         else:
             target_lengths = pad_mask.sum(-1)
         
-        if self.decoder_type == 'conv':
-            lm_lengths = input_lengths.clone()
-            for i in range(len(self.lm_decoder)):
-                lm_lengths = ((lm_lengths - 5)/2).to(torch.int)
-        else:
-            lm_lengths = input_lengths
-        #############for alignment target ###############################
-        #alignment_pad_mask = lm_input["attention_mask"] > 0
-        alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
-        
-        if 'gpt' in self.lm_name:
-            alignment_flat = torch.linspace(
-                                                1, 
-                                                alignment_lengths[0], 
-                                                steps=alignment_lengths[0]
-                                        ).to(device)
-            
-            for i in alignment_lengths[1:]:
-                temp_target = torch.linspace(1, i, steps=i).to(device)
-                alignment_flat = torch.cat([alignment_flat, temp_target])
-                alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
-
-        elif 'bert' in self.lm_name:
-            alignment_flat = torch.linspace(
-                                                2, 
-                                                alignment_lengths[0], 
-                                                steps=alignment_lengths[0]
-                                        ).to(device)
-            
-            for i in alignment_lengths[1:]:
-                temp_target = torch.linspace(2, i, steps=i).to(device)
-                alignment_flat = torch.cat([alignment_flat, temp_target])
-                alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
-
-        #############for alignment target ###############################
-
         with torch.backends.cudnn.flags(enabled=False):
             ctc_loss = F.ctc_loss(
                 lprobs,
@@ -3194,16 +3146,6 @@ class L2SCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             
-            distill_loss = F.ctc_loss(
-                lm_am_sim,
-                alignment_flat,
-                lm_lengths,
-                alignment_lengths,
-                blank=self.blank_idx,
-                reduction="sum",
-                zero_infinity=self.zero_infinity,
-            )
-
             loss = ctc_loss + self.lm_decay*distill_loss
 
         ntokens = (
