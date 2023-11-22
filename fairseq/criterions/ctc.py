@@ -3083,6 +3083,7 @@ class L2SCriterion(FairseqCriterion):
                     non_bnk = am_output[b][lprob_max[1] != 0]
                     am_output_shink.append(non_bnk)
                 am_output_shink = nn.utils.rnn.pad_sequence(am_output_shink).transpose(0, 1)
+                print(am_output_shrink.size())
                 
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
