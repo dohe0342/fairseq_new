@@ -3157,8 +3157,6 @@ class L2SCriterion(FairseqCriterion):
             distill_loss = nn.functional.mse_loss(am_output_shrink, lm_output, reduction='none')
             distill_loss = distill_loss[am_output_pad_mask]
             distill_loss = sum(distill_loss)
-            print(distill_loss)
-            exit()
             
             loss = ctc_loss + self.lm_decay*distill_loss
 
