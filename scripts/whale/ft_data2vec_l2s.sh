@@ -3,7 +3,7 @@ fairseq-hydra-train \
 	--config-name base_100h \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	common.wandb_project=lm2am_distill \
-	distributed_training.distributed_world_size=4 \
+	distributed_training.distributed_world_size=1 \
 	dataset.max_tokens=3200000 \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
