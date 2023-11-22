@@ -3081,15 +3081,11 @@ class L2SCriterion(FairseqCriterion):
                     am_output_shrink.append(non_bnk)
                 am_output_shrink = nn.utils.rnn.pad_sequence(am_output_shrink, batch_first=True)
                 am_output_pad_mask = ~(am_output_shrink == 0)
-                print(am_output_pad_mask)
 
                 lm_output = nn.functional.interpolate(
                         input=lm_output.transpose(1, 2),
                         size=am_output_shrink.size(1),
                     ).transpose(1, 2)
-                print(lm_output.size())
-                exit()
-
                 
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
@@ -3157,6 +3153,10 @@ class L2SCriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
+
+            distill_loss = nn.mse_loss(am_output_shrink, lm_output, reduction='none')
+            distill_loss = distill_loss[am_output_pad_mask]
+            distill_loss = sum(distill_loss)
             
             loss = ctc_loss + self.lm_decay*distill_loss
 
