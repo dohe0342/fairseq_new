@@ -3084,7 +3084,7 @@ class L2SCriterion(FairseqCriterion):
                 lm_output = nn.functional.interpolate(
                         input=lm_output.transpose(1, 2),
                         size=am_output_shrink.size(1),
-                    )
+                    ).transpose(1, 2)
                 print(lm_output.size())
                 exit()
 
