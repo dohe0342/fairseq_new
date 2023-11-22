@@ -2975,9 +2975,6 @@ class L2SCriterion(FairseqCriterion):
             self.tokenizer = BertTokenizer.from_pretrained(cfg.lm)
             self.lm = BertModel.from_pretrained(cfg.lm).eval()
 
-        #space_token = self.tokenizer(' ', return_tensors='pt')
-        #self.space_token = self.lm(**space_token)['last_hidden_state']
-        
         self.task = task
         self.tgt_dict = task.target_dictionary
 
