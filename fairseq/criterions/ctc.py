@@ -3081,6 +3081,7 @@ class L2SCriterion(FairseqCriterion):
                     am_output_shrink.append(non_bnk)
                 am_output_shrink = nn.utils.rnn.pad_sequence(am_output_shrink, batch_first=True)
                 am_output_pad_mask = ~(am_output_shrink == 0)
+                print(am_output_pad_mask)
 
                 lm_output = nn.functional.interpolate(
                         input=lm_output.transpose(1, 2),
