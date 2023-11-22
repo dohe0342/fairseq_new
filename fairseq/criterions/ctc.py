@@ -3077,11 +3077,10 @@ class L2SCriterion(FairseqCriterion):
                 '''
                 am_output_shink = None
                 lprobs_tp = lprobs.transpose(0, 1)
-                for lprob in lprobs_tp:
+                for b, lprob in enumerate(lprobs_tp):
                     lprob_max = lprob.max(-1)
                     non_bnk = lprob[lprob_max[1] != 0]
-
-            
+                    non_bnk =  
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
