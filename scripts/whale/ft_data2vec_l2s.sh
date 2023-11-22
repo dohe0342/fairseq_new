@@ -15,7 +15,7 @@ fairseq-hydra-train \
 	+task.min_sample_size=16000 \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
-	+criterion.lm_decay=0.1
+	+criterion.lm_decay=0.25
 	#+criterion.lm=bert-base-uncased \
 	#+criterion.lm_decay=0.1 
 
