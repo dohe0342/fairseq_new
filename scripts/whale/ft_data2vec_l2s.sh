@@ -5,19 +5,15 @@ fairseq-hydra-train \
 	common.wandb_project=lm2am_distill \
 	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
-	dataset.train_subset=ted2_train \
-	dataset.valid_subset=ted2_dev \
+	dataset.train_subset=train-100 \
+	dataset.valid_subset=dev-other \
 	optimization.update_freq=[2] \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip3 \
-	+task.min_sample_size=16000 \
-	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
 	+criterion.lm_decay=0.25
-	#+criterion.lm=bert-base-uncased \
-	#+criterion.lm_decay=0.1 
 
 : <<'END'
 fairseq-hydra-train \
