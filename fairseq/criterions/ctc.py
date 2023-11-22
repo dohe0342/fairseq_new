@@ -3074,7 +3074,7 @@ class L2SCriterion(FairseqCriterion):
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 lm_am_sim *= (temp_decay * lm_output.size(1))
                 '''
-                am_output_shink = []
+                am_output_shrink = []
                 lprobs_tp = lprobs.transpose(0, 1)
                 for b, lprob in enumerate(lprobs_tp):
                     print(lprob.size())
@@ -3082,7 +3082,7 @@ class L2SCriterion(FairseqCriterion):
                     print(lprob_max)
                     non_bnk = am_output[b][lprob_max[1] != 0]
                     am_output_shink.append(non_bnk)
-                am_output_shink = nn.utils.rnn.pad_sequence(am_output_shink).transpose(0, 1)
+                am_output_shrink = nn.utils.rnn.pad_sequence(am_output_shrink).transpose(0, 1)
                 print(am_output_shrink.size())
                 
             '''
