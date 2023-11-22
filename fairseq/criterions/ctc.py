@@ -3086,6 +3086,7 @@ class L2SCriterion(FairseqCriterion):
                         size=am_output_shrink.size(1),
                     )
                 print(lm_output.size())
+                exit()
 
                 
             '''
