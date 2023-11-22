@@ -3067,6 +3067,7 @@ class L2SCriterion(FairseqCriterion):
             if type(am_output) == tuple: am_output = am_output[0]
             
             if 1:
+                print(am_output.size())
                 '''
                 temp_decay = max(15, 30 - 15*(model.w2v_encoder.num_updates / 20000.))
                 lm_output = F.normalize(lm_output, dim=2)
