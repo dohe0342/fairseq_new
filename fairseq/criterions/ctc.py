@@ -3067,12 +3067,16 @@ class L2SCriterion(FairseqCriterion):
             if type(am_output) == tuple: am_output = am_output[0]
             
             if 1:
+                '''
                 temp_decay = max(15, 30 - 15*(model.w2v_encoder.num_updates / 20000.))
                 lm_output = F.normalize(lm_output, dim=2)
                 am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 lm_am_sim *= (temp_decay * lm_output.size(1))
+                '''
+                for b in lprobs:
+                    b_prob = torch.nn.functional.softmax(b, dim=-1)
             
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
