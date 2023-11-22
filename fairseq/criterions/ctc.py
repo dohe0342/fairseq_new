@@ -3079,7 +3079,7 @@ class L2SCriterion(FairseqCriterion):
                     lprob_max = lprob.max(-1)
                     non_bnk = am_output[b][lprob_max[1] != 0]
                     am_output_shrink.append(non_bnk)
-                am_output_shrink = nn.utils.rnn.pad_sequence(am_output_shrink).transpose(0, 1)
+                am_output_shrink = nn.utils.rnn.pad_sequence(am_output_shrink, batch_first=True)
 
                 lm_output = nn.functional.interpolate(
                         input=lm_output.transpose(1, 2),
