@@ -3065,7 +3065,6 @@ class L2SCriterion(FairseqCriterion):
             #am_output = am_output.transpose(1, 2)
             
             if 1:
-                print(am_output.size())
                 '''
                 temp_decay = max(15, 30 - 15*(model.w2v_encoder.num_updates / 20000.))
                 lm_output = F.normalize(lm_output, dim=2)
