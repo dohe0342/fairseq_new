@@ -2,7 +2,7 @@ fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_100h \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
-	distributed_training.distributed_world_size=1 \
+	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
