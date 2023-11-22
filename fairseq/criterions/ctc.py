@@ -3075,7 +3075,7 @@ class L2SCriterion(FairseqCriterion):
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 lm_am_sim *= (temp_decay * lm_output.size(1))
                 '''
-                for b in lprobs:
+                for lprob in lprobs:
                     b_prob = torch.nn.functional.softmax(b, dim=-1)
             
             '''
