@@ -2971,10 +2971,10 @@ class L2SCriterion(FairseqCriterion):
         if 'gpt' in cfg.lm:
             self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
             self.tokenizer.pad_token = self.tokenizer.eos_token
-            self.lm = GPT2Model.from_pretrained(cfg.lm).eval()
+            self.lm = GPT2Model.from_pretrained(cfg.lm, torch_dtype=torch.float16).eval()
         elif 'bert' in cfg.lm:
             self.tokenizer = BertTokenizer.from_pretrained(cfg.lm)
-            self.lm = BertModel.from_pretrained(cfg.lm).eval()
+            self.lm = BertModel.from_pretrained(cfg.lm, torch_dtype=torch.float16).eval()
 
         self.task = task
         self.tgt_dict = task.target_dictionary
