@@ -3161,6 +3161,7 @@ class L2SCriterion(FairseqCriterion):
             loss_time2 = time.time()
             distill_loss = distill_loss[am_output_pad_mask]
             loss_time2 = time.time() - loss_time2
+
             distill_loss = sum(distill_loss)
 
             print(shrink, inter, loss_time)
