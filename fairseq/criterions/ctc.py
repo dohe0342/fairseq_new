@@ -3164,7 +3164,7 @@ class L2SCriterion(FairseqCriterion):
             
             loss_time3 = time.time()
             print(distill_loss.size(), distill_loss.type()) 
-            distill_loss = sum(distill_loss)
+            distill_loss = torch.sum(distill_loss)
             print(distill_loss.size(), distill_loss.type()) 
             loss_time3 = time.time() - loss_time3
 
