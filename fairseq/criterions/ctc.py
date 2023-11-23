@@ -3075,6 +3075,8 @@ class L2SCriterion(FairseqCriterion):
                 am_output_pad_mask = ~(am_output_shrink == 0)
                 
                 shrink = time.time() - shrink
+                
+                inter = time.time()
                 lm_output = nn.functional.interpolate(
                         input=lm_output.transpose(1, 2),
                         size=am_output_shrink.size(1),
@@ -3082,6 +3084,7 @@ class L2SCriterion(FairseqCriterion):
                 
                 am_output_shink = am_output.contiguous()
                 lm_output = lm_output.contiguous()
+                inter = time.time() - inter
                 
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
