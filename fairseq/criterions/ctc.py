@@ -3088,8 +3088,6 @@ class L2SCriterion(FairseqCriterion):
                 lm_output = lm_output.contiguous()
                 inter = time.time() - inter
 
-                print(am_output_shrink.size(), lm_output.size())
-                
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
