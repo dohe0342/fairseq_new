@@ -3054,13 +3054,6 @@ class L2SCriterion(FairseqCriterion):
                 lm_output = lm_output['last_hidden_state']
             
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
-            if self.decoder_type == 'conv':
-                am_output = am_output.transpose(1, 2).contiguous()
-                for i, conv in enumerate(self.lm_decoder):
-                    am_output = conv(am_output)
-        
-            elif self.decoder_type == 'transf_enc':
-                am_output = self.lm_decoder(am_output, padding_mask)
             am_output = self.lm_decoder(am_output)
             #am_output = am_output.transpose(1, 2)
             
