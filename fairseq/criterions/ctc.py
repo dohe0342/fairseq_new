@@ -3087,6 +3087,8 @@ class L2SCriterion(FairseqCriterion):
                 am_output_shrink = am_output.contiguous()
                 lm_output = lm_output.contiguous()
                 inter = time.time() - inter
+
+                print(am_output_shrink.size(), lm_output.size())
                 
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
