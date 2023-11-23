@@ -3061,7 +3061,7 @@ class L2SCriterion(FairseqCriterion):
         
             elif self.decoder_type == 'transf_enc':
                 am_output = self.lm_decoder(am_output, padding_mask)
-
+            am_output = self.lm_decoder(am_output)
             #am_output = am_output.transpose(1, 2)
             
             if 1:
