@@ -3152,12 +3152,15 @@ class L2SCriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
-
+            
+            loss_time = time.time()
             distill_loss = F.mse_loss(am_output_shrink, lm_output, reduction='none')
             distill_loss = distill_loss[am_output_pad_mask]
             distill_loss = sum(distill_loss)
-            print(distill_loss)
-            
+            loss_time = time.time() - loss_time
+
+            print(shink, inter, loss_time)
+
             loss = ctc_loss + self.lm_decay*distill_loss
 
         ntokens = (
