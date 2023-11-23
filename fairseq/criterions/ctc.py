@@ -3057,36 +3057,35 @@ class L2SCriterion(FairseqCriterion):
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             am_output = self.lm_decoder(am_output)
             
-            if 1:
-                '''
-                temp_decay = max(15, 30 - 15*(model.w2v_encoder.num_updates / 20000.))
-                lm_output = F.normalize(lm_output, dim=2)
-                am_output = F.normalize(am_output, dim=2)
-                
-                lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-                lm_am_sim *= (temp_decay * lm_output.size(1))
-                '''
-                shrink = time.time()
-                lprobs_tp = lprobs.transpose(0, 1)
-                am_output_shrink = []
-                for b, lprob in enumerate(lprobs_tp):
-                    lprob_max = lprob.max(-1)
-                    non_bnk = am_output[b][lprob_max[1] != 0]
-                    am_output_shrink.append(non_bnk)
-                am_output_shrink = nn.utils.rnn.pad_sequence(am_output_shrink, batch_first=True)
-                am_output_pad_mask = ~(am_output_shrink == 0)
-                
-                shrink = time.time() - shrink
-                
-                inter = time.time()
-                lm_output = nn.functional.interpolate(
-                        input=lm_output.transpose(1, 2),
-                        size=am_output_shrink.size(1),
-                    ).transpose(1, 2)
-                
-                am_output_shrink = am_output_shrink.contiguous()
-                lm_output = lm_output.contiguous()
-                inter = time.time() - inter
+            '''
+            temp_decay = max(15, 30 - 15*(model.w2v_encoder.num_updates / 20000.))
+            lm_output = F.normalize(lm_output, dim=2)
+            am_output = F.normalize(am_output, dim=2)
+            
+            lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
+            lm_am_sim *= (temp_decay * lm_output.size(1))
+            '''
+            shrink = time.time()
+            lprobs_tp = lprobs.transpose(0, 1)
+            am_output_shrink = []
+            for b, lprob in enumerate(lprobs_tp):
+                lprob_max = lprob.max(-1)
+                non_bnk = am_output[b][lprob_max[1] != 0]
+                am_output_shrink.append(non_bnk)
+            am_output_shrink = nn.utils.rnn.pad_sequence(am_output_shrink, batch_first=True)
+            am_output_pad_mask = ~(am_output_shrink == 0)
+            
+            shrink = time.time() - shrink
+            
+            inter = time.time()
+            lm_output = nn.functional.interpolate(
+                    input=lm_output.transpose(1, 2),
+                    size=am_output_shrink.size(1),
+                ).transpose(1, 2)
+            
+            am_output_shrink = am_output_shrink.contiguous()
+            lm_output = lm_output.contiguous()
+            inter = time.time() - inter
 
             '''
             lm_am_sim_cp = lm_am_sim.clone().detach()
@@ -3155,11 +3154,13 @@ class L2SCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             
-            loss_time = time.time()
+            loss_time1 = time.time()
             distill_loss = F.mse_loss(am_output_shrink, lm_output, reduction='none')
+            loss_time1 = time.time() - loss_time
+
+            loss_time
             distill_loss = distill_loss[am_output_pad_mask]
             distill_loss = sum(distill_loss)
-            loss_time = time.time() - loss_time
 
             print(shrink, inter, loss_time)
 
