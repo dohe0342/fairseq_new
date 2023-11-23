@@ -3166,7 +3166,7 @@ class L2SCriterion(FairseqCriterion):
             distill_loss = sum(distill_loss)
             loss_time3 = time.time() - loss_time3
 
-            print(shrink, inter, loss_time1, loss_time2)
+            print(shrink, inter, loss_time1, loss_time2, loss_time3)
 
             loss = ctc_loss + self.lm_decay*distill_loss
 
