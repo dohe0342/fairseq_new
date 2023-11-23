@@ -3068,6 +3068,7 @@ class L2SCriterion(FairseqCriterion):
                 '''
                 shrink = time.time()
                 lprobs_tp = lprobs.transpose(0, 1)
+                am_output_shrink = []
                 for b, lprob in enumerate(lprobs_tp):
                     lprob_max = lprob.max(-1)
                     non_bnk = am_output[b][lprob_max[1] != 0]
