@@ -3084,7 +3084,7 @@ class L2SCriterion(FairseqCriterion):
                         size=am_output_shrink.size(1),
                     ).transpose(1, 2)
                 
-                am_output_shink = am_output.contiguous()
+                am_output_shrink = am_output.contiguous()
                 lm_output = lm_output.contiguous()
                 inter = time.time() - inter
                 
@@ -3161,7 +3161,7 @@ class L2SCriterion(FairseqCriterion):
             distill_loss = sum(distill_loss)
             loss_time = time.time() - loss_time
 
-            print(shink, inter, loss_time)
+            print(shrink, inter, loss_time)
 
             loss = ctc_loss + self.lm_decay*distill_loss
 
