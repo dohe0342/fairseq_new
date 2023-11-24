@@ -3174,6 +3174,7 @@ class L2SCriterion(FairseqCriterion):
                 loss = ctc_loss + self.lm_decay*distill_loss
             except:
                 loss = ctc_loss
+                distill_loss = torch.tensor(0.)
 
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
