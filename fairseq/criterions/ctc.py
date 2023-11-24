@@ -3155,18 +3155,21 @@ class L2SCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             
-            loss_time1 = time.time()
-            distill_loss = F.mse_loss(am_output_shrink, lm_output, reduction='none')
-            loss_time1 = time.time() - loss_time1
+            try:
+                loss_time1 = time.time()
+                distill_loss = F.mse_loss(am_output_shrink, lm_output, reduction='none')
+                loss_time1 = time.time() - loss_time1
 
-            loss_time2 = time.time()
-            distill_loss = distill_loss[am_output_pad_mask]
-            loss_time2 = time.time() - loss_time2
-            
-            loss_time3 = time.time()
-            #distill_loss = torch.sum(distill_loss)
-            distill_loss = torch.mean(distill_loss)
-            loss_time3 = time.time() - loss_time3
+                loss_time2 = time.time()
+                distill_loss = distill_loss[am_output_pad_mask]
+                loss_time2 = time.time() - loss_time2
+                
+                loss_time3 = time.time()
+                #distill_loss = torch.sum(distill_loss)
+                distill_loss = torch.mean(distill_loss)
+                loss_time3 = time.time() - loss_time3
+            except:
+                distill_loss = 0
 
             loss = ctc_loss + self.lm_decay*distill_loss
 
