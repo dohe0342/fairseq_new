@@ -3079,10 +3079,13 @@ class L2SCriterion(FairseqCriterion):
             shrink = time.time() - shrink
             
             inter = time.time()
-            lm_output = nn.functional.interpolate(
-                input=lm_output.transpose(1, 2),
-                size=am_output_shrink.size(1),
-            ).transpose(1, 2)
+            try:
+                lm_output = nn.functional.interpolate(
+                    input=lm_output.transpose(1, 2),
+                    size=am_output_shrink.size(1),
+                ).transpose(1, 2)
+            except:
+                pass
             
             am_output_shrink = am_output_shrink.contiguous()
             lm_output = lm_output.contiguous()
