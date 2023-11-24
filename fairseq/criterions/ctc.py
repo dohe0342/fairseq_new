@@ -3175,8 +3175,6 @@ class L2SCriterion(FairseqCriterion):
             except:
                 loss = ctc_loss
 
-            loss = ctc_loss + self.lm_decay*distill_loss
-
         ntokens = (
             sample["ntokens"] if "ntokens" in sample else target_lengths.sum().item()
         )
