@@ -3172,7 +3172,7 @@ class L2SCriterion(FairseqCriterion):
                 distill_loss = torch.mean(distill_loss)
                 loss_time3 = time.time() - loss_time3
             except:
-                distill_loss = 0.
+                distill_loss = torch.zeros(0)
 
             loss = ctc_loss + self.lm_decay*distill_loss
 
