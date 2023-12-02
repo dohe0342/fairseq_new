@@ -12,7 +12,6 @@ fairseq-hydra-train \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip3 \
-	+task.min_sample_size=16000 \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
 	+criterion.lm_decay=0.1
