@@ -21,4 +21,5 @@ class ViterbiDecoder(BaseDecoder):
             toks = e.argmax(dim=-1).unique_consecutive()
             return toks[toks != self.blank]
 
-        return [[{"tokens": get_pred(x), "score": 0}] for x in emissions]
+        #return [[{"tokens": get_pred(x), "score": 0}] for x in emissions]
+        return [[{"tokens": x, "score": 0}] for x in emissions]
