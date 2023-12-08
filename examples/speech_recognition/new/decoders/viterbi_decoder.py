@@ -22,4 +22,4 @@ class ViterbiDecoder(BaseDecoder):
             return toks[toks != self.blank]
 
         #return [[{"tokens": get_pred(x), "score": 0}] for x in emissions]
-        return [[{"tokens": x, "score": 0}] for x in emissions]
+        return [[{"tokens": x.argmax(dim=-1), "score": 0}] for x in emissions]
