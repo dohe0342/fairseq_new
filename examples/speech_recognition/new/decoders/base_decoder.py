@@ -51,7 +51,7 @@ class BaseDecoder:
 
         dist = torch.nn.functional.mse_loss(encoder_out['encoder_feat'][0][0], encoder_out['encoder_feat'][0][1], reduction='none')
         print(dist)
-        print(dist.min())
+        print(torch.sort(dist))
         exit()
         
         if hasattr(model, "get_logits"):
