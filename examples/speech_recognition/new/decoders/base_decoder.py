@@ -50,6 +50,7 @@ class BaseDecoder:
         print(encoder_out['encoder_out'][1][0].size(), encoder_out['encoder_out'][1][0])
 
         dist = torch.nn.functional.mse_loss(encoder_out['encoder_feat'][0][0], encoder_out['encoder_feat'][0][1], reduction='none')
+        print(dist)
         print(dist.min())
         exit()
         
