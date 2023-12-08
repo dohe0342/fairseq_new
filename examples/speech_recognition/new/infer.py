@@ -350,8 +350,9 @@ class InferenceProcessor:
             models=self.models,
             sample=sample,
         )
-
-        print(hypos[0])
+        
+        for h in hypos[0]['tokens']:
+            print(h)
         exit()
 
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
