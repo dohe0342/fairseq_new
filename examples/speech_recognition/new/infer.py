@@ -351,7 +351,7 @@ class InferenceProcessor:
             sample=sample,
         )
         
-        for h in hypos[0]['tokens']:
+        for h in hypos[0][0]['tokens']:
             print(h)
         exit()
 
