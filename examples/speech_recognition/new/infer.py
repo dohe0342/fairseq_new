@@ -351,7 +351,7 @@ class InferenceProcessor:
             sample=sample,
         )
 
-        print(hypos)
+        print(hypos[0])
         exit()
 
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
