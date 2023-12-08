@@ -45,7 +45,9 @@ class BaseDecoder:
         model = models[0]
         encoder_out = model(**encoder_input)
         print(encoder_out['encoder_feat'][0][0].size(), encoder_out['encoder_feat'][0][0])
+        print(encoder_out['encoder_out'][0][0].size(), encoder_out['encoder_out'][0][0])
         print(encoder_out['encoder_feat'][0][1].size(), encoder_out['encoder_feat'][0][1])
+        print(encoder_out['encoder_out'][0][1].size(), encoder_out['encoder_feat'][0][1])
         exit()
         if hasattr(model, "get_logits"):
             emissions = model.get_logits(encoder_out)
