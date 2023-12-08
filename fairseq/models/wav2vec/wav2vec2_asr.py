@@ -1066,7 +1066,7 @@ class TransformerDecoderForDistill(FairseqIncrementalDecoder):
         """
 
         x, extra = self.extract_features(
-            prev_output_tokens,
+            prev_output_tokens, encoder_out=encoder_out,
         )
         #x = self.output_layer(x)
         return x, extra
