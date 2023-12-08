@@ -51,8 +51,8 @@ class BaseDecoder:
 
         dist = encoder_out['encoder_feat'][0][0] - encoder_out['encoder_feat'][0][1]
         print(dist)
-
         exit()
+        
         if hasattr(model, "get_logits"):
             emissions = model.get_logits(encoder_out)
         else:
