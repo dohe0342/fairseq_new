@@ -1828,8 +1828,8 @@ class TransformerSentenceEncoderLayerForDistill(nn.Module):
         # Positional encoding
         self.embed_positions = (
             PositionalEmbedding(
-                cfg.max_target_positions,
-                embed_dim,
+                1024,
+                embedding_dim,
                 self.padding_idx,
                 learned=cfg.decoder_learned_pos,
             )    
