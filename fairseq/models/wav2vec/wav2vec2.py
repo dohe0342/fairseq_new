@@ -1829,7 +1829,7 @@ class TransformerSentenceEncoderLayerForDistill(nn.Module):
         self.embed_positions = SinusoidalPositionalEmbedding(
                 embedding_dim,
                 padding_idx=0,
-            )    
+            ) 
 
         # Initialize blocks
         self.activation_fn = utils.get_activation_fn(activation_fn)
