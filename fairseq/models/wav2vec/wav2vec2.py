@@ -1825,6 +1825,18 @@ class TransformerSentenceEncoderLayerForDistill(nn.Module):
         self.dropout = dropout
         self.activation_dropout = activation_dropout
 
+        # Positional encoding
+        self.embed_positions = (
+            PositionalEmbedding(
+                cfg.max_target_positions,
+                embed_dim,
+                self.padding_idx,
+                learned=cfg.decoder_learned_pos,
+            )    
+            if not cfg.no_token_positional_embeddings
+            else None 
+        )
+
         # Initialize blocks
         self.activation_fn = utils.get_activation_fn(activation_fn)
         self.self_attn = MultiheadAttention(
