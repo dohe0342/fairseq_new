@@ -1830,7 +1830,7 @@ class TransformerSentenceEncoderLayerForDistill(nn.Module):
             PositionalEmbedding(
                 1024,
                 embedding_dim,
-                self.padding_idx,
+                0,
                 learned=cfg.decoder_learned_pos,
             )    
             if not cfg.no_token_positional_embeddings
