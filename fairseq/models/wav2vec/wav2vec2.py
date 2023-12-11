@@ -1838,16 +1838,6 @@ class TransformerSentenceEncoderLayerForDistill(nn.Module):
         self.dropout2 = nn.Dropout(self.activation_dropout)
         self.dropout3 = nn.Dropout(dropout)
 
-        self.layer_norm_first = layer_norm_first
-
-        # layer norm associated with the self attention layer
-        self.self_attn_layer_norm = LayerNorm(self.embedding_dim)
-        self.fc1 = nn.Linear(self.embedding_dim, ffn_embedding_dim)
-        self.fc2 = nn.Linear(ffn_embedding_dim, self.embedding_dim)
-
-        # layer norm associated with the position wise feed-forward NN
-        self.final_layer_norm = LayerNorm(self.embedding_dim)
-
     def forward(
         self,
         x: torch.Tensor,
