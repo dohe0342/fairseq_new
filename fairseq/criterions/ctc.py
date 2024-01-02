@@ -3079,6 +3079,7 @@ class ContextCriterion(FairseqCriterion):
             
             print(net_output.keys())
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
+
             cross_attn = self.cross_attn(
                     query=emb,
                     key=am_output,
