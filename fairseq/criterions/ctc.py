@@ -3107,10 +3107,6 @@ class ContextCriterion(FairseqCriterion):
                     plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
             
-            #lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            lm_am_sim = F.pad(lm_am_sim, (1, 0, 0, 0, 0, 0), value=np.log(np.e**-1))
-            lm_am_sim = lm_am_sim.transpose(0, 1).contiguous()
-
         ##############################
 
         # CTC loss is calculated over duplicated inputs
