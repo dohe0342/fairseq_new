@@ -3063,6 +3063,8 @@ class ContextCriterion(FairseqCriterion):
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
         with torch.cuda.amp.autocast(enabled=True):
             emb = self.emb(**lm_input)
+            print(emb.size())
+
             with torch.no_grad():
                 lm_output = self.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
