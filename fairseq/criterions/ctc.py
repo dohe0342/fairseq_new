@@ -3070,14 +3070,13 @@ class ContextCriterion(FairseqCriterion):
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
         with torch.cuda.amp.autocast(enabled=True):
             emb = self.emb(**lm_input)
-            print(emb.size())
-            
+            print('1', emb.size())
             
             with torch.no_grad():
                 lm_output = self.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
             
-            print(net_output.keys())
+            print('2', net_output.keys())
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
 
             cross_attn = self.cross_attn(
@@ -3088,6 +3087,7 @@ class ContextCriterion(FairseqCriterion):
                     #attn_mask=self_attn_mask,
                     need_weights=False,
                 )
+            print('3', corss_attn.size())
 
             if self.decoder_type == 'conv':
                 am_output = am_output.transpose(1, 2).contiguous()
