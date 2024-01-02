@@ -4069,7 +4069,7 @@ class BPECriterion(FairseqCriterion):
         return True
 
 class GPT2ModelEmb(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, model_name):
         super().__init__()
         model = GPT2Model.from_pretrained('gpt2')
         self.config = model.config
