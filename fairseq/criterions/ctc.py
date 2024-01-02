@@ -3090,7 +3090,7 @@ class ContextCriterion(FairseqCriterion):
             cross_attn = F.normalize(cross_attn, dim=2)
             lm_output = F.normalize(lm_output, dim=2)
             
-            lm_am_sim = 20*torch.bmm(cross_attn, lm_output.transpose(1, 2)) 
+            lm_am_sim = 20*(1-torch.bmm(cross_attn, lm_output.transpose(1, 2)))
             print(lm_am_sim)
 
             lm_am_sim_cp = lm_am_sim.clone().detach()
