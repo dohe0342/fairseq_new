@@ -3093,11 +3093,10 @@ class ContextCriterion(FairseqCriterion):
             lm_am_sim = 20*(1-torch.bmm(cross_attn, lm_output.transpose(1, 2)))
             lm_am_sim = lm_am_sim.tranpose(1, 2)
 
-            print(lm_am_sim)
-
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             
+            '''
             if model.w2v_encoder.num_updates % 100 == 0:
                 lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
@@ -3108,7 +3107,7 @@ class ContextCriterion(FairseqCriterion):
                         except: pass
                     plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
                     plt.close()
-            
+            '''
         ##############################
 
         # CTC loss is calculated over duplicated inputs
