@@ -3086,8 +3086,11 @@ class ContextCriterion(FairseqCriterion):
                 )
             
             cross_attn = cross_attn[0].transpose(0, 1)
+            cross_attn = F.normalize(cross_attn, dim=2)
+            lm_output = F.normalize(lm_output, dim=2)
             
             lm_am_sim = 20*torch.bmm(cross_attn, lm_output.transpose(1, 2)) 
+
 
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
