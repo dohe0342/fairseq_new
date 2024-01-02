@@ -3087,10 +3087,9 @@ class ContextCriterion(FairseqCriterion):
                 )
             
             cross_attn = cross_attn[0].transpose(0, 1)
-            
-            b, w, c = cross_attn.size()
+            #b, w, c = cross_attn.size()
 
-            lm_target = torch.ones((b, w))
+            #lm_target = torch.ones((b, w))
             lm_am_sim = 20*torch.bmm(cross_attn, lm_output.transpose(1, 2)) 
 
             lm_am_sim_cp = lm_am_sim.clone().detach()
