@@ -2972,7 +2972,7 @@ class ContextCriterion(FairseqCriterion):
         self.cross_attn = MultiheadAttention(
             d,
             8,
-            0.0,
+            dropout=0.0,
             self_attention=False,
             encoder_decoder_attention=True,
         )
