@@ -4071,7 +4071,7 @@ class BPECriterion(FairseqCriterion):
 class GPT2ModelEmb(torch.nn.Module):
     def __init__(self, model_name):
         super().__init__()
-        model = GPT2Model.from_pretrained('gpt2')
+        model = GPT2Model.from_pretrained(model_name)
         self.config = model.config
         self.wte = model.wte
         self.wpe = model.wpe
