@@ -2970,10 +2970,10 @@ class ContextCriterion(FairseqCriterion):
         ########### for gpt2
         self.emb = GPT2ModelEmb(cfg.lm)
         self.cross_attn = MultiheadAttention(
-            self.embedding_dim,
-            num_attention_heads,
-            dropout=attention_dropout,
-            self_attention=True,
+            d,
+            8,
+            0.0,
+            self_attention=False,
         )
 
         self.lm_name = cfg.lm
