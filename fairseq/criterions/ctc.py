@@ -3077,27 +3077,10 @@ class ContextCriterion(FairseqCriterion):
             
             if type(am_output) == tuple: am_output = am_output[0]
             
-            if 1:
-                temp_decay = max(1, 300 - 299*(model.w2v_encoder.num_updates / 60000.))
-                lm_output = F.normalize(lm_output, dim=2)
-                am_output = F.normalize(am_output, dim=2)
-                
-                lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-                #lm_am_sim *= (temp_decay * lm_output.size(1))
-                lm_am_sim *= temp_decay
-                
-            if 0:
-                #lm_output = F.normalize(lm_output, dim=2)
-                #am_output = F.normalize(am_output, dim=2)
-                #am_output = self.ins_norm(am_output)
-
-                lm_am_dist = am_output.unsqueeze(2) - lm_output.unsqueeze(1)
-                lm_am_dist = torch.norm(lm_am_dist, p=2, dim=3)
-                lm_am_sim = -lm_am_dist
             
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
-            #lm_am_sim = F.softmax(lm_am_sim, dim=-1)
+            
             if model.w2v_encoder.num_updates % 100 == 0:
                 lm_am_sim_cp = F.softmax(lm_am_sim_cp, dim=-1)
                 for b in range(lm_am_sim_cp.size(0)):
