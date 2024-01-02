@@ -3148,7 +3148,8 @@ class ContextCriterion(FairseqCriterion):
             target_lengths = sample["target_lengths"]
         else:
             target_lengths = pad_mask.sum(-1)
-        
+
+        exit() 
         #############for alignment target ###############################
         #alignment_pad_mask = lm_input["attention_mask"] > 0
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
