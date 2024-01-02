@@ -3071,12 +3071,22 @@ class ContextCriterion(FairseqCriterion):
         with torch.cuda.amp.autocast(enabled=True):
             emb = self.emb(**lm_input)
             print(emb.size())
-
+            
+            
             with torch.no_grad():
                 lm_output = self.lm(**lm_input)
                 lm_output = lm_output['last_hidden_state']
             
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
+            cross_attn = self.cross_attn(
+                    query=emb,
+                    key=am_output,
+                    value=am_output,
+                    key_padding_mask=self_attn_padding_mask,
+                    attn_mask=self_attn_mask,
+                    need_weights=False,
+                )
+
             if self.decoder_type == 'conv':
                 am_output = am_output.transpose(1, 2).contiguous()
                 for i, conv in enumerate(self.lm_decoder):
