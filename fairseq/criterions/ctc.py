@@ -3176,7 +3176,6 @@ class ContextCriterion(FairseqCriterion):
             )
             '''
             distill_loss = F.cross_entropy(lm_am_sim, alignment_target, reduction='sum')
-            print(distill_loss)
             loss = ctc_loss + self.lm_decay*distill_loss
 
         ntokens = (
