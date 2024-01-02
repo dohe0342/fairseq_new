@@ -2968,6 +2968,8 @@ class ContextCriterion(FairseqCriterion):
         d = 768
         self.decoder_type = cfg.decoder
         ########### for gpt2
+        self.emb = GPT2ModelEmb(cfg.lm)
+
         self.lm_name = cfg.lm
         if 'gpt' in cfg.lm:
             self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
