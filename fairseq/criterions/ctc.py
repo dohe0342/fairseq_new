@@ -3082,14 +3082,11 @@ class ContextCriterion(FairseqCriterion):
                     key=am_output.transpose(0, 1),
                     value=am_output.transpose(0, 1),
                     key_padding_mask=padding_mask,
-                    #attn_mask=self_attn_mask,
                     need_weights=False,
                 )
             
             cross_attn = cross_attn[0].transpose(0, 1)
-            #b, w, c = cross_attn.size()
-
-            #lm_target = torch.ones((b, w))
+            
             lm_am_sim = 20*torch.bmm(cross_attn, lm_output.transpose(1, 2)) 
 
             lm_am_sim_cp = lm_am_sim.clone().detach()
