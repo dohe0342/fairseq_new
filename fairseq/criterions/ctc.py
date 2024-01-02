@@ -3085,9 +3085,14 @@ class ContextCriterion(FairseqCriterion):
                     #attn_mask=self_attn_mask,
                     need_weights=False,
                 )
-
+            
             cross_attn = cross_attn[0].transpose(0, 1)
-            lm_am_sim = 20*torch.bmm(cross_attn, lm_output.transpose(1, 2)) 
+            
+            b, w, c = cross_attn.size()
+
+            lm_target = torch.ones((b, w))
+            cos_loss = F.cosine_embedding_loss(cross_attn, lm_output
+            #lm_am_sim = 20*torch.bmm(cross_attn, lm_output.transpose(1, 2)) 
 
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
