@@ -3087,7 +3087,7 @@ class ContextCriterion(FairseqCriterion):
                     #attn_mask=self_attn_mask,
                     need_weights=False,
                 )
-            print('3', cross_attn.size())
+            print('3', cross_attn[0].size())
 
             if self.decoder_type == 'conv':
                 am_output = am_output.transpose(1, 2).contiguous()
