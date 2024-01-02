@@ -2974,6 +2974,7 @@ class ContextCriterion(FairseqCriterion):
             8,
             0.0,
             self_attention=False,
+            encoder_decoder_attention=True,
         )
 
         self.lm_name = cfg.lm
