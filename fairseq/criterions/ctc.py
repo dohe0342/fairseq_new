@@ -2969,6 +2969,12 @@ class ContextCriterion(FairseqCriterion):
         self.decoder_type = cfg.decoder
         ########### for gpt2
         self.emb = GPT2ModelEmb(cfg.lm)
+        self.cross_attn = MultiheadAttention(
+            self.embedding_dim,
+            num_attention_heads,
+            dropout=attention_dropout,
+            self_attention=True,
+        )
 
         self.lm_name = cfg.lm
         if 'gpt' in cfg.lm:
@@ -3081,7 +3087,6 @@ class ContextCriterion(FairseqCriterion):
             am_output = am_output.transpose(1, 2)
             
             if type(am_output) == tuple: am_output = am_output[0]
-            
             
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
