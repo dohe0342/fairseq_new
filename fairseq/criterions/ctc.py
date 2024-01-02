@@ -3091,7 +3091,8 @@ class ContextCriterion(FairseqCriterion):
             b, w, c = cross_attn.size()
 
             lm_target = torch.ones((b, w))
-            cos_loss = F.cosine_embedding_loss(cross_attn, lm_output, lm_target)
+            cos_loss = F.cosine_embedding_loss(cross_attn, lm_output, lm_target, reduction='sum')
+            print(cos_loss)
             #lm_am_sim = 20*torch.bmm(cross_attn, lm_output.transpose(1, 2)) 
 
             lm_am_sim_cp = lm_am_sim.clone().detach()
