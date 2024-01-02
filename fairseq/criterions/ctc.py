@@ -3086,7 +3086,7 @@ class ContextCriterion(FairseqCriterion):
                     need_weights=False,
                 )
 
-                        
+            cross_attn = cross_attn[0].transpose(0, 1)
             lm_am_sim_cp = lm_am_sim.clone().detach()
             lm_am_sim = F.log_softmax(lm_am_sim, dim=-1)
             
