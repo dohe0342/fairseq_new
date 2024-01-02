@@ -3149,35 +3149,9 @@ class ContextCriterion(FairseqCriterion):
         else:
             target_lengths = pad_mask.sum(-1)
 
-        exit() 
         #############for alignment target ###############################
-        #alignment_pad_mask = lm_input["attention_mask"] > 0
-        alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
-        
-        if 'gpt' in self.lm_name:
-            alignment_flat = torch.linspace(
-                                                1, 
-                                                alignment_lengths[0], 
-                                                steps=alignment_lengths[0]
-                                        ).to(device)
-            
-            for i in alignment_lengths[1:]:
-                temp_target = torch.linspace(1, i, steps=i).to(device)
-                alignment_flat = torch.cat([alignment_flat, temp_target])
-                alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
-
-        elif 'bert' in self.lm_name:
-            alignment_flat = torch.linspace(
-                                                2, 
-                                                alignment_lengths[0], 
-                                                steps=alignment_lengths[0]
-                                        ).to(device)
-            
-            for i in alignment_lengths[1:]:
-                temp_target = torch.linspace(2, i, steps=i).to(device)
-                alignment_flat = torch.cat([alignment_flat, temp_target])
-                alignment_flat = alignment_flat.to(torch.cuda.IntTensor())
-
+        alignment_target = torch.arange(lm_am_sim.size(1)).repeat(lm_am_sim.size(0), 1)
+        print(alignment_target.size())
         #############for alignment target ###############################
 
         with torch.backends.cudnn.flags(enabled=False):
@@ -3191,6 +3165,7 @@ class ContextCriterion(FairseqCriterion):
                 zero_infinity=self.zero_infinity,
             )
             
+            '''
             distill_loss = F.ctc_loss(
                 lm_am_sim,
                 alignment_flat,
@@ -3200,7 +3175,8 @@ class ContextCriterion(FairseqCriterion):
                 reduction="sum",
                 zero_infinity=self.zero_infinity,
             )
-
+            '''
+            distill_loss = F.cross_entropy(lm_am_sim, alignment_target, reduction='sum')
             loss = ctc_loss + self.lm_decay*distill_loss
 
         ntokens = (
