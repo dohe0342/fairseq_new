@@ -3150,8 +3150,7 @@ class ContextCriterion(FairseqCriterion):
             target_lengths = pad_mask.sum(-1)
 
         #############for alignment target ###############################
-        alignment_target = torch.arange(lm_am_sim.size(1)).repeat(lm_am_sim.size(0), 1)
-        print(alignment_target.size())
+        alignment_target = torch.arange(lm_am_sim.size(1)).repeat(lm_am_sim.size(0), 1).to(lm_am_sim.device)
         #############for alignment target ###############################
 
         with torch.backends.cudnn.flags(enabled=False):
