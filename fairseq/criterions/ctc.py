@@ -3083,7 +3083,7 @@ class ContextCriterion(FairseqCriterion):
                     query=emb,
                     key=am_output,
                     value=am_output,
-                    #key_padding_mask=self_attn_padding_mask,
+                    key_padding_mask=self_attn_padding_mask,
                     #attn_mask=self_attn_mask,
                     need_weights=False,
                 )
