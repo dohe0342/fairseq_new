@@ -3086,6 +3086,7 @@ class ContextCriterion(FairseqCriterion):
                 )
             
             cross_attn = cross_attn[0].transpose(0, 1)
+
             cross_attn = F.normalize(cross_attn, dim=2)
             lm_output = F.normalize(lm_output, dim=2)
             
