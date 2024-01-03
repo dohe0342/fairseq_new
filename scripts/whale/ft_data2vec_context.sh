@@ -13,7 +13,7 @@ fairseq-hydra-train \
 	criterion._name=context \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
-	+criterion.lm_decay=0.1
+	+criterion.lm_decay=0.3
 	#+criterion.lm=bert-base-uncased \
 	#+criterion.lm_decay=0.1 
 
