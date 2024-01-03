@@ -442,7 +442,10 @@ class InferenceProcessor:
             
             first = am_output[0,:,0]
             second = am_output[0,:,1]
-            sim = torch.bmm(first, second.transpose())
+            sim = torch.mm(first, second.transpose())
+            print(sim.size())
+            print(sim)
+
             exit()
 
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
