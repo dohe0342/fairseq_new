@@ -178,6 +178,7 @@ class InferenceProcessor:
             self.lm_decoder.load_state_dict(cri, strict=False)
 
             print(self.lm_decoder)
+            exit()
 
         else:
             self.lm_decoder = None
