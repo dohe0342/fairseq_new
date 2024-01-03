@@ -429,14 +429,18 @@ class InferenceProcessor:
             models=self.models,
             sample=sample,
         )
-
-        net_output = self.models[0](**sample["net_input"])
-        am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
-        am_output = am_output.transpose(1, 2).contiguous()
-        for i, conv in enumerate(self.lm_decoder):
-            am_output = conv(am_output)
-        print(am_output.size())
-        exit()
+        
+        if 1:
+            if self.lm_decoder.device != sample['net_input']['source'].device:
+                self.lm_decoder.to(sample['net_input']['source'].device)
+            net_output = self.models[0](**sample["net_input"])
+            am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
+            am_output = am_output.transpose(1, 2).contiguous()
+            for i, conv in enumerate(self.lm_decoder):
+                am_output = conv(am_output)
+            
+            print(am_output.size())
+            exit()
 
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
         self.gen_timer.stop(num_generated_tokens)
