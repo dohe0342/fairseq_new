@@ -430,6 +430,10 @@ class InferenceProcessor:
             sample=sample,
         )
 
+        encoder_out = self.models[0](**sample)
+        print(encoder_out.keys())
+        exit()
+
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
         self.gen_timer.stop(num_generated_tokens)
         self.wps_meter.update(num_generated_tokens)
