@@ -188,7 +188,10 @@ class InferenceProcessor:
                     )
                 )
             
+            print('-'*30)
             self.lm_decoder.load_state_dict(criterion, strict=False)
+            print('-'*30)
+            print('model load done')
 
             print(self.lm_decoder)
             exit()
