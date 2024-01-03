@@ -440,7 +440,9 @@ class InferenceProcessor:
                     conv.to(sample['net_input']['source'].device)
                     am_output = conv(am_output)
             
-            print(am_output.size())
+            first = am_output[0,:,0]
+            second = am_output[0,:,1]
+            sim = torch.bmm(first, second.transpose())
             exit()
 
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
