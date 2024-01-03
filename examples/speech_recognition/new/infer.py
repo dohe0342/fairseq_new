@@ -18,6 +18,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import editdistance
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.distributed as dist
 from examples.speech_recognition.new.decoders.decoder_config import (
     DecoderConfig,
