@@ -61,7 +61,7 @@ class BaseDecoder:
         else:
             emissions = model.get_normalized_probs(encoder_out, log_probs=True)
 
-        am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
+        am_output = encoder_out['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
         am_output = am_output.transpose(1, 2).contiguous()
         for i, conv in enumerate(self.lm_decoder):
             am_output = conv(am_output)
