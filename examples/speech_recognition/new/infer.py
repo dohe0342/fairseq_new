@@ -430,7 +430,7 @@ class InferenceProcessor:
             sample=sample,
         )
 
-        encoder_out = self.models[0](**sample)
+        encoder_out = self.models[0](**sample["net_input"])
         print(encoder_out.keys())
         exit()
 
