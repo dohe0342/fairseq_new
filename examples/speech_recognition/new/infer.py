@@ -431,14 +431,14 @@ class InferenceProcessor:
         )
         
         if 1:
-            if self.lm_decoder[0].device != sample['net_input']['source'].device:
-                [l.to(sample['net_input']['source'].device) for l in self.lm_decoder]
-
             net_output = self.models[0](**sample["net_input"])
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
             am_output = am_output.transpose(1, 2).contiguous()
             for i, conv in enumerate(self.lm_decoder):
-                am_output = conv(am_output)
+                try: am_output = conv(am_output)
+                except: 
+                    conv.to(sample['net_input']['source'].device)
+                    am_output = conv(am_output)
             
             print(am_output.size())
             exit()
