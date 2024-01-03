@@ -39,6 +39,17 @@ from fairseq.logging.meters import StopwatchMeter, TimeMeter
 from fairseq.logging.progress_bar import BaseProgressBar
 from fairseq.models.fairseq_model import FairseqModel
 from omegaconf import OmegaConf
+from fairseq.modules import (
+    Fp32GroupNorm,
+    Fp32LayerNorm,
+    GradMultiply,
+    GumbelVectorQuantizer,
+    LayerNorm,  
+    MultiheadAttention,
+    RelPositionalEncoding,
+    SamePad,        
+    TransposeLast,
+)
 
 import hydra
 from hydra.core.config_store import ConfigStore
