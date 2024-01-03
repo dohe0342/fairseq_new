@@ -435,7 +435,7 @@ class InferenceProcessor:
         am_output = am_output.transpose(1, 2).contiguous()
         for i, conv in enumerate(self.lm_decoder):
             am_output = conv(am_output)
-        print(encoder_out.keys())
+        print(am_output.size())
         exit()
 
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
