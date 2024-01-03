@@ -442,7 +442,7 @@ class InferenceProcessor:
             
             first = am_output[0,:,0]
             second = am_output[0,:,1]
-            sim = torch.mm(first, second.transpose())
+            sim = torch.mm(first, second)
             print(sim.size())
             print(sim)
 
