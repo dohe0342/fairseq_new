@@ -65,6 +65,7 @@ class BaseDecoder:
         am_output = am_output.transpose(1, 2).contiguous()
         for i, conv in enumerate(self.lm_decoder):
             am_output = conv(am_output)
+        
         return emissions.transpose(0, 1).float().cpu().contiguous()
 
     def get_tokens(self, idxs: torch.IntTensor) -> torch.LongTensor:
