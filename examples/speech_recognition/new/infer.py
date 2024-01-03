@@ -442,7 +442,7 @@ class InferenceProcessor:
             
             first = F.normalize(am_output[0,:,0])
             second = F.normalize(am_output[0,:,1])
-            sim = torch.mm(first, second)
+            sim = torch.matmul(first, second)
             print(sim.size())
             print(sim)
 
