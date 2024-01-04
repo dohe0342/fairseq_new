@@ -440,8 +440,8 @@ class InferenceProcessor:
                     conv.to(sample['net_input']['source'].device)
                     am_output = conv(am_output)
             
-            first = F.normalize(am_output[0,:,0])
-            second = F.normalize(am_output[0,:,1])
+            first = F.normalize(am_output[0,:,0].squeeze())
+            second = F.normalize(am_output[0,:,1].squeeze())
             print(first.size())
             print(second.size())
             sim = torch.matmul(first, second)
