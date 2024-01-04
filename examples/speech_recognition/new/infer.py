@@ -444,10 +444,18 @@ class InferenceProcessor:
             dim2 = F.normalize(am_output[0,:,1].squeeze(), dim=0)
             dim3 = F.normalize(am_output[0,:,2].squeeze(), dim=0)
             dim4 = F.normalize(am_output[0,:,3].squeeze(), dim=0)
+            dim5 = F.normalize(am_output[0,:,4].squeeze(), dim=0)
+            dim6 = F.normalize(am_output[0,:,5].squeeze(), dim=0)
+            dim7 = F.normalize(am_output[0,:,6].squeeze(), dim=0)
+            dim8 = F.normalize(am_output[0,:,7].squeeze(), dim=0)
             
             sim1 = torch.matmul(dim1, dim2)
             sim2 = torch.matmul(dim1, dim3)
             sim3 = torch.matmul(dim1, dim4)
+            sim4 = torch.matmul(dim1, dim5)
+            sim5 = torch.matmul(dim1, dim6)
+            sim6 = torch.matmul(dim1, dim7)
+            sim7 = torch.matmul(dim1, dim8)
 
             print(sim1, sim2, sim3)
 
