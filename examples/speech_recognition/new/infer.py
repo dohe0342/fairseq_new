@@ -440,15 +440,24 @@ class InferenceProcessor:
                     conv.to(sample['net_input']['source'].device)
                     am_output = conv(am_output)
             
-            dim1 = F.normalize(am_output[0,:,0].squeeze(), dim=0)
-            dim2 = F.normalize(am_output[0,:,1].squeeze(), dim=0)
-            dim3 = F.normalize(am_output[0,:,2].squeeze(), dim=0)
-            dim4 = F.normalize(am_output[0,:,3].squeeze(), dim=0)
-            dim5 = F.normalize(am_output[0,:,4].squeeze(), dim=0)
-            dim6 = F.normalize(am_output[0,:,5].squeeze(), dim=0)
-            dim7 = F.normalize(am_output[0,:,6].squeeze(), dim=0)
-            dim8 = F.normalize(am_output[0,:,7].squeeze(), dim=0)
+            #dim1 = F.normalize(am_output[0,:,0].squeeze(), dim=0)
+            #dim2 = F.normalize(am_output[0,:,1].squeeze(), dim=0)
+            #dim3 = F.normalize(am_output[0,:,2].squeeze(), dim=0)
+            #dim4 = F.normalize(am_output[0,:,3].squeeze(), dim=0)
+            #dim5 = F.normalize(am_output[0,:,4].squeeze(), dim=0)
+            #dim6 = F.normalize(am_output[0,:,5].squeeze(), dim=0)
+            #dim7 = F.normalize(am_output[0,:,6].squeeze(), dim=0)
+            #dim8 = F.normalize(am_output[0,:,7].squeeze(), dim=0)
             
+            dim1 = am_output[0,:,0]
+            dim2 = am_output[0,:,1]
+            dim3 = am_output[0,:,2]
+            dim4 = am_output[0,:,3]
+            dim5 = am_output[0,:,4]
+            dim6 = am_output[0,:,5]
+            dim7 = am_output[0,:,6]
+            dim8 = am_output[0,:,7]
+
             sim1 = torch.matmul(dim1, dim2)
             sim2 = torch.matmul(dim1, dim3)
             sim3 = torch.matmul(dim1, dim4)
