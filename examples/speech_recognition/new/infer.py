@@ -443,7 +443,7 @@ class InferenceProcessor:
             first = F.normalize(am_output[0,:,0].squeeze(), dim=0)
             second = F.normalize(am_output[0,:,1].squeeze(), dim=0)
             third = F.normalize(am_output[0,:,2].squeeze(), dim=0)
-            fourth = F.normalize(am_output[0,:,2].squeeze(), dim=0)
+            fourth = F.normalize(am_output[0,:,3].squeeze(), dim=0)
             print(first.size())
             print(second.size())
             sim = torch.matmul(first, second)
