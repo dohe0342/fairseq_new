@@ -2668,7 +2668,8 @@ class Clip3Criterion(FairseqCriterion):
 
             am_output = am_output.transpose(1, 2)
             if self.final_linear is not None:
-                am_output = self.final_linear(am_output)
+                #am_output = self.final_linear(am_output)
+                lm_output = self.final_linear(lm_output)
             
             if type(am_output) == tuple: am_output = am_output[0]
             
