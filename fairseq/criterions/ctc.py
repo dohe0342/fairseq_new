@@ -2659,7 +2659,8 @@ class Clip3Criterion(FairseqCriterion):
             #am_output = self.ln(am_output)
             
             if 1:
-                temp_decay = max(1, 300 - 299*(model.w2v_encoder.num_updates / 60000.))
+                #temp_decay = max(1, 300 - 299*(model.w2v_encoder.num_updates / 60000.))
+                temp_decay = 500
                 lm_output = F.normalize(lm_output, dim=2)
                 am_output = F.normalize(am_output, dim=2)
                 
