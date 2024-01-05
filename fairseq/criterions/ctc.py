@@ -2492,7 +2492,7 @@ class Clip3Criterion(FairseqCriterion):
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.lm = MistralModel.from_pretrained(
                 cfg.lm,
-                torch_dtype=torch.bfloat16,
+                #torch_dtype=torch.bfloat16,
             )
 
         self.task = task
