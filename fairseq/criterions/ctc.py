@@ -41,7 +41,7 @@ from fairseq.modules import (
     TransposeLast,
 )
 
-from transformers import GPT2Tokenizer, GPT2Model, BertTokenizer, BertModel
+from transformers import GPT2Tokenizer, GPT2Model, BertTokenizer, BertModel, AutoTokenizer, MistralModel
 from fairseq.data.data_utils import post_process
 
 
