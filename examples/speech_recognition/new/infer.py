@@ -440,6 +440,7 @@ class InferenceProcessor:
                     conv.to(sample['net_input']['source'].device)
                     am_output = conv(am_output)
             
+            '''
             dim1 = F.normalize(am_output[0,:,0].squeeze(), dim=0)
             dim2 = F.normalize(am_output[0,:,1].squeeze(), dim=0)
             dim3 = F.normalize(am_output[0,:,2].squeeze(), dim=0)
@@ -466,7 +467,7 @@ class InferenceProcessor:
             sim11 = torch.matmul(dim1, dim12)
 
             print(am_output.size(), dim1.size(), sim1.item(), sim2.item(), sim3.item(), sim4.item(), sim5.item(), sim6.item(), sim7.item(), sim8.item(), sim9.item(), sim10.item(), sim11.item())
-
+            '''
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
         self.gen_timer.stop(num_generated_tokens)
         self.wps_meter.update(num_generated_tokens)
