@@ -476,8 +476,6 @@ class InferenceProcessor:
 
             print(am_output.size(), dim1.size(), sim1.item(), sim2.item(), sim3.item(), sim4.item(), sim5.item(), sim6.item(), sim7.item(), sim8.item(), sim9.item(), sim10.item(), sim11.item())
 
-            exit()
-
         num_generated_tokens = sum(len(h[0]["tokens"]) for h in hypos)
         self.gen_timer.stop(num_generated_tokens)
         self.wps_meter.update(num_generated_tokens)
