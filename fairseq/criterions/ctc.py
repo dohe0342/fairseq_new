@@ -2480,9 +2480,9 @@ class Clip3Criterion(FairseqCriterion):
             self.tokenizer = BertTokenizer.from_pretrained(cfg.lm)
             self.lm = BertModel.from_pretrained(cfg.lm).eval()
         elif 'mistral' in cfg.lm:
-            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+            self.tokenizer = AutoTokenizer.from_pretrained(cfg.lm)
             self.lm = AutoModelForCausalLM.from_pretrained(
-                model_name,
+                cfg.lm,
                 torch_dtype=torch.bfloat16,
                 trust_remote_code=True,
             )
