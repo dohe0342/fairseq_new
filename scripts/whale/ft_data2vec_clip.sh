@@ -3,11 +3,11 @@ fairseq-hydra-train \
 	--config-name base_100h \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	common.wandb_project=lm2am_distill \
-	distributed_training.distributed_world_size=4 \
+	distributed_training.distributed_world_size=8 \
 	dataset.max_tokens=3200000 \
 	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
-	optimization.update_freq=[2] \
+	optimization.update_freq=[1] \
 	task.data=/dev/shm/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
