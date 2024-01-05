@@ -305,6 +305,7 @@ class Trainer(object):
                     p.requires_grad = False
         if 1:
             for n, p in self.criterion.named_parameters():
+                print(n)
                 if 'mistral' in n:
                     p.requires_grad = False
                 else:
