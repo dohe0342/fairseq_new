@@ -305,10 +305,10 @@ class Trainer(object):
                     p.requires_grad = False
         if 1:
             for n, p in self.criterion.named_parameters():
-                if 'prompt_gen' in n or 'w2v_encoder.proj' in n:
-                    p.requires_grad = True
-                else:
+                if 'mistral' in n:
                     p.requires_grad = False
+                else:
+                    p.requires_grad = True
 
         if (
             self.cfg.optimization.debug_param_names
