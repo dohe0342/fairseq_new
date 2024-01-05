@@ -453,15 +453,6 @@ class InferenceProcessor:
             dim11 = F.normalize(am_output[0,:,10].squeeze(), dim=0)
             dim12 = F.normalize(am_output[0,:,11].squeeze(), dim=0)
             
-            #dim1 = am_output[0,:,0].squeeze()
-            #dim2 = am_output[0,:,1].squeeze()
-            #dim3 = am_output[0,:,2].squeeze()
-            #dim4 = am_output[0,:,3].squeeze()
-            #dim5 = am_output[0,:,4].squeeze()
-            #dim6 = am_output[0,:,5].squeeze()
-            #dim7 = am_output[0,:,6].squeeze()
-            #dim8 = am_output[0,:,7].squeeze()
-
             sim1 = torch.matmul(dim1, dim2)
             sim2 = torch.matmul(dim1, dim3)
             sim3 = torch.matmul(dim1, dim4)
