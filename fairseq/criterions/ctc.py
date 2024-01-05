@@ -2479,6 +2479,13 @@ class Clip3Criterion(FairseqCriterion):
         elif 'bert' in cfg.lm:
             self.tokenizer = BertTokenizer.from_pretrained(cfg.lm)
             self.lm = BertModel.from_pretrained(cfg.lm).eval()
+        elif 'mistral' in cfg.lm:
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+            self.lm = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                torch_dtype=torch.bfloat16,
+                trust_remote_code=True,
+            )
 
         #space_token = self.tokenizer(' ', return_tensors='pt')
         #self.space_token = self.lm(**space_token)['last_hidden_state']
