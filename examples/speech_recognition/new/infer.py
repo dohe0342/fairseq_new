@@ -440,6 +440,7 @@ class InferenceProcessor:
                     conv.to(sample['net_input']['source'].device)
                     am_output = conv(am_output)
             
+            print(sample["target"].size())
             dim1 = F.normalize(am_output[0,:,0].squeeze(), dim=0)
             dim2 = F.normalize(am_output[0,:,1].squeeze(), dim=0)
             dim3 = F.normalize(am_output[0,:,2].squeeze(), dim=0)
