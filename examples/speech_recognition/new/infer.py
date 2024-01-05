@@ -448,6 +448,10 @@ class InferenceProcessor:
             dim6 = F.normalize(am_output[0,:,5].squeeze(), dim=0)
             dim7 = F.normalize(am_output[0,:,6].squeeze(), dim=0)
             dim8 = F.normalize(am_output[0,:,7].squeeze(), dim=0)
+            dim9 = F.normalize(am_output[0,:,8].squeeze(), dim=0)
+            dim10 = F.normalize(am_output[0,:,9].squeeze(), dim=0)
+            dim11 = F.normalize(am_output[0,:,10].squeeze(), dim=0)
+            dim12 = F.normalize(am_output[0,:,11].squeeze(), dim=0)
             
             #dim1 = am_output[0,:,0].squeeze()
             #dim2 = am_output[0,:,1].squeeze()
