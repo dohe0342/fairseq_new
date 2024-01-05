@@ -2484,13 +2484,10 @@ class Clip3Criterion(FairseqCriterion):
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.lm = AutoModelForCausalLM.from_pretrained(
                 cfg.lm,
-                torch_dtype=torch.bfloat16,
+                #torch_dtype=torch.bfloat16,
                 trust_remote_code=True,
             )
 
-        #space_token = self.tokenizer(' ', return_tensors='pt')
-        #self.space_token = self.lm(**space_token)['last_hidden_state']
-        
         self.task = task
         self.tgt_dict = task.target_dictionary
 
