@@ -2567,6 +2567,8 @@ class Clip3Criterion(FairseqCriterion):
             embed_dim = 4096
             if d != embed_dim:
                 self.final_linear = Linear(d, embed_dim, bias=False)
+            else:
+                self.final_linear = None
                         
         if self.decoder_type == 'transf_enc':
             lm_cfg = Wav2Vec2Config()
