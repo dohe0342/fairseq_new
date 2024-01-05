@@ -2493,7 +2493,6 @@ class Clip3Criterion(FairseqCriterion):
             self.lm = MistralModel.from_pretrained(
                 cfg.lm,
                 #torch_dtype=torch.bfloat16,
-                trust_remote_code=True,
             )
 
         self.task = task
