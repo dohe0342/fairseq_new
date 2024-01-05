@@ -1,11 +1,11 @@
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_960h \
+	--config-name base_100h \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	common.wandb_project=lm2am_distill \
 	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
-	dataset.train_subset=train-960 \
+	dataset.train_subset=train-100 \
 	dataset.valid_subset=dev-other \
 	optimization.update_freq=[2] \
 	task.data=/dev/shm/manifests \
