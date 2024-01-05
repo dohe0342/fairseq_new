@@ -2759,7 +2759,7 @@ class Clip3Criterion(FairseqCriterion):
         #alignment_pad_mask = lm_input["attention_mask"] > 0
         alignment_lengths = torch.sum(lm_input["attention_mask"], 1)
         
-        if 'gpt' in self.lm_name:
+        if 'gpt' in self.lm_name or 'misral' in self.lm_name:
             alignment_flat = torch.linspace(
                                                 1, 
                                                 alignment_lengths[0], 
