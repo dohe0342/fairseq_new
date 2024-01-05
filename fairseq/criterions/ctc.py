@@ -2490,7 +2490,7 @@ class Clip3Criterion(FairseqCriterion):
         elif 'mistral' in cfg.lm:
             self.tokenizer = AutoTokenizer.from_pretrained(cfg.lm)
             self.tokenizer.pad_token = self.tokenizer.eos_token
-            self.lm = AutoModelForCausalLM.from_pretrained(
+            self.lm = MistralModel.from_pretrained(
                 cfg.lm,
                 #torch_dtype=torch.bfloat16,
                 trust_remote_code=True,
