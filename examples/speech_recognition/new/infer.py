@@ -466,7 +466,7 @@ class InferenceProcessor:
             sim6 = torch.matmul(dim1, dim7)
             sim7 = torch.matmul(dim1, dim8)
 
-            print(am_output.size(), sim1.item(), sim2.item(), sim3.item(), sim4.item(), sim5.item(), sim6.item(), sim7.item())
+            print(am_output.size(), dim1.size(), sim1.item(), sim2.item(), sim3.item(), sim4.item(), sim5.item(), sim6.item(), sim7.item())
 
             exit()
 
