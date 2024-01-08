@@ -13,11 +13,12 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip3 \
 	+criterion.decoder=conv \
-	+criterion.lm=mistralai/Mistral-7B-v0.1 \
+	+criterion.lm=gpt2-medium \
 	+criterion.lm_decay=0.1
 	#+criterion.lm=bert-base-uncased \
 	#+criterion.lm_decay=0.1 
 
+#+criterion.lm=mistralai/Mistral-7B-v0.1 \
 : <<'END'
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
