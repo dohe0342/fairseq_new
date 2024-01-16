@@ -2,10 +2,10 @@ import numpy as np
 import torch
 import matplotlib as plt 
 
-a = torch.randn(642, 96)
-b = torch.randn(56, 96)
+a = [torch.randn(642, 96) for i in range(8)]
+b = [torch.randn(56, 96) for i in range(8)]
 
-lm_am_sim_cp = torch.matmul(a, b)
+lm_am_sim_cp = [torch.matmul(a[i], b[i]) for i in range(8)]
 print(lm_am_sim_cp.size())
 
 plt.matshow(lm_am_sim_cp.numpy())
