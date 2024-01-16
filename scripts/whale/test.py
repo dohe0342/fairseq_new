@@ -15,6 +15,8 @@ for i in range(8):
     else:
         lm_am_sim = torch.cat([lm_am_sim, lm_am_sim_cp[i]], dim=0)
 
+print(lm_am_sim.size())
+exit()
     
 
 plt.matshow(lm_am_sim_cp.numpy())
