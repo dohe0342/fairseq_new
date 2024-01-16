@@ -24,7 +24,7 @@ exit()
 for i in range(8):
     plt.matshow(lm_am_sim_cp[i].numpy())
     plt.colorbar()
-    if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/cross_attn'):
-        try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/png/cross_attn')
+    if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/cross_attn'):
+        try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/cross_attn')
         except: pass
-    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/aross_attn/cross_attn_{i}.png')
+    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/cross_attn_{i}.png')
