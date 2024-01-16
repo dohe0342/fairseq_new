@@ -7,7 +7,7 @@ import os
 a = [torch.randn(642, 96) for i in range(8)]
 b = [torch.randn(56, 96) for i in range(8)]
 
-lm_am_sim_cp = [F.softmax(torch.matmul(a[i], b[i].T)/3, dim=1) for i in range(8)]
+lm_am_sim_cp = [F.softmax(torch.matmul(a[i], b[i].T)/3, dim=0) for i in range(8)]
 lm_am_sim = None
 
 '''
@@ -23,7 +23,7 @@ exit()
 '''
 
 for i in range(8):
-    plt.matshow(lm_am_sim_cp[i].numpy())
+    plt.matshow(lm_am_sim_cp[i].T.numpy())
     plt.colorbar()
     if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/cross_attn'):
         try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/cross_attn')
