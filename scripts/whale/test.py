@@ -6,7 +6,8 @@ a = [torch.randn(642, 96) for i in range(8)]
 b = [torch.randn(56, 96) for i in range(8)]
 
 lm_am_sim_cp = [torch.matmul(a[i], b[i]) for i in range(8)]
-print(lm_am_sim_cp.size())
+
+for i in range(8):
 
 plt.matshow(lm_am_sim_cp.numpy())
 plt.colorbar()
