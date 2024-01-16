@@ -4,8 +4,8 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 import os
 
-a = [torch.randn(642, 96) for i in range(8)]
-b = [torch.randn(56, 96) for i in range(8)]
+a = [torch.rand(642, 96) for i in range(8)]
+b = [torch.rand(56, 96) for i in range(8)]
 
 lm_am_sim_cp = [F.softmax(torch.matmul(a[i], b[i].T)/3, dim=0) for i in range(8)]
 lm_am_sim = None
