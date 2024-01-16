@@ -2,8 +2,8 @@ import numpy as np
 import torch
 import matplotlib as plt 
 
-a = torch.randn(642, 768)*10
-b = torch.randn(56, 768)*10
+a = torch.randn(642, 96)
+b = torch.randn(56, 96)
 
 lm_am_sim_cp = torch.matmul(a, b)
 print(lm_am_sim_cp.size())
