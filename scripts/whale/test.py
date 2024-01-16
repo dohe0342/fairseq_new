@@ -10,6 +10,7 @@ lm_am_sim_cp = [F.softmax(torch.matmul(a[i], b[i].T)/3, dim=0) for i in range(8)
 lm_am_sim = None
 
 for i in range(8):
+    print(lm_am_sim_cp[i].size())
     if i == 0:
         lm_am_sim = lm_am_sim_cp[i]
     else:
