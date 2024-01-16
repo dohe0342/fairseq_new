@@ -27,4 +27,4 @@ for i in range(8):
     if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/cross_attn'):
         try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/cross_attn')
         except: pass
-    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/cross_attn_{i}.png')
+    plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/cross_attn/cross_attn_{i}.png')
