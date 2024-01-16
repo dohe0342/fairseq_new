@@ -1,9 +1,10 @@
 import numpy as np
 import torch
+import torch.nn.functional as F
 import matplotlib as plt 
 
-a = [torch.randn(642, 96) for i in range(8)]
-b = [torch.randn(56, 96) for i in range(8)]
+a = [F.normalize(torch.randn(642, 96), dim=1) for i in range(8)]
+b = [F.normalize(torch.randn(56, 96), dim=1) for i in range(8)]
 
 lm_am_sim_cp = [torch.matmul(a[i], b[i]) for i in range(8)]
 lm_am_sim = None
@@ -13,6 +14,7 @@ for i in range(8):
         lm_am_sim = lm_am_sim_cp[i]
     else:
         lm_am_sim = torch.cat([lm_am_sim, lm_am_sim_cp[i]], dim=0)
+
     
 
 plt.matshow(lm_am_sim_cp.numpy())
