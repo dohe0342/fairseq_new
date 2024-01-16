@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 import torch.nn.functional as F
-import matplotlib as plt 
+import matplotlib.pyplot as plt
 
 a = [torch.randn(642, 96) for i in range(8)]
 b = [torch.randn(56, 96) for i in range(8)]
