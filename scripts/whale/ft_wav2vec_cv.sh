@@ -12,7 +12,7 @@ for lang in "es" "de"; do
 		model.w2v_path=/home/work/workspace/models/wav2vec_model/$model_name \
 		checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 		dataset.train_subset=cv5.1_"$lang"_train \
-		dataset.valid_subset=cv5.1_"$lang"_valid \
+		dataset.valid_subset=cv5.1_"$lang"_dev \
 		dataset.max_tokens=3200000 \
 		optimization.update_freq=[2] \
 		criterion._name=ctc \
