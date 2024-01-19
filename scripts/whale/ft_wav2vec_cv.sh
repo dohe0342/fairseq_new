@@ -1,20 +1,22 @@
-exp_name=$1
-fairseq-hydra-train \
-	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_100h \
-	common.user_dir=examples/data2vec \
-	common.wandb_project=lm2am_distill \
-	common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
-	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
-	task.data=/dev/shm/manifests \
-	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
-	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
-	dataset.train_subset=ted2_train \
-	dataset.valid_subset=ted2_dev \
-	dataset.max_tokens=3200000 \
-	optimization.update_freq=[2] \
-	criterion._name=ctc \
-	+task.min_sample_size=16000
+#exp_name=$1
+for lang in "es" "de"; do
+	fairseq-hydra-train \
+		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
+		--config-name base_100h \
+		common.user_dir=examples/data2vec \
+		common.wandb_project=lm2am_distill \
+		common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
+		common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
+		task.data=/dev/shm/manifests \
+		model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
+		checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
+		dataset.train_subset=ted2_train \
+		dataset.valid_subset=ted2_dev \
+		dataset.max_tokens=3200000 \
+		optimization.update_freq=[2] \
+		criterion._name=ctc \
+		+task.min_sample_size=16000
+	done
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
 : <<'END'
