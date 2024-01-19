@@ -5,8 +5,7 @@ for lang in "es" "de"; do
 		--config-name base_100h \
 		common.user_dir=examples/data2vec \
 		common.wandb_project=sample_reweight \
-		common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
-		common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
+		common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$lang.log \
 		task.data=/dev/shm/manifests \
 		model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 		checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
