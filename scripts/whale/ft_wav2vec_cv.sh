@@ -1,7 +1,7 @@
 #exp_name=$1
 model_name=$1
 for lang in "es" "de"; do
-	exp_name="$model_name"_$lang
+	exp_name="$model_name"_"$lang"
 	fairseq-hydra-train \
 		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 		--config-name base_100h \
@@ -11,8 +11,8 @@ for lang in "es" "de"; do
 		task.data=/home/work/workspace/LibriSpeech/manifests \
 		model.w2v_path=/home/work/workspace/models/wav2vec_model/$model_name \
 		checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
-		dataset.train_subset=ted2_train \
-		dataset.valid_subset=ted2_dev \
+		dataset.train_subset=cv5.1_"$lang"_train \
+		dataset.valid_subset=cv5.1_"$lang"_valid \
 		dataset.max_tokens=3200000 \
 		optimization.update_freq=[2] \
 		criterion._name=ctc \
