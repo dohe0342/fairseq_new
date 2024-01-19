@@ -16,7 +16,7 @@ for lang in "es" "de"; do
 		optimization.update_freq=[2] \
 		criterion._name=ctc \
 		+task.min_sample_size=16000
-	done
+done
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
 : <<'END'
