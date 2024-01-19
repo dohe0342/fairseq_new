@@ -4,7 +4,7 @@ for lang in "es" "de"; do
 		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 		--config-name base_100h \
 		common.user_dir=examples/data2vec \
-		common.wandb_project=lm2am_distill \
+		common.wandb_project=sample_reweight \
 		common.tensorboard_logdir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 		common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name.log \
 		task.data=/dev/shm/manifests \
