@@ -16,6 +16,7 @@ for lang in "es" "de"; do
 		dataset.max_tokens=3200000 \
 		optimization.update_freq=[8] \
 		criterion._name=ctc \
+		distributed_training.distributed_world_size=1 \
 		+task.min_sample_size=16000
 done
 
