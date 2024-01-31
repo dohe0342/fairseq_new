@@ -126,7 +126,7 @@ class InferenceProcessor:
             self.prompt = None
         #self.prompt = None
         
-        if 1:
+        if 0:
             conv_layers = [(768, 5, 2)] * 3
             mode = "layer_norm"
             dropout = 0.0
