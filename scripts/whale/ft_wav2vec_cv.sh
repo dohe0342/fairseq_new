@@ -17,7 +17,7 @@ for lang in "es" "de"; do
 		optimization.update_freq=[2] \
 		optimization.lr=[0.00006] \
 		criterion._name=ctc \
-		distributed_training.distributed_world_size=1 \
+		distributed_training.distributed_world_size=4 \
 		+task.min_sample_size=16000
 done
 
