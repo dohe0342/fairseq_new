@@ -3,7 +3,7 @@ model_name=$1
 for lang in "de"; do
 	exp_name="$model_name"_"$lang"
 	fairseq-hydra-train \
-		--config-dir /workspace/fairseq/examples/wav2vec/config/finetuning \
+		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 		--config-name base_100h \
 		common.user_dir=examples/data2vec \
 		common.wandb_project=sample_reweight \
