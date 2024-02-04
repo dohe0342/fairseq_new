@@ -8,8 +8,8 @@ for lang in "de"; do
 		common.user_dir=examples/data2vec \
 		common.wandb_project=sample_reweight \
 		common.log_file=/workspace/fairseq/scripts/whale/outputs/$lang.log \
-		task.data=/workspace/models/manifests \
-		model.w2v_path=/workspace/models/wav2vec_model/$model_name \
+		task.data=/home/work/workspace/models/manifests \
+		model.w2v_path=/home/work/workspace/models/wav2vec_model/$model_name \
 		checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
 		dataset.train_subset=cv5.1_"$lang"_train \
 		dataset.valid_subset=cv5.1_"$lang"_dev \
