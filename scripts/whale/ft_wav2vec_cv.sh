@@ -14,7 +14,7 @@ for lang in "de"; do
 		dataset.train_subset=cv5.1_"$lang"_train \
 		dataset.valid_subset=cv5.1_"$lang"_dev \
 		dataset.max_tokens=3200000 \
-		optimization.update_freq=[8] \
+		optimization.update_freq=[2] \
 		criterion._name=ctc \
 		distributed_training.distributed_world_size=1 \
 		+task.min_sample_size=16000
