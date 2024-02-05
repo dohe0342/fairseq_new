@@ -1,6 +1,7 @@
 #exp_name=$1
 model_name=$1
-for lang in "de"; do
+language=$2
+for lang in $language; do
 	exp_name="$model_name"_"$lang"
 	fairseq-hydra-train \
 		--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
