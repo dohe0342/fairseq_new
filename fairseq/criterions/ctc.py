@@ -3074,7 +3074,7 @@ class Clip3Criterion(FairseqCriterion):
             except: embed_dim = 1024
             if d != embed_dim:
                 #self.final_linear = Linear(d, embed_dim, bias=False)
-                self.final_linear = Linear(embed_dim, d, bias=False)
+                self.final_linear = Linear(embed_dim, 256, bias=False)
             else:
                 self.final_linear = None
                         
