@@ -3138,7 +3138,7 @@ class Clip3Criterion(FairseqCriterion):
         self.zero_infinity = cfg.zero_infinity
         self.sentence_avg = cfg.sentence_avg
 
-        self.quant = GumbelVectorQuantizer(dim=d_model,
+        self.quant = GumbelVectorQuantizer(dim=768,
                                    num_vars=300,
                                    temp=(2, 0.5, 0.999995),
                                    groups=2,
