@@ -1,6 +1,7 @@
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
 	--config-name base_960h \
+	common.wandb_project=COMAT-v2_fair \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
@@ -17,7 +18,6 @@ fairseq-hydra-train \
 	#+criterion.lm=bert-base-uncased \
 	#+criterion.lm_decay=0.1 
 
-#common.wandb_project=lm2am_distill \
 #+criterion.lm=mistralai/Mistral-7B-v0.1 \
 : <<'END'
 fairseq-hydra-train \
