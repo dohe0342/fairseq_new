@@ -3138,6 +3138,14 @@ class Clip3Criterion(FairseqCriterion):
         self.zero_infinity = cfg.zero_infinity
         self.sentence_avg = cfg.sentence_avg
 
+        self.quant = GumbelVectorQuantizer(dim=d_model,
+                                   num_vars=300,
+                                   temp=(2, 0.5, 0.999995),
+                                   groups=2,
+                                   combine_groups=False,
+                                   vq_dim=256,
+                                   time_first=True,)
+
     def forward(self, model, sample, reduce=True, **kwargs):
         net_output = model(**sample["net_input"])
         padding_mask = net_output["padding_mask"]
