@@ -7,7 +7,7 @@ fairseq-hydra-train \
 	dataset.train_subset=train-960 \
 	dataset.valid_subset=dev-other \
 	optimization.update_freq=[2] \
-	task.data=/home/work/workspace/manifests \
+	task.data=/home/work/workspace/LibriSpeech/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip4 \
