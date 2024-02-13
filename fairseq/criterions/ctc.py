@@ -3192,7 +3192,7 @@ class Clip3Criterion(FairseqCriterion):
                 #temp_decay = max(1, 300 - 299*(model.w2v_encoder.num_updates / 60000.))
                 temp_decay = 200
                 lm_output = F.normalize(lm_output, dim=2)
-                am_output = F.normalize(am_output, dim=2)
+                #am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 #lm_am_sim *= (temp_decay * lm_output.size(1))
