@@ -3187,6 +3187,8 @@ class Clip3Criterion(FairseqCriterion):
                 lm_output = self.final_linear(lm_output)
             
             if type(am_output) == tuple: am_output = am_output[0]
+            am_output = self.quant(am_output)
+            am_output = am_output['x']
             
             if 1:
                 #temp_decay = max(1, 300 - 299*(model.w2v_encoder.num_updates / 60000.))
