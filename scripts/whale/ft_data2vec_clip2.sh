@@ -9,7 +9,7 @@ fairseq-hydra-train \
 	checkpoint.save_dir=/workspace/fairseq_new/scripts/whale/outputs/$1 \
 	dataset.max_tokens=3200000 \
 	optimization.update_freq=[2] \
-	criterion._name=clip3 \
+	criterion._name=clip4 \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
 	+criterion.lm_decay=0.1
