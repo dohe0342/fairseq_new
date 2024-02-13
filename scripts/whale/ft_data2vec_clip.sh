@@ -4,10 +4,10 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
-	dataset.train_subset=train-1960 \
+	dataset.train_subset=train-960 \
 	dataset.valid_subset=dev-other \
 	optimization.update_freq=[2] \
-	task.data=/dev/shm/manifests \
+	task.data=/home/work/workspace/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
 	criterion._name=clip4 \
