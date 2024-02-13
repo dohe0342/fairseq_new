@@ -3196,6 +3196,8 @@ class Clip3Criterion(FairseqCriterion):
                 lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 
+                print(am_output.size())
+                print(lm_output.size())
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
                 #lm_am_sim *= (temp_decay * lm_output.size(1))
                 lm_am_sim *= temp_decay
