@@ -3183,6 +3183,7 @@ class Clip3Criterion(FairseqCriterion):
 
             am_output = am_output.transpose(1, 2)
             if self.final_linear is not None:
+                lm_output = F.normalize(lm_output, dim=2)
                 #am_output = self.final_linear(am_output)
                 lm_output = self.final_linear(lm_output)
             
@@ -3193,7 +3194,6 @@ class Clip3Criterion(FairseqCriterion):
             if 1:
                 #temp_decay = max(1, 300 - 299*(model.w2v_encoder.num_updates / 60000.))
                 temp_decay = 200
-                lm_output = F.normalize(lm_output, dim=2)
                 #am_output = F.normalize(am_output, dim=2)
                 
                 lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
