@@ -61,7 +61,7 @@ from transformers import (
     BertModel,
     AutoTokenizer, 
     MistralModel,
-    )
+)
 
 logging.root.setLevel(logging.INFO)
 logging.basicConfig(level=logging.INFO)
