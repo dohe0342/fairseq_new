@@ -469,8 +469,8 @@ class InferenceProcessor:
 
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
-            print(filename, lm_am_sim[b][:lm_lengths[b],].size())
-        '''
+            #print(filename, lm_am_sim[b][:lm_lengths[b],].size())
+        
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
 
@@ -481,7 +481,6 @@ class InferenceProcessor:
                 except: pass
             plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/tc_png/{filename}.png')
             plt.close()
-        '''
 
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
