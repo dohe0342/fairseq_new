@@ -189,9 +189,9 @@ class InferenceProcessor:
                 )
             
             self.lm_decoder.load_state_dict(criterion, strict=False)
-            self.tokenizer = GPT2Tokenizer.from_pretrained(cfg.lm)
+            self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
             self.tokenizer.pad_token = self.tokenizer.eos_token
-            self.lm = GPT2Model.from_pretrained(cfg.lm).eval()
+            self.lm = GPT2Model.from_pretrained('gpt2').eval()
         else:
             self.lm_decoder = None
 
