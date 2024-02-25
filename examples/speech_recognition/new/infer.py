@@ -193,6 +193,7 @@ class InferenceProcessor:
             self.lm_decoder = None
 
         print(self.lm_decoder)
+        exit()
         
         del ckpt, criterion
         ### LOAD ADAPTER ####
