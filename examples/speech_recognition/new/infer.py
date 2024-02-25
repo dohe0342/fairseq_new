@@ -413,6 +413,21 @@ class InferenceProcessor:
         hyp_words, tgt_words = hyp_words.split(), tgt_words.split()
 
         return editdistance.eval(hyp_words, tgt_words), len(tgt_words)
+    
+    def lm_sim(self, sample: Dict[str, Any]):
+        net_output = self.models[0](**sample["net_input"])
+        am_output = net_output['encoder_feat'].transpose(0, 1)
+        am_output = am_output.transpose(1, 2).contiguous()
+        for i, conv in enumerate(self.lm_decoder):
+            am_output = conv(am_output)
+        am_output = am_output.transpose(1, 2)
+        temp_decay = 300
+        lm_output = F.normalize(lm_output, dim=2)
+        am_output = F.normalize(am_output, dim=2)
+
+        lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
+        lm_am_sim *= temp_decay
+
 
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
