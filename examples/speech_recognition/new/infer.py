@@ -482,7 +482,7 @@ class InferenceProcessor:
             align_dict[filename] = alignment.tolist()
             last_filename = filename
         
-        with open(f'./train-960-alignment/{last_filename}.pickle','wb') as fw:
+        with open(f'/home/work/workspace/fairseq/scripts/whale/train-960-alignment/{last_filename}.pickle','wb') as fw:
             pickle.dump(align_dict, fw)
             #unique_alignment = alignment.unique_consecutive().tolist()
             #target_alignment = torch.arange(len(unique_alignment)).tolist()
