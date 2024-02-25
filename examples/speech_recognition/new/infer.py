@@ -482,7 +482,9 @@ class InferenceProcessor:
             for enum, idx in enumerate(alignment):
                 outlier = False
                 for i in range(-4, 5):
-                    if idx != alignment[enum-i]
+                    if idx != alignment[enum+i] and idx != (alignment[enum+i]-1) and idx != (alignment[enum+i]+1):
+                        outlier = True
+                print(outlier, idx)
             
         
         '''
