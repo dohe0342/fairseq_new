@@ -457,10 +457,9 @@ class InferenceProcessor:
         lm_am_sim = F.softmax(lm_am_sim, dim=-1)
         
         import matplotlib.pyplot as plt
-        print(sample['filename'])
-        exit()
 
         for b in range(lm_am_sim_cp.size(0)):
+            filename = sample['filename'].split('/')[-1].replace('.png', '')
             plt.matshow(lm_am_sim[b].T.cpu().numpy())
             plt.colorbar()
             if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/tc_png'):
