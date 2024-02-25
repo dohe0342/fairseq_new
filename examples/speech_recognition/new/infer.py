@@ -476,6 +476,8 @@ class InferenceProcessor:
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
             #print(filename, lm_am_sim[b][:lm_lengths[b],].size())
+            _, alignment = lm_am_sim[b][:lm_lengths[b],].max(-1)
+            print(alignment)
         
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
