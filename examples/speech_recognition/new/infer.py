@@ -461,9 +461,8 @@ class InferenceProcessor:
                     (lprobs.size(1),), lprobs.size(0), dtype=torch.long
                 )    
 
-
             for i in range(len(self.lm_decoder)):
-                lm_lengths = ((lm_lengths - 5)/2).to(torch.int)
+                lm_lengths = ((lm_lengths - 5)//2).to(torch.int)
 
             am_output = net_output['encoder_feat'].transpose(0, 1)
             am_output = am_output.transpose(1, 2).contiguous()
