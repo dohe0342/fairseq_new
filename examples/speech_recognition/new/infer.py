@@ -459,7 +459,7 @@ class InferenceProcessor:
         import matplotlib.pyplot as plt
 
         for b in range(lm_am_sim.size(0)):
-            filename = sample['filename'].split('/')[-1].replace('.flac', '')
+            filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
 
             plt.matshow(lm_am_sim[b].T.cpu().numpy())
             plt.colorbar()
