@@ -459,7 +459,8 @@ class InferenceProcessor:
         import matplotlib.pyplot as plt
 
         for b in range(lm_am_sim_cp.size(0)):
-            filename = sample['filename'].split('/')[-1].replace('.png', '')
+            filename = sample['filename'].split('/')[-1].replace('.flac', '')
+
             plt.matshow(lm_am_sim[b].T.cpu().numpy())
             plt.colorbar()
             if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/tc_png'):
