@@ -202,6 +202,9 @@ class InferenceProcessor:
             #self.lm_decoder.load_state_dict(criterion, strict=False)
             prefix = 'lm_decoder.'
             for n, p in self.lm_decoder.named_parameters():
+                origin_name = prefix + n
+                print(origin_name)
+                p.data = criterion[origin_name]
             self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.lm = GPT2Model.from_pretrained('gpt2').eval()
