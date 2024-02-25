@@ -457,6 +457,8 @@ class InferenceProcessor:
         lm_am_sim = F.softmax(lm_am_sim, dim=-1)
         
         import matplitlib.pyplot as plt
+        print(sample.keys())
+        exit()
 
         for b in range(lm_am_sim_cp.size(0)):
             plt.matshow(lm_am_sim[b].T.cpu().numpy())
