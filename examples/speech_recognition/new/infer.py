@@ -461,7 +461,7 @@ class InferenceProcessor:
             if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/tc_png'):
                 try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/tc_png')
                 except: pass
-            plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
+            plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/alingment{b}.png')
             plt.close()
 
 
