@@ -447,8 +447,6 @@ class InferenceProcessor:
 
             tgt_list.append(tgt_words)
 
-        print(tgt_list)
-   
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
         with torch.no_grad():
             lm_output = self.lm(**lm_input)
@@ -466,6 +464,10 @@ class InferenceProcessor:
 
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
+            print(filename, lm_am_sim[b].size())
+        '''
+        for b in range(lm_am_sim.size(0)):
+            filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
 
             plt.matshow(lm_am_sim[b].T.cpu().numpy())
             plt.colorbar()
@@ -474,7 +476,7 @@ class InferenceProcessor:
                 except: pass
             plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/tc_png/{filename}.png')
             plt.close()
-
+        '''
 
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
