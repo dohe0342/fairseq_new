@@ -477,8 +477,8 @@ class InferenceProcessor:
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
             #print(filename, lm_am_sim[b][:lm_lengths[b],].size())
             _, alignment = lm_am_sim[b][:lm_lengths[b],].max(-1)
-            unique_alignment = alignment.unique_consecutive()
-            target_alignment = torch.arange(unique_alignment.size(0)).to('cuda')
+            unique_alignment = alignment.unique_consecutive().tolist()
+            target_alignment = torch.arange(unique_alignment.size(0)).tolist()
             if unique_alignment != target_alignment:
                 print(alignment)
         
