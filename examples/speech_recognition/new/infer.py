@@ -457,9 +457,10 @@ class InferenceProcessor:
             try: 
                 non_padding_mask = ~net_output["padding_mask"]
                 lm_lengths = non_padding_mask.long().sum(-1)
-            except: 
-                lm_lengths = am_output.new_full(
-                    (am_output.size(1),), am_output.size(0), dtype=torch.long
+            except:
+                am = net_output['encoder_feat']
+                lm_lengths = am.new_full(
+                    (am.size(1),), am.size(0), dtype=torch.long
                 )    
 
             for i in range(len(self.lm_decoder)):
