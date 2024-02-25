@@ -442,6 +442,7 @@ class InferenceProcessor:
             tgt_words = post_process(tgt_pieces, 'letter').lower()
 
             tgt_list.append(tgt_words)
+        print(tgt_list)
    
         lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
         with torch.no_grad():
