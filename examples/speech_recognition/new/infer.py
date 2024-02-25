@@ -192,9 +192,6 @@ class InferenceProcessor:
         else:
             self.lm_decoder = None
 
-        print(self.lm_decoder)
-        exit()
-        
         del ckpt, criterion
         ### LOAD ADAPTER ####
         ckpt_obj = checkpoint_utils.load_checkpoint_to_cpu(self.cfg.common_eval.path)
