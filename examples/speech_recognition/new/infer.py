@@ -453,8 +453,15 @@ class InferenceProcessor:
             lm_output = lm_output['last_hidden_state']
 
             net_output = self.models[0](**sample["net_input"])
-            non_padding_mask = ~net_output["padding_mask"]
-            lm_lengths = non_padding_mask.long().sum(-1)
+            try: 
+                non_padding_mask = ~net_output["padding_mask"]
+                lm_lengths = non_padding_mask.long().sum(-1)
+            except: 
+                lm_lengths = lprobs.new_full(
+                    (lprobs.size(1),), lprobs.size(0), dtype=torch.long
+                )    
+
+
             for i in range(len(self.lm_decoder)):
                 lm_lengths = ((lm_lengths - 5)/2).to(torch.int)
 
