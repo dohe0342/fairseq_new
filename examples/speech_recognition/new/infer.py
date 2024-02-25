@@ -480,7 +480,7 @@ class InferenceProcessor:
             unique_alignment = alignment.unique_consecutive().tolist()
             target_alignment = torch.arange(unique_alignment.size(0)).tolist()
             if unique_alignment != target_alignment:
-                print(alignment)
+                print(b, alignment)
         exit()
         
         '''
