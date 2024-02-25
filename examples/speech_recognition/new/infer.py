@@ -481,6 +481,7 @@ class InferenceProcessor:
             target_alignment = torch.arange(unique_alignment.size(0)).tolist()
             if unique_alignment != target_alignment:
                 print(alignment)
+            exit()
         
         '''
         for b in range(lm_am_sim.size(0)):
