@@ -428,7 +428,7 @@ class InferenceProcessor:
     
     def lm_sim(self, sample: Dict[str, Any]):
         ############for distillation###########
-        device = sample["net_input"]["source"].device
+        device = "cuda"
         toks_list = sample["target"]
         tgt_list = [] 
         for toks in toks_list:
