@@ -63,6 +63,8 @@ from transformers import (
     MistralModel,
 )
 
+import matplotlib.pyplot as plt
+
 logging.root.setLevel(logging.INFO)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -456,7 +458,6 @@ class InferenceProcessor:
             lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
             lm_am_sim = F.softmax(lm_am_sim, dim=-1)
         
-        import matplotlib.pyplot as plt
 
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
