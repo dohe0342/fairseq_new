@@ -455,10 +455,10 @@ class InferenceProcessor:
                 am_output = conv(am_output)
             am_output = am_output.transpose(1, 2)
             
-            am_output = F.normalize(am_output, dim=2)
-            lm_output = F.normalize(lm_output, dim=2)
-
-            lm_am_sim = 300 * torch.bmm(am_output, lm_output.transpose(1, 2))
+            #am_output = F.normalize(am_output, dim=2)
+            #lm_output = F.normalize(lm_output, dim=2)
+            lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
+            
             lm_am_sim = F.softmax(lm_am_sim, dim=-1)
 
         for b in range(lm_am_sim.size(0)):
