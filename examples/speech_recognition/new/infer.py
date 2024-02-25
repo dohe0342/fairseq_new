@@ -454,6 +454,7 @@ class InferenceProcessor:
         am_output = am_output.transpose(1, 2)
 
         lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
+        lm_am_sim = F.softmax(lm_am_sim, dim=-1)
 
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
