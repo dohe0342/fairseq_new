@@ -431,6 +431,7 @@ class InferenceProcessor:
         device = "cuda"
         toks_list = sample["target"]
         tgt_list = [] 
+        self.lm = self.lm.to(device)
         for toks in toks_list:
             # Processes target.
             target_tokens = utils.strip_pad(toks, self.tgt_dict.pad())
