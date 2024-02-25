@@ -446,15 +446,15 @@ class InferenceProcessor:
             lm_output = self.lm(**lm_input)
             lm_output = lm_output['last_hidden_state']
 
-        net_output = self.models[0](**sample["net_input"])
-        am_output = net_output['encoder_feat'].transpose(0, 1)
-        am_output = am_output.transpose(1, 2).contiguous()
-        for i, conv in enumerate(self.lm_decoder):
-            am_output = conv(am_output)
-        am_output = am_output.transpose(1, 2)
+            net_output = self.models[0](**sample["net_input"])
+            am_output = net_output['encoder_feat'].transpose(0, 1)
+            am_output = am_output.transpose(1, 2).contiguous()
+            for i, conv in enumerate(self.lm_decoder):
+                am_output = conv(am_output)
+            am_output = am_output.transpose(1, 2)
 
-        lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-        lm_am_sim = F.softmax(lm_am_sim, dim=-1)
+            lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
+            lm_am_sim = F.softmax(lm_am_sim, dim=-1)
         
         import matplotlib.pyplot as plt
 
