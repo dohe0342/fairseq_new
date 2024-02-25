@@ -454,7 +454,7 @@ class InferenceProcessor:
 
             net_output = self.models[0](**sample["net_input"])
             non_padding_mask = ~net_output["padding_mask"]
-            input_lengths = non_padding_mask.long().sum(-1)
+            lm_lengths = non_padding_mask.long().sum(-1)
             for i in range(len(self.lm_decoder)):
                 lm_lengths = ((lm_lengths - 5)/2).to(torch.int)
 
