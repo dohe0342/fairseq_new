@@ -455,8 +455,6 @@ class InferenceProcessor:
 
         lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
 
-        print(lm_am_sim.size())
-
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
         
