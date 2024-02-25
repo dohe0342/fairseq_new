@@ -474,13 +474,15 @@ class InferenceProcessor:
             lm_am_sim = F.softmax(lm_am_sim, dim=-1)
         
         align_dict = {}
+        last_filename = None
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
             #print(filename, lm_am_sim[b][:lm_lengths[b],].size())
             _, alignment = lm_am_sim[b][:lm_lengths[b],].max(-1)
             align_dict[filename] = alignment.tolist()
+            last_filename = filename
         
-        with open('user.pickle','wb') as fw:
+        with open(f'{last_filename}.pickle','wb') as fw:
             pickle.dump(align_dict, fw)
             #unique_alignment = alignment.unique_consecutive().tolist()
             #target_alignment = torch.arange(len(unique_alignment)).tolist()
