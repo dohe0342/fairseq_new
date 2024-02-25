@@ -485,7 +485,7 @@ class InferenceProcessor:
                     compare_idx = enum+i
                     if compare_idx < 0 or compare_idx > (len(alignment)-1):
                         compare_idx = enum
-                    if idx != alignment[enum+i] and idx != (alignment[enum+i]-1) and idx != (alignment[enum+i]+1):
+                    if idx != alignment[compare_idx] and idx != (alignment[compare_idx]-1) and idx != (alignment[compare_idx]+1):
                         outlier = True
                         break
                 print(outlier, idx)
