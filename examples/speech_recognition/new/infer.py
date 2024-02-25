@@ -135,7 +135,6 @@ class InferenceProcessor:
             logger.info('Using prompt...')
         else:
             self.prompt = None
-        #self.prompt = None
         
         if 1:
             conv_layers = [(768, 5, 2)] * 3
@@ -200,9 +199,9 @@ class InferenceProcessor:
                 )
             
             self.lm_decoder = self.lm_decoder.to('cuda')
-            print(self.lm_decoder[0][0].weight)
             self.lm_decoder.load_state_dict(criterion, strict=False)
-            print(self.lm_decoder[0][0].weight)
+            for n, p in self.lm_decoder.named_parameters():
+                print(n)
             self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.lm = GPT2Model.from_pretrained('gpt2').eval()
