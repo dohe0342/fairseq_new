@@ -458,8 +458,8 @@ class InferenceProcessor:
         for b in range(lm_am_sim_cp.size(0)):
             plt.matshow(lm_am_sim_cp[b].T.cpu().numpy())
             plt.colorbar()
-            if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}'):
-                try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}')
+            if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/tc_png'):
+                try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/tc_png')
                 except: pass
             plt.savefig(f'/home/work/workspace/fairseq/scripts/whale/png/{model.w2v_encoder.num_updates}/alingment{b}.png')
             plt.close()
