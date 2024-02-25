@@ -478,10 +478,9 @@ class InferenceProcessor:
             #print(filename, lm_am_sim[b][:lm_lengths[b],].size())
             _, alignment = lm_am_sim[b][:lm_lengths[b],].max(-1)
             unique_alignment = alignment.unique_consecutive()
-            target_alignment = torch.arange(unique_alignment.size(0))
+            target_alignment = torch.arange(unique_alignment.size(0)).to('cuda')
             if unique_alignment != target_alignment:
                 print(alignment)
-        exit()
         
         '''
         for b in range(lm_am_sim.size(0)):
