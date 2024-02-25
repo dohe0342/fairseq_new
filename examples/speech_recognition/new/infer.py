@@ -481,7 +481,7 @@ class InferenceProcessor:
             #target_alignment = torch.arange(len(unique_alignment)).tolist()
             for enum, idx in enumerate(alignment):
                 outlier = False
-                for i in range(-4, 5):
+                for i in range(, 5):
                     if idx != alignment[enum+i] and idx != (alignment[enum+i]-1) and idx != (alignment[enum+i]+1):
                         outlier = True
                         break
