@@ -457,7 +457,7 @@ class InferenceProcessor:
                 non_padding_mask = ~net_output["padding_mask"]
                 lm_lengths = non_padding_mask.long().sum(-1)
             except: 
-                lm_lengths = lprobs.new_full(
+                lm_lengths = am_output.new_full(
                     (lprobs.size(1),), lprobs.size(0), dtype=torch.long
                 )    
 
