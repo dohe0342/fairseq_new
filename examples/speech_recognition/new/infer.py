@@ -453,6 +453,11 @@ class InferenceProcessor:
             lm_output = lm_output['last_hidden_state']
 
             net_output = self.models[0](**sample["net_input"])
+            non_padding_mask = ~net_output["padding_mask"]
+            input_lengths = non_padding_mask.long().sum(-1)
+            for i in range(len(self.lm_decoder)):
+                lm_lengths = ((lm_lengths - 5)/2).to(torch.int)
+
             am_output = net_output['encoder_feat'].transpose(0, 1)
             am_output = am_output.transpose(1, 2).contiguous()
             for i, conv in enumerate(self.lm_decoder):
@@ -464,7 +469,7 @@ class InferenceProcessor:
 
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
-            print(filename, lm_am_sim[b].size())
+            print(filename, lm_am_sim[b][:lm_lengths[b],].size())
         '''
         for b in range(lm_am_sim.size(0)):
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
