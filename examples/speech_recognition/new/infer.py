@@ -481,7 +481,7 @@ class InferenceProcessor:
             #target_alignment = torch.arange(len(unique_alignment)).tolist()
             for enum, idx in enumerate(alignment):
                 outlier = False
-                for i in range(-4, 5):
+                for i in range(-1, 2):
                     compare_idx = enum+i
                     if compare_idx < 0 or compare_idx > (len(alignment)-1):
                         compare_idx = enum
