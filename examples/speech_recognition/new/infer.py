@@ -456,7 +456,7 @@ class InferenceProcessor:
         lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
         lm_am_sim = F.softmax(lm_am_sim, dim=-1)
         for b in range(lm_am_sim_cp.size(0)):
-            plt.matshow(lm_am_sim_cp[b].T.cpu().numpy())
+            plt.matshow(lm_am_sim[b].T.cpu().numpy())
             plt.colorbar()
             if not os.path.exists(f'/home/work/workspace/fairseq/scripts/whale/tc_png'):
                 try: os.makedirs(f'/home/work/workspace/fairseq/scripts/whale/tc_png')
