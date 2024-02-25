@@ -438,12 +438,10 @@ class InferenceProcessor:
         for i, conv in enumerate(self.lm_decoder):
             am_output = conv(am_output)
         am_output = am_output.transpose(1, 2)
-        temp_decay = 300
-        lm_output = F.normalize(lm_output, dim=2)
-        am_output = F.normalize(am_output, dim=2)
 
         lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
-        lm_am_sim *= temp_decay
+
+        print(lm_am_sim.size())
 
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
