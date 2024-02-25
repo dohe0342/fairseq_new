@@ -198,7 +198,6 @@ class InferenceProcessor:
                     )
                 )
             
-            self.lm_decoder = self.lm_decoder.to('cuda')
             #self.lm_decoder.load_state_dict(criterion, strict=False)
             prefix = 'lm_decoder.'
             for n, p in self.lm_decoder.named_parameters():
@@ -209,6 +208,7 @@ class InferenceProcessor:
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.lm = GPT2Model.from_pretrained('gpt2').eval()
             self.lm = self.lm.to('cuda')
+            self.lm_decoder = self.lm_decoder.to('cuda')
         else:
             self.lm_decoder = None
 
