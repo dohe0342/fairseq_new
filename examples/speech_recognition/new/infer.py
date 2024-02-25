@@ -415,6 +415,23 @@ class InferenceProcessor:
         return editdistance.eval(hyp_words, tgt_words), len(tgt_words)
     
     def lm_sim(self, sample: Dict[str, Any]):
+        ############for distillation###########
+        device = lprobs.device
+        toks_list = sample["target"]
+        tgt_list = [] 
+        for toks in toks_list:
+            # Processes target.
+            target_tokens = utils.strip_pad(toks, self.tgt_dict.pad())
+            tgt_pieces = self.tgt_dict.string(target_tokens.int().cpu())
+            tgt_words = post_process(tgt_pieces, 'letter').lower()
+
+            tgt_list.append(tgt_words)
+   
+        lm_input = self.tokenizer(tgt_list, return_tensors='pt', padding=True, return_attention_mask=True).to(device)
+        with torch.no_grad():
+            lm_output = self.lm(**lm_input)
+            lm_output = lm_output['last_hidden_state']
+
         net_output = self.models[0](**sample["net_input"])
         am_output = net_output['encoder_feat'].transpose(0, 1)
         am_output = am_output.transpose(1, 2).contiguous()
@@ -427,7 +444,6 @@ class InferenceProcessor:
 
         lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
         lm_am_sim *= temp_decay
-
 
     def process_sample(self, sample: Dict[str, Any]) -> None:
         self.gen_timer.start()
