@@ -456,7 +456,7 @@ class InferenceProcessor:
         lm_am_sim = torch.bmm(am_output, lm_output.transpose(1, 2))
         lm_am_sim = F.softmax(lm_am_sim, dim=-1)
         
-        import matplitlib.pyplot as plt
+        import matplotlib.pyplot as plt
         print(sample.keys())
         exit()
 
