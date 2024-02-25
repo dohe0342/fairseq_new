@@ -457,6 +457,7 @@ class InferenceProcessor:
             models=self.models,
             sample=sample,
         )
+        self.lm_sim(sample)
         
         if 0:
             net_output = self.models[0](**sample["net_input"])
