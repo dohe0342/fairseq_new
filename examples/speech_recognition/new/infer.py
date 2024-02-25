@@ -477,11 +477,13 @@ class InferenceProcessor:
             filename = sample['filename'][b].split('/')[-1].replace('.flac', '')
             #print(filename, lm_am_sim[b][:lm_lengths[b],].size())
             _, alignment = lm_am_sim[b][:lm_lengths[b],].max(-1)
-            unique_alignment = alignment.unique_consecutive().tolist()
-            target_alignment = torch.arange(len(unique_alignment)).tolist()
-            if unique_alignment != target_alignment:
-                print(b, alignment)
-        exit()
+            #unique_alignment = alignment.unique_consecutive().tolist()
+            #target_alignment = torch.arange(len(unique_alignment)).tolist()
+            for enum, idx in enumerate(alignment):
+                outlier = False
+                for i in range(-4, 5):
+                    if idx != alignment[enum-i]
+            
         
         '''
         for b in range(lm_am_sim.size(0)):
