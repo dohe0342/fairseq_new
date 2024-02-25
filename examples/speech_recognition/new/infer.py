@@ -191,6 +191,8 @@ class InferenceProcessor:
             self.lm_decoder.load_state_dict(criterion, strict=False)
         else:
             self.lm_decoder = None
+
+        print(self.lm_decoder)
         
         del ckpt, criterion
         ### LOAD ADAPTER ####
