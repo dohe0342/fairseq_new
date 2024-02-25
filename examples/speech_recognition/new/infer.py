@@ -54,6 +54,15 @@ from fairseq.modules import (
 import hydra
 from hydra.core.config_store import ConfigStore
 
+from transformers import (
+    GPT2Tokenizer, 
+    GPT2Model, 
+    BertTokenizer,  
+    BertModel,
+    AutoTokenizer, 
+    MistralModel,
+    )
+
 logging.root.setLevel(logging.INFO)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
