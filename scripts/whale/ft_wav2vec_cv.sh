@@ -7,7 +7,7 @@ fairseq-hydra-train \
 	--config-name base_100h \
 	common.user_dir=examples/data2vec \
 	common.wandb_project=sample_reweight \
-	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$lang.log \
+	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/"$model_name"_"$lang".log \
 	task.data=/home/work/workspace/LibriSpeech/manifests/cv_$lang \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/$model_name \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$exp_name \
