@@ -643,8 +643,8 @@ def main(cfg: InferConfig) -> float:
 
     with InferenceProcessor(cfg) as processor:
         for sample in processor:
-            #processor.process_sample(sample)
-            processor.lm_sim(sample)
+            processor.process_sample(sample)
+            #processor.lm_sim(sample)
 
         processor.log_generation_time()
 
