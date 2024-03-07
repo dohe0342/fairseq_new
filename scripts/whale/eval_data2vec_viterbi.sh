@@ -31,7 +31,6 @@ do
 			decoding.unique_wer_file=False \
 			dataset.gen_subset=$subset \
 			dataset.num_workers=38 \
-			dataset.max_tokens=12000000 \
 			common_eval.path=$model \
 			distributed_training.distributed_world_size=1 
 	fi
@@ -40,3 +39,4 @@ do
 done
 
 #task.data=/home/work/workspace/LibriSpeech/manifests \
+#dataset.max_tokens=12000000 \
