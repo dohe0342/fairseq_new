@@ -528,8 +528,6 @@ class InferenceProcessor:
             sample=sample,
         )
 
-        #self.lm_sim(sample)
-        
         if 0:
             net_output = self.models[0](**sample["net_input"])
             am_output = net_output['encoder_feat'].transpose(0, 1) ## T x B x C -> B x T x C
