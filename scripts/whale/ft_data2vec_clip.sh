@@ -9,7 +9,7 @@ fairseq-hydra-train \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	criterion._name=clip4 \
+	criterion._name=$2 \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
 	+criterion.lm_decay=0.1
