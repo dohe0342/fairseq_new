@@ -1,6 +1,6 @@
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_10h \
+	--config-name $2 \
 	common.wandb_project=COMAT-v2_fair \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=4 \
@@ -9,7 +9,7 @@ fairseq-hydra-train \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
 	model.w2v_path=/home/work/workspace/models/wav2vec_model/wav2vec_small.pt \
 	checkpoint.save_dir=/home/work/workspace/fairseq/scripts/whale/outputs/$1 \
-	criterion._name=$2 \
+	criterion._name=clip4 \
 	+criterion.decoder=conv \
 	+criterion.lm=gpt2 \
 	+criterion.lm_decay=0.1
