@@ -1,6 +1,6 @@
 fairseq-hydra-train \
 	--config-dir /home/work/workspace/fairseq/examples/wav2vec/config/finetuning \
-	--config-name base_960h \
+	--config-name base_100h \
 	common.wandb_project=COMAT-v2_fair \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=4 \
