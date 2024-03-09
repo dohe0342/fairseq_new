@@ -5,7 +5,7 @@ fairseq-hydra-train \
 	common.log_file=/home/work/workspace/fairseq/scripts/whale/outputs/$1.log \
 	distributed_training.distributed_world_size=4 \
 	dataset.max_tokens=3200000 \
-	dataset.train_subset=train-100 \
+	dataset.train_subset=train-10 \
 	dataset.valid_subset=dev-other \
 	optimization.update_freq=[2] \
 	task.data=/home/work/workspace/LibriSpeech/manifests \
